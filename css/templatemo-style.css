@@ -540,7 +540,7 @@ footer.tm-footer {
   margin-top: 25px;
 }
 .tm-copyright {
-  background: url(../img/copyright-bg.png) no-repeat center bottom;
+  
   background-size: contain;
   height: 96px;
 }
