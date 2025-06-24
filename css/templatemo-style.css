@@ -18,6 +18,70 @@ Preloader
 https://ihatetomatoes.net/create-custom-preloading-screen/
 
 */
+
+/* Header section */
+* {
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  
+  
+}
+
+    /* Header Style */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1a1a1a;
+  padding: 35px 50px;
+  color: rgb(255, 255, 255);
+}
+
+/* Logo */
+.logo {
+  font-size: 34px;
+  font-weight: bold;
+}
+
+/* Nav Links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 70px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.5s;
+  font-size: 16px;
+}
+
+.nav-links li a:hover {
+  color: #d48806;
+}
+
+/* Call to Action Button */
+.cta {
+  background-color: #ffffff;
+  color: black;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.cta:hover {
+  background-color: #d48806;
+}
+
+/* end of Header section */
+
 #loader-wrapper {
     position: fixed;
     top: 0;
