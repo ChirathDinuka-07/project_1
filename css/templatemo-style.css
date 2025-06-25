@@ -1,23 +1,8 @@
-/*
- 
-Motor Template
-
-http://www.templatemo.com/tm-463-motor
-
-*/
-
 * { font-family: 'Open Sans', sans-serif; }
 
 .blue { color: #3CF; }
 .green { color: #6F6; }
 
-/* 
-
-Preloader 
- 
-https://ihatetomatoes.net/create-custom-preloading-screen/
-
-*/
 
 /* Header section */
 * {
@@ -545,10 +530,13 @@ footer.tm-footer {
   font-size: 21px;
   font-weight: 700;
   margin-top:80px;
+ 
 }
 .tm-footer-nav {
   font-weight: 700;
   text-transform: uppercase;
+  margin-left: -50px;
+  
 }
 .tm-footer-nav ul {
   list-style: none;
@@ -567,6 +555,7 @@ footer.tm-footer {
 }
 .margin-top-15 {
   margin-top: 15px;
+  color: #a9a5a5;
 }
 .copyright-text {
   color: white;
@@ -576,8 +565,8 @@ footer.tm-footer {
 	color: #FFF;
 }
 .tm-social-icon {
-  background-color: #505050;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
   display: inline-block;
   font-size: 20px;
   -webkit-transition: all 0.3s ease;
@@ -596,7 +585,7 @@ footer.tm-footer {
 }
 .tm-social-icon:hover,
 .tm-social-icon:focus {
-  background-color: #b53636;
+  background-color: #d48806;
   color: white;
 }
 .tm-social-icons-container {
