@@ -531,21 +531,20 @@ body {
 
 /* Footer */
 footer.tm-footer {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url(../img/footer-bg.jpg) no-repeat left top;
-  background: -webkit-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/footer-bg.jpg) no-repeat left top;
   background: linear-gradient(
       rgba(0, 0, 0, 0.7), 
       rgba(0, 0, 0, 0.7)
-    ), url(../img/footer-bg.jpg) no-repeat left top;
-  background-size: cover;
-  color: #B4B4B4;
-  padding-top: 50px;
+      
+    );
+    background-color:#5f5454;
+  
 }
 
 .tm-footer-div-title {
   color: white;
   font-size: 21px;
   font-weight: 700;
+  margin-top:80px;
 }
 .tm-footer-nav {
   font-weight: 700;
@@ -607,6 +606,14 @@ footer.tm-footer {
   
   background-size: contain;
   height: 96px;
+}
+
+.tm-footer .copyright {
+  padding: 20px 20px;          
+  text-align: center;
+  font-size: 14px;
+  color: #ffffff;              
+  border-top: 1px solid #ffffff; 
 }
 
 /* Gallery page */
