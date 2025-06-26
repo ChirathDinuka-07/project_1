@@ -525,6 +525,23 @@ footer.tm-footer {
   
 }
 
+.main-menu-section{
+
+padding: auto;
+display: grid;
+}
+
+.about-us-section{
+  padding:auto;
+  display: grid;
+}
+
+.get-social-section{
+  padding: auto;
+  display:grid;
+  
+}
+
 .tm-footer-div-title {
   color: white;
   font-size: 21px;
@@ -535,7 +552,7 @@ footer.tm-footer {
 .tm-footer-nav {
   font-weight: 700;
   text-transform: uppercase;
-  margin-left: -50px;
+  
   
 }
 .tm-footer-nav ul {
