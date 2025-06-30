@@ -22,7 +22,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1a1a1a;
+  background-color: #232222;
   padding: 35px 50px;
   color: rgb(255, 255, 255);
 }
@@ -515,14 +515,9 @@ body {
 }
 
 /* Footer */
+
 footer.tm-footer {
-  background: linear-gradient(
-      rgba(0, 0, 0, 0.7), 
-      rgba(0, 0, 0, 0.7)
-      
-    );
-    background-color:#5f5454;
-  
+  background-color:#232222;     
 }
 
 .get-social-container{
@@ -604,13 +599,6 @@ footer.tm-footer {
   height: 96px;
 }
 
-.tm-footer .copyright {
-  padding: 20px 20px;          
-  text-align: center;
-  font-size: 14px;
-  color: #ffffff;              
-  border-top: 1px solid #ffffff; 
-}
 
 /* Gallery page */
 .gallery-page .container {
