@@ -48,7 +48,7 @@ header {
 }
 
 .nav-links li a:hover {
-  color: #d48806;
+  color: #d54a4a;
 }
 
 /* Call to Action Button */
@@ -62,7 +62,7 @@ header {
 }
 
 .cta:hover {
-  background-color: #d48806;
+  background-color: #d54a4a;
 }
 
 /* end of Header section */
@@ -301,7 +301,7 @@ body {
 }
 .welcome-read-more:hover { color: #b53636; }
 .tm-overflow-hidden { overflow: hidden; }
-.margin-bottom-15 { margin-bottom: 15px; }
+.margin-bottom-15 { margin-bottom:auto; }
 .margin-bottom-30 { margin-bottom: 30px; }
 .margin-bottom-50 { margin-bottom: 50px; }
 .tm-img-1-container {
@@ -550,7 +550,7 @@ footer.tm-footer {
   color: #B4B4B4;
 }
 .tm-footer-nav li a:hover {
-  color: #d48806;
+  color: #d54a4a;
 }
 .margin-bottom-60 {
   margin-bottom: 60px;
@@ -587,7 +587,7 @@ footer.tm-footer {
 }
 .tm-social-icon:hover,
 .tm-social-icon:focus {
-  background-color: #d48806;
+  background-color: #d54a4a;
   color: white;
 }
 .tm-social-icons-container {
@@ -704,7 +704,7 @@ ol.flex-control-nav { display: none; }
   margin-bottom: 50px;
 }
 .about-container-2 {
-  background: rgb(76, 64, 64);
+  background: rgb(255, 255, 255);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -714,10 +714,19 @@ ol.flex-control-nav { display: none; }
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding-top: 10px;
+  padding: auto;
+  gap: 60px;
+  
 }
 .about-container-inner {
   max-width: 414px;
-  
+    
+}
+
+.image-border {
+  padding: 2px;
+  border : 2px solid rgb(178, 173, 173);
+  border-top: none;
 }
 .about-container-left,
 .about-container-right {
@@ -734,7 +743,7 @@ ol.flex-control-nav { display: none; }
   text-transform: uppercase;
 }
 .about-title-2 {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 700;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -742,9 +751,10 @@ ol.flex-control-nav { display: none; }
 }
 .about-description {
   margin-bottom: 10px;
-  text-align: justify;
+  text-align:justify;
 }
 .about-link {
+  
   background: #d54a4a;
   padding: 15px 30px;
   text-transform: uppercase;
@@ -761,6 +771,7 @@ ol.flex-control-nav { display: none; }
   padding-top: 10px;
   padding-bottom: 10px;
   text-transform: none;
+
 }
 .about-link:hover,
 .about-link:focus {
@@ -1043,8 +1054,10 @@ ol.flex-control-nav { display: none; }
             flex-direction: column;
   }
   .tm-banner-title { margin: 20px auto; }
+
   .tm-banner-description { margin: 0 15px 20px 15px; }
-  .tm-banner-link { width: 100%; }
+  
+  .tm-banner-link { width: 10px; }
   
   .about-page .templatemo-welcome, 
   .contact-page .templatemo-welcome, 
