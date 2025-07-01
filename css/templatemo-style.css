@@ -704,7 +704,7 @@ ol.flex-control-nav { display: none; }
   margin-bottom: 50px;
 }
 .about-container-2 {
-  background: white;
+  background: rgb(76, 64, 64);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -713,10 +713,11 @@ ol.flex-control-nav { display: none; }
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 40px;
+  padding-top: 10px;
 }
 .about-container-inner {
   max-width: 414px;
+  
 }
 .about-container-left,
 .about-container-right {
