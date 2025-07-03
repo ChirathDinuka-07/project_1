@@ -715,7 +715,7 @@ ol.flex-control-nav { display: none; }
           justify-content: space-between;
   padding-top: 10px;
   padding: auto;
-  gap: 60px;
+  gap: 30px;
   
 }
 .about-container-inner {
@@ -777,6 +777,60 @@ ol.flex-control-nav { display: none; }
 .about-link:focus {
   color: #F62F2F;
   background: black;
+}
+
+/* Banner */
+
+.fastdream-banner {
+
+  height: 100vh; /* Full screen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 20px;
+
+}
+.banner-content {
+  background-size: cover;
+  background-image: url(img/gallery-header.jpg);
+  background-color: rgba(0, 0, 0, 0.6); /* Transparent dark background */
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+}
+
+.banner-content h1 {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.banner-content p {
+  padding-top: 20px;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.banner-btn {
+  text-decoration:none;
+  color: white;
+  background-color: #ff6600;
+  padding: 15px 16px; /* smaller padding */
+  border-radius: 6px; /* slightly smaller rounded corners */
+  font-size: 0.9rem;  /* smaller text */
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+
+}
+
+.banner-btn:hover {
+  background-color: #e65c00;
+}
+
+.btn-lctn {
+  margin-top: 60px;
 }
 
 /* Contact page */
@@ -1046,18 +1100,8 @@ ol.flex-control-nav { display: none; }
    display: block;
    padding: 10px 15px;
   }
-  .tm-banner {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .tm-banner-title { margin: 20px auto; }
 
-  .tm-banner-description { margin: 0 15px 20px 15px; }
-  
-  .tm-banner-link { width: 10px; }
+
   
   .about-page .templatemo-welcome, 
   .contact-page .templatemo-welcome, 
