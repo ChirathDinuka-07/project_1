@@ -704,16 +704,9 @@ ol.flex-control-nav { display: none; }
   margin-bottom: 50px;
 }
 .about-container-2 {
-  background: rgb(255, 255, 255);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display:inline-flexbox;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding:0px;
+  background: rgb(255, 255, 255); 
+  display: flex;
+  padding: auto;
   gap: 30px;
   
   
@@ -734,10 +727,9 @@ ol.flex-control-nav { display: none; }
   padding:auto;
   border : 2px solid rgb(178, 173, 173);
   border-top: none;
-  display: inline-block;
-  white-space: nowrap;
+  display: flex;
+  white-space: wrap;
   
-
 }
 
 
@@ -762,7 +754,7 @@ ol.flex-control-nav { display: none; }
   margin-bottom: 15px;
   text-transform: uppercase;
   font-weight: bold;
-  display: inline-block;
+  
 
 }
 
@@ -798,8 +790,9 @@ ol.flex-control-nav { display: none; }
   padding-top: 10px;
   padding-bottom: 10px;
   text-transform: none;
-
+  
 }
+
 .about-link:hover,
 .about-link:focus {
   color: #F62F2F;
