@@ -221,7 +221,7 @@ body {
   background-color: #EAE9EF; 
   overflow-x: hidden;
 }
-.container { max-width: 990px; }
+.container { max-width: 990px;}
 
 /* Header */
 .templatemo-top-section {
@@ -302,7 +302,7 @@ body {
 .welcome-read-more:hover { color: #b53636; }
 .tm-overflow-hidden { overflow: hidden; }
 .margin-bottom-15 { margin-bottom:auto; }
-.margin-bottom-30 { margin-bottom: 30px; }
+.margin-bottom-30 { margin-bottom: 40px; }
 .margin-bottom-50 { margin-bottom: 50px; }
 .tm-img-1-container {
  cursor: pointer;
@@ -701,45 +701,61 @@ ol.flex-control-nav { display: none; }
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-bottom: 50px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  
+  
 }
 .about-container-2 {
   background: rgb(255, 255, 255); 
   display: flex;
-  padding: auto;
-  gap: 30px;
-  
-  
-}
-.about-container-inner {
-  padding: 0px;
-  max-width: 414px;
-  display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  box-sizing: border-box;
+  justify-content: center;
+  padding: 30px;
+  gap: 30px; 
+}
+
+.card-img img {
+  width: 100%;
+  height: 200px;
   object-fit: cover;
+  display: block;
+  border-bottom: 1px solid #eee;
+}
+
+.about-container-inner {
+  width: 280px;
+  background: #FFF;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  display:flex;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: space-between;
+
   
 }
 
 .image-border {
 
-  padding:auto;
-  border : 2px solid rgb(178, 173, 173);
+  padding:15px;
+  text-align: left;
   border-top: none;
-  display: flex;
-  white-space: wrap;
+ 
   
 }
 
 
 .about-container-left,
 .about-container-right {
+  
   width: 50%;
   max-width: 460px;
 }
 .about-container-right {  
   padding: 40px;
+  padding-bottom: 0;
 }
 .about-title {
   font-weight: 700;
@@ -750,7 +766,8 @@ ol.flex-control-nav { display: none; }
 .about-title-2 {
   font-size: 30px;
   font-weight: 700;
-  margin-top: 15px;
+  margin-top: 0;
+  padding-top: 0;
   margin-bottom: 15px;
   text-transform: uppercase;
   font-weight: bold;
@@ -760,7 +777,9 @@ ol.flex-control-nav { display: none; }
 
 .title-2-border{
   border-bottom: 3px solid #d54a4a; 
-  padding-bottom: 5px;
+  padding-bottom: 10px;
+  margin-top: 70px;
+  margin-bottom: 25px;
   width: 50px; 
   text-align: center;
   white-space: nowrap;
@@ -785,6 +804,7 @@ ol.flex-control-nav { display: none; }
   -webkit-transition: all 0.3s ease;
           transition: all 0.3s ease;
 }
+
 .about-link-2 {
   font-size: 14px;
   padding-top: 10px;
