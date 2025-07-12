@@ -285,16 +285,17 @@ body {
 }
 .welcome-img { margin-top: 30px; }
 .welcome-title-1 {
-  color: #503f3f;
+  color: #b53636;
   font-size: 36px;
   font-weight: bold;
+  text-shadow: 1px 1px 3px rgb(255, 255, 255);
 }
-.welcome-title-2 { font-size: 52px; color:#B4B4B4; }
+.welcome-title-2 { font-size: 52px; color:#000000; text-shadow: 1px 1px 5px rgb(255, 255, 255); }
 .welcome-title-1,
 .welcome-title-2 {
  display: block;
 }
-.welcome-message { line-height: 1.6em; }
+.welcome-message { line-height: 1.6em; color:#ffffff; text-shadow: 1px 20px 15px rgb(0, 0, 0); font-weight: bold; }
 .welcome-read-more {
  color: white;
  font-weight: 700;
