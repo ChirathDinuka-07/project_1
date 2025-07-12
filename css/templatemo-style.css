@@ -729,6 +729,16 @@ ol.flex-control-nav { display: none; }
   border-bottom: 1px solid #eee;
 }
 
+.card-img-2 img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid #eee;
+}
+
+
+
 .about-container-inner {
   width: 280px;
   background: #FFF;
@@ -794,8 +804,9 @@ ol.flex-control-nav { display: none; }
 
 
 .about-description {
-  margin-bottom: 10px;
-  text-align:justify;
+  margin-top: 12px;
+  margin-bottom: 20px;
+  text-align:start;
 }
 .about-link {
   
@@ -1018,7 +1029,14 @@ ol.flex-control-nav { display: none; }
   padding-top: 7px;
   text-align: center;
 }
-.services-container-inner { max-width: 266px; }
+.services-container-inner {
+   max-width: 266px; 
+   display: flex;
+   overflow: hidden;
+   flex-direction: column;
+   justify-content: space-between;
+
+  }
 
 @media screen and (max-width: 1199px) {
  .templatemo-header {
