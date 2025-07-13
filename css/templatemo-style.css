@@ -436,17 +436,30 @@ body {
   justify-content: space-between;
   overflow: hidden;
   position: relative;
-  height: 345px;
+  height: 330px;
   padding: 9px;
   margin-bottom: 20px;
+  padding-bottom: 50px;
   -webkit-box-shadow: 0 2px 5px 0 rgba(224,224,224,1);
   box-shadow: 0 2px 5px 0 rgba(224,224,224,1);
-  max-width: 220px;
+
 }
+
+.card-img-1 img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+
+
 .tm-item-description,
 .tm-item-price {
   font-weight: 700;
-  padding-bottom: 40px;
+  padding-bottom: 50px;
 
   
   
@@ -459,6 +472,7 @@ body {
   position: absolute;
   bottom: 15px;
   right: 15px;
+  padding-bottom: 25px;
 
 }
 .tm-item-add-icon {
