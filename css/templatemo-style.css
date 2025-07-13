@@ -295,7 +295,7 @@ body {
 .welcome-title-2 {
  display: block;
 }
-.welcome-message { line-height: 1.6em; color:#ffffff; text-shadow: 1px 20px 15px rgb(0, 0, 0); font-weight: bold; }
+.welcome-message { line-height: 1.6em; color:#ffffff; text-shadow: 1px 2px 15px rgb(0, 0, 0); font-weight: bold; }
 .welcome-read-more {
  color: white;
  font-weight: 700;
@@ -431,7 +431,12 @@ body {
 .tm-item-container {
   background-color: white;
   border-radius: 2px;
-  display: inline-block;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+  height: 345px;
   padding: 9px;
   margin-bottom: 20px;
   -webkit-box-shadow: 0 2px 5px 0 rgba(224,224,224,1);
@@ -441,12 +446,20 @@ body {
 .tm-item-description,
 .tm-item-price {
   font-weight: 700;
+  padding-bottom: 40px;
+
+  
+  
 }
 .tm-item-action {  
   color: #B4B4B4;
   font-size: 12px;
   font-weight: 700;
-  padding-top: 2px;
+  flex-grow: 1;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+
 }
 .tm-item-add-icon {
   margin-left: 5px;
