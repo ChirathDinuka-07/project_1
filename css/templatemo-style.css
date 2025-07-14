@@ -444,6 +444,16 @@ body {
   box-shadow: 0 2px 5px 0 rgba(224,224,224,1);
 
 }
+.tm-item-container-2 {
+  background-color: white;
+  border-radius: 2px;
+  display: inline-block;
+  padding: 9px;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(224,224,224,1);
+  box-shadow: 0 2px 5px 0 rgba(224,224,224,1);
+  max-width: 220px;
+}
 
 .card-img-1 img {
   width: 200px;
@@ -460,9 +470,9 @@ body {
 .tm-item-price {
   font-weight: 700;
   padding-bottom: 50px;
-
-  
-  
+}
+.tm-item-price-1 {
+  font-weight: 700;
 }
 .tm-item-action {  
   color: #B4B4B4;
@@ -473,7 +483,12 @@ body {
   bottom: 15px;
   right: 15px;
   padding-bottom: 25px;
-
+}
+.tm-item-action-1 {  
+  color: #B4B4B4;
+  font-size: 12px;
+  font-weight: 700;
+  padding-top: 2px;
 }
 .tm-item-add-icon {
   margin-left: 5px;
@@ -811,6 +826,18 @@ ol.flex-control-nav { display: none; }
   font-weight: 700;
   margin-top: 0;
   padding-top: 0;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+  
+
+}
+.about-title-3 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 0;
+  padding-top: 10px;
+  padding-left: 8px;
   margin-bottom: 15px;
   text-transform: uppercase;
   font-weight: bold;

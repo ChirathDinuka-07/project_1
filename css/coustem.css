@@ -2,3 +2,9 @@
    padding-top: 25px;
    padding-bottom: 25px;
 }
+
+.hidden-text {
+  color: transparent;             
+  user-select: none;              
+  pointer-events: none;           
+}
