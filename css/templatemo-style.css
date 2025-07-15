@@ -475,10 +475,13 @@ body {
 .tm-item-price-1 {
   font-weight: 700;
   padding-bottom: 2px;
+
   display: -webkit-box;
   -webkit-line-clamp: 1; 
   -webkit-box-orient: vertical;
+
   text-overflow: ellipsis;
+  line-clamp: 1;
   
 }
 .tm-item-price-1 {
