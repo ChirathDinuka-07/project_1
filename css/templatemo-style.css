@@ -471,6 +471,16 @@ body {
   font-weight: 700;
   padding-bottom: 50px;
 }
+
+.tm-item-price-1 {
+  font-weight: 700;
+  padding-bottom: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; 
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  
+}
 .tm-item-price-1 {
   font-weight: 700;
 }
