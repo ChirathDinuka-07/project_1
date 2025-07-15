@@ -759,9 +759,29 @@ ol.flex-control-nav { display: none; }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 30px;
+  padding: 20px 40px;
+  gap: 30px; 
+ 
+}
+.about-container-3 {
+  background: rgb(255, 255, 255); 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px 40px;
+  gap: 40px; 
+  width: 75%;
+ 
+}
+.about-container-4 {
+  background: rgb(255, 255, 255); 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
   gap: 30px; 
 }
+
 
 .card-img img {
   width: 100%;
@@ -791,6 +811,7 @@ ol.flex-control-nav { display: none; }
   overflow: hidden;
   flex-direction: column;
   justify-content: space-between;
+  padding: 3px;
 
   
 }
@@ -841,6 +862,7 @@ ol.flex-control-nav { display: none; }
   margin-bottom: 15px;
   text-transform: uppercase;
   font-weight: bold;
+ 
   
 
 }
@@ -1084,11 +1106,14 @@ ol.flex-control-nav { display: none; }
   text-align: center;
 }
 .services-container-inner {
-   max-width: 266px; 
+   max-width: 280px; 
    display: flex;
+   flex-wrap: wrap;
+   flex: 1 1 260px;
    overflow: hidden;
    flex-direction: column;
-   justify-content: space-between;
+   justify-content: center;
+   
 
   }
 
