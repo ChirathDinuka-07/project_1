@@ -225,7 +225,7 @@ body {
 
 /* Header */
 .templatemo-top-section {
-  background: url(../img/3-.jpg) top center no-repeat;
+  background: url(../img/banner-img-6-1.jpg) top center no-repeat;
   background-size:cover;
   margin-bottom: 30px;
 }
@@ -793,6 +793,7 @@ ol.flex-control-nav { display: none; }
   justify-content: center;
   padding: 20px;
   gap: 30px; 
+  margin-bottom: 30px;
 }
 
 
@@ -1292,6 +1293,7 @@ ol.flex-control-nav { display: none; }
   .about-slider-description {
     width: 100%;
     margin-top: 15px;
+    
   }
   .about-page .welcome-title-2 {
     font-size: 28px;
