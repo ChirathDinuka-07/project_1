@@ -643,6 +643,10 @@ footer.tm-footer {
   -webkit-box-shadow: 0 0 2px 0 rgba(224,224,224,1);
   box-shadow: 0 0 2px 0 rgba(224,224,224,1);
 }
+.fa-facebook { color: #1877f2; }
+.fa-tiktok { color: #000000; }
+
+
 .tm-social-icon:last-child {
   margin-right: 0;
 }
@@ -658,6 +662,23 @@ footer.tm-footer {
   
   background-size: contain;
   height: 96px;
+}
+
+.call-us {
+  display: inline-block;
+  font-size: 18px;
+  color: #ffffff; 
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.call-us i {
+  margin-right: 8px;
+  color: #28a745;
+}
+.call-us:hover {
+  opacity: 0.8;
+  color: #b53636;
 }
 
 
