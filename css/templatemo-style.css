@@ -20,8 +20,9 @@ body {
     /* Header Style */
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  gap: 350px;
   background-color: #232222;
   padding: 35px 50px;
   color: rgb(255, 255, 255);
@@ -449,7 +450,7 @@ body {
   border-radius: 2px;
   display: inline-block;
   padding: 9px;
-  margin-bottom: 20px;
+  margin: 5px;
   -webkit-box-shadow: 0 2px 5px 0 rgba(224,224,224,1);
   box-shadow: 0 2px 5px 0 rgba(224,224,224,1);
   max-width: 220px;
@@ -469,7 +470,12 @@ body {
 .tm-item-description,
 .tm-item-price {
   font-weight: 700;
+  padding-bottom: auto;
+}
+.gallery-tm-item-price{
+  font-weight: 700;
   padding-bottom: 50px;
+
 }
 
 .tm-item-price-1 {
