@@ -23,3 +23,14 @@ $(document).ready(function(){
   $('body').bind('touchstart', function() {});
 
 });
+
+
+    let index = 0;
+    const slides = document.getElementById("slides");
+    const total = slides.children.length;
+
+    function moveSlide(step) {
+      index = (index + step + total) % total;
+      slides.style.transform = `translateX(${-index * 600}px)`;
+    }
+ 
