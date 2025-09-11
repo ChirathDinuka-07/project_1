@@ -1,9 +1,4 @@
-/**
- *	www.templatemo.com
- */
 
-/* HTML document is loaded. DOM is ready.
------------------------------------------*/
 $(document).ready(function(){
 
 	// Mobile menu
@@ -25,12 +20,13 @@ $(document).ready(function(){
 });
 
 
-    let index = 0;
+   let index = 0;
     const slides = document.getElementById("slides");
     const total = slides.children.length;
+    const slideWidth = 600; // must match CSS width
 
     function moveSlide(step) {
       index = (index + step + total) % total;
-      slides.style.transform = `translateX(${-index * 600}px)`;
+      slides.style.transform = `translateX(${-index * slideWidth}px)`;
     }
  
