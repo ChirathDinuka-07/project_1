@@ -1081,6 +1081,28 @@ ol.flex-control-nav { display: none; }
       right: 10px;
     }
 
+/* whatsapp button */
+
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.whatsapp-float img {
+  width: 35px;
+  height: 35px;
+}   
+
 
 /* Banner */
 
