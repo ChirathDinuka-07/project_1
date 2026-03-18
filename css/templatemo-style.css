@@ -19,6 +19,7 @@ body {
 
     /* Header Style */
 header {
+  position: sticky;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -26,6 +27,11 @@ header {
   background-color: #232222;
   padding: 35px 50px;
   color: rgb(255, 255, 255);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  transition: box-shadow 0.3s ease, padding 0.3s ease;
+
 }
 
 /* Logo */
