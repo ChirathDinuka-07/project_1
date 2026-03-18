@@ -1,652 +1,861 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Motor About</title>
-  <meta name="description" content="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Motor About</title>
+    <meta name="description" content="" />
 
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/coustem.css" rel="stylesheet">
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/templatemo-style.css" rel="stylesheet">
+    <link
+      href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/coustem.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/templatemo-style.css" rel="stylesheet" />
 
-  <style>
-    /* ── Sticky navbar ── */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      transition: box-shadow 0.3s ease, padding 0.3s ease;
-    }
-    header.scrolled {
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-      padding: 18px 50px;
-    }
-
-    /* ── Active nav link ── */
-    .nav-links li a.active-link {
-      color: #d54a4a;
-      border-bottom: 2px solid #d54a4a;
-    }
-
-    /* ── Hamburger ── */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-      margin-left: auto;
-    }
-    .hamburger span {
-      display: block;
-      width: 25px;
-      height: 3px;
-      background: white;
-      border-radius: 3px;
-      transition: all 0.3s ease;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-    /* ── Scroll-reveal animation ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── Stats counter bar ── */
-    .stats-bar {
-      background: #232222;
-      color: white;
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      padding: 30px 20px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-    .stat-item {
-      text-align: center;
-    }
-    .stat-number {
-      font-size: 38px;
-      font-weight: bold;
-      color: #d54a4a;
-      display: block;
-    }
-    .stat-label {
-      font-size: 13px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: #ccc;
-    }
-
-    /* ── Back to top button ── */
-    #backToTop {
-      position: fixed;
-      bottom: 90px;
-      right: 22px;
-      background: #d54a4a;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 42px;
-      height: 42px;
-      font-size: 18px;
-      cursor: pointer;
-      display: none;
-      z-index: 998;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-      transition: background 0.3s;
-    }
-    #backToTop:hover { background: #b53636; }
-
-    /* ── Wishlist heart on cards ── */
-    .about-container-inner { position: relative; }
-    .wishlist-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: white;
-      border: none;
-      border-radius: 50%;
-      width: 34px;
-      height: 34px;
-      font-size: 16px;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s;
-      z-index: 10;
-    }
-    .wishlist-btn:hover { transform: scale(1.2); }
-    .wishlist-btn.wishlisted { color: #d54a4a; }
-    .wishlist-btn:not(.wishlisted) { color: #aaa; }
-
-    /* ── Toast notification ── */
-    #toast {
-      position: fixed;
-      bottom: 140px;
-      right: 22px;
-      background: #232222;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-size: 13px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s;
-      z-index: 9999;
-    }
-    #toast.show { opacity: 1; }
-
-    /* ── Brand image hover zoom ── */
-    .tm-img-1-container img {
-      transition: transform 0.4s ease;
-    }
-    .tm-img-1-container:hover img {
-      transform: scale(1.08);
-    }
-
-    /* ══════════════ RESPONSIVE ══════════════ */
-    @media (max-width: 900px) {
-      header { gap: 0; flex-wrap: wrap; padding: 20px 30px; }
-      .nav-links { gap: 30px; }
-    }
-
-    @media (max-width: 767px) {
+    <style>
+      /* ── Sticky navbar ── */
       header {
-        flex-wrap: wrap;
-        gap: 0;
-        padding: 18px 20px;
         position: sticky;
         top: 0;
         z-index: 999;
+        transition:
+          box-shadow 0.3s ease,
+          padding 0.3s ease;
       }
-      .logo { font-size: 26px; }
-      .hamburger { display: flex; }
+      header.scrolled {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        padding: 18px 50px;
+      }
 
-      /* Nav slides down on mobile */
-      nav {
-        width: 100%;
-        overflow: hidden;
-        max-height: 0;
-        transition: max-height 0.4s ease;
+      /* ── Active nav link ── */
+      .nav-links li a.active-link {
+        color: #d54a4a;
+        border-bottom: 2px solid #d54a4a;
       }
-      nav.open { max-height: 300px; }
-      .nav-links {
+
+      /* ── Hamburger ── */
+      .hamburger {
+        display: none;
         flex-direction: column;
-        gap: 0;
-        padding: 10px 0;
+        cursor: pointer;
+        gap: 5px;
+        margin-left: auto;
       }
-      .nav-links li a {
+      .hamburger span {
         display: block;
-        padding: 10px 5px;
-        border-bottom: 1px solid #333;
+        width: 25px;
+        height: 3px;
+        background: white;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+      }
+      .hamburger.open span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      .hamburger.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.open span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
       }
 
-      /* Stats bar stack */
-      .stats-bar { gap: 25px; padding: 20px; }
-      .stat-number { font-size: 28px; }
-
-      /* Brand images: 2 per row on mobile */
-      .tm-img-1-container { width: 50% !important; }
-
-      /* About section stack */
-      .about-container {
-        flex-direction: column !important;
-        display: flex !important;
+      /* ── Scroll-reveal animation ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
       }
-      .about-container-left,
-      .about-container-right { width: 100% !important; }
-
-      /* Feature cards: 1 per row */
-      .about-container-4 {
-        flex-direction: column !important;
-        display: flex !important;
-        align-items: center;
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
       }
+
+      /* ── Stats counter bar ── */
+      .stats-bar {
+        background: #232222;
+        color: white;
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        padding: 30px 20px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+      }
+      .stat-item {
+        text-align: center;
+      }
+      .stat-number {
+        font-size: 38px;
+        font-weight: bold;
+        color: #d54a4a;
+        display: block;
+      }
+      .stat-label {
+        font-size: 13px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #ccc;
+      }
+
+      /* ── Back to top button ── */
+      #backToTop {
+        position: fixed;
+        bottom: 90px;
+        right: 22px;
+        background: #d54a4a;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+        cursor: pointer;
+        display: none;
+        z-index: 998;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        transition: background 0.3s;
+      }
+      #backToTop:hover {
+        background: #b53636;
+      }
+
+      /* ── Wishlist heart on cards ── */
       .about-container-inner {
-        width: 90% !important;
-        max-width: 100% !important;
+        position: relative;
+      }
+      .wishlist-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+        z-index: 10;
+      }
+      .wishlist-btn:hover {
+        transform: scale(1.2);
+      }
+      .wishlist-btn.wishlisted {
+        color: #d54a4a;
+      }
+      .wishlist-btn:not(.wishlisted) {
+        color: #aaa;
       }
 
-      /* Footer stack */
-      .tm-footer .col-lg-3,
-      .tm-footer .col-lg-5,
-      .tm-footer .col-lg-4 {
-        width: 100% !important;
-        margin-bottom: 25px;
+      /* ── Toast notification ── */
+      #toast {
+        position: fixed;
+        bottom: 140px;
+        right: 22px;
+        background: #232222;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-size: 13px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s;
+        z-index: 9999;
+      }
+      #toast.show {
+        opacity: 1;
       }
 
-      /* Flexslider area */
-      .templatemo-welcome { margin-top: 80px; }
-      .welcome-title-1 { font-size: 24px; }
-      .welcome-title-2 { font-size: 32px; }
-    }
+      /* ── Brand image hover zoom ── */
+      .tm-img-1-container img {
+        transition: transform 0.4s ease;
+      }
+      .tm-img-1-container:hover img {
+        transform: scale(1.08);
+      }
 
-    @media (max-width: 480px) {
-      .stats-bar { flex-direction: column; gap: 15px; }
-      .tm-img-1-container { width: 100% !important; }
-      .about-container-inner { width: 100% !important; }
-    }
-  </style>
+      /* ══════════════ RESPONSIVE ══════════════ */
+      @media (max-width: 900px) {
+        header {
+          gap: 0;
+          flex-wrap: wrap;
+          padding: 20px 30px;
+        }
+        .nav-links {
+          gap: 30px;
+        }
+      }
 
-</head>
-<body class="about-page">
+      @media (max-width: 767px) {
+        header {
+          flex-wrap: wrap;
+          gap: 0;
+          padding: 18px 20px;
+          position: sticky;
+          top: 0;
+          z-index: 999;
+        }
+        .logo {
+          font-size: 26px;
+        }
+        .hamburger {
+          display: flex;
+        }
 
-  <!-- Preloader -->
-  <div id="loader-wrapper">
-    <div id="loader"></div>
-    <div class="loader-section section-left"></div>
-    <div class="loader-section section-right"></div>
-  </div>
+        /* Nav slides down on mobile */
+        nav {
+          width: 100%;
+          overflow: hidden;
+          max-height: 0;
+          transition: max-height 0.4s ease;
+        }
+        nav.open {
+          max-height: 300px;
+        }
+        .nav-links {
+          flex-direction: column;
+          gap: 0;
+          padding: 10px 0;
+        }
+        .nav-links li a {
+          display: block;
+          padding: 10px 5px;
+          border-bottom: 1px solid #333;
+        }
 
-  <!-- Back to Top -->
-  <button id="backToTop" title="Back to top"><i class="fas fa-chevron-up"></i></button>
+        /* Stats bar stack */
+        .stats-bar {
+          gap: 25px;
+          padding: 20px;
+        }
+        .stat-number {
+          font-size: 28px;
+        }
 
-  <!-- Toast -->
-  <div id="toast"></div>
+        /* Brand images: 2 per row on mobile */
+        .tm-img-1-container {
+          width: 50% !important;
+        }
 
-  <section class="templatemo-top-section">
-    <header id="mainHeader">
-      <div class="logo">Siyathra</div>
+        /* About section stack */
+        .about-container {
+          flex-direction: column !important;
+          display: flex !important;
+        }
+        .about-container-left,
+        .about-container-right {
+          width: 100% !important;
+        }
 
-      <!-- Hamburger for mobile -->
-      <div class="hamburger" id="hamburger">
-        <span></span><span></span><span></span>
-      </div>
+        /* Feature cards: 1 per row */
+        .about-container-4 {
+          flex-direction: column !important;
+          display: flex !important;
+          align-items: center;
+        }
+        .about-container-inner {
+          width: 90% !important;
+          max-width: 100% !important;
+        }
 
-      <nav id="mainNav">
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="vehicles.html">Vehicles</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-        </ul>
-      </nav>
-    </header>
+        /* Footer stack */
+        .tm-footer .col-lg-3,
+        .tm-footer .col-lg-5,
+        .tm-footer .col-lg-4 {
+          width: 100% !important;
+          margin-bottom: 25px;
+        }
 
-    <div class="templatemo-welcome welcome-slider">
-      <div class="container">
-        <div class="row">
-          <div class="flexslider">
-            <ul class="slides">
-              <li>
-                <div class="about-slider">
-                  <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 about-slider-description">
-                    <h2 class="text-uppercase welcome-title">
-                      <span class="welcome-title-1">Find to own</span>
-                      <span class="welcome-title-2">siyathra</span>
-                    </h2>
-                    <p class="welcome-message">At Siyathra, we believe that finding your dream vehicle should be fast, easy and exciting. Whether you're buying your first car, upgrading to something new, or searching for the perfect ride, we're here to help every step of the way.</p>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="about-slider">
-                  <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 about-slider-description">
-                    <h2 class="text-uppercase welcome-title">
-                      <span class="welcome-title-1">Find to own</span>
-                      <span class="welcome-title-2">siyathra</span>
-                    </h2>
-                    <p class="welcome-message">Our mission is to connect people with quality vehicles and trusted sellers, offering a smooth and reliable car-buying experience. Thank you for choosing Siyathra — where your dream ride begins!</p>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        /* Flexslider area */
+        .templatemo-welcome {
+          margin-top: 80px;
+        }
+        .welcome-title-1 {
+          font-size: 24px;
+        }
+        .welcome-title-2 {
+          font-size: 32px;
+        }
+      }
 
-  <!-- ── Stats Counter Bar ── -->
-  <div class="stats-bar">
-    <div class="stat-item">
-      <span class="stat-number" data-target="500">0</span>
-      <span class="stat-label">Vehicles Listed</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-number" data-target="1200">0</span>
-      <span class="stat-label">Happy Customers</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-number" data-target="13">0</span>
-      <span class="stat-label">Brands Available</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-number" data-target="5">0</span>
-      <span class="stat-label">Years of Service</span>
-    </div>
-  </div>
-
-  <!-- Brand images -->
-  <div class="container margin-bottom-50">
-    <div class="row">
-      <div class="col-lg-12 tm-overflow-hidden">
-        <div class="tm-img-1-container reveal">
-          <img src="img/nissan (2).jpg" alt="Nissan">
-          <p class="tm-img-1-description">Nissan</p>
-        </div>
-        <div class="tm-img-1-container reveal">
-          <img src="img/toyota (2).jpg" alt="Toyota">
-          <p class="tm-img-1-description">Toyota</p>
-        </div>
-        <div class="tm-img-1-container reveal">
-          <img src="img/suzuki.jpg" alt="Suzuki">
-          <p class="tm-img-1-description">Suzuki</p>
-        </div>
-        <div class="tm-img-1-container reveal">
-          <img src="img/mitsubishi (2).jpg" alt="Mitsubishi">
-          <p class="tm-img-1-description">Mitsubishi</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- About section -->
-  <section class="container">
-    <div class="about-container reveal">
-      <div class="about-container-left">
-        <img src="img/about/2.jpg" alt="Image" class="img-responsive">
-      </div>
-      <div class="about-container-right">
-        <h2 class="about-title">Driven by Excellence</h2>
-        <p class="about-description">At Siyathra, we believe that every journey starts with trust and ends in satisfaction. Our team is dedicated to delivering a seamless experience, combining quality service with a passion for vehicles.</p>
-        <p class="about-description">With a growing network of reliable sellers and a user-friendly system, we aim to redefine how people buy and sell vehicles. Siyathra is more than a platform — it's your partner on the road to your next ride.</p>
-        <a href="#" class="about-link">Driven by innovation and trust</a>
-      </div>
+      @media (max-width: 480px) {
+        .stats-bar {
+          flex-direction: column;
+          gap: 15px;
+        }
+        .tm-img-1-container {
+          width: 100% !important;
+        }
+        .about-container-inner {
+          width: 100% !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="about-page">
+    <!-- Preloader -->
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
     </div>
 
-    <div class="about-title-2">
-      <h3 class="title-2-border">Featured Vehicles</h3>
-    </div>
+    <!-- Back to Top -->
+    <button id="backToTop" title="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
 
-    <!-- ── Wishlist count display ── -->
-    <div style="text-align:right; margin-bottom:10px; font-size:14px; color:#555;">
-      ❤️ Saved: <span id="wishlistCount">0</span> vehicle(s)
-    </div>
+    <!-- Toast -->
+    <div id="toast"></div>
 
-    <div class="about-container-4">
+    <section class="templatemo-top-section">
+      <header id="mainHeader">
+        <div class="logo">Siyathra</div>
 
-      <div class="about-container-inner reveal">
-        <button class="wishlist-btn" data-id="aqua2012" title="Save to wishlist"><i class="fas fa-heart"></i></button>
-        <div class="card-img-2">
-          <img src="img/priyus.jpeg" alt="Toyota Aqua" class="img-responsive">
+        <!-- Hamburger for mobile -->
+        <div class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
         </div>
-        <div class="image-border">
-          <p class="about-description">TOYOTA | AQUA<br><br>TOYOTA AQUA 2012<br>LKR 8,050,000</p>
-          <a href="#" class="about-link about-link-2">Details</a>
-        </div>
-      </div>
 
-      <div class="about-container-inner reveal">
-        <button class="wishlist-btn" data-id="prius2016" title="Save to wishlist"><i class="fas fa-heart"></i></button>
-        <div class="card-img-2">
-          <img src="img/toyota.jpg" alt="Toyota Prius" class="img-responsive">
-        </div>
-        <div class="image-border">
-          <p class="about-description">TOYOTA | PRIUS<br><br>TOYOTA PRIUS 2016<br>LKR 14,900,000</p>
-          <a href="#" class="about-link about-link-2">Details</a>
-        </div>
-      </div>
-
-      <div class="about-container-inner reveal">
-        <button class="wishlist-btn" data-id="nissanad" title="Save to wishlist"><i class="fas fa-heart"></i></button>
-        <div class="card-img-2">
-          <img src="img/nissan.jpg" alt="Nissan AD Wagon" class="img-responsive">
-        </div>
-        <div class="image-border">
-          <p class="about-description">NISSAN | AD WAGON Y10<br><br>NISSAN AD WAGON Y10<br>LKR 2,475,000</p>
-          <a href="#" class="about-link about-link-2">Details</a>
-        </div>
-      </div>
-
-      <div class="about-container-inner reveal">
-        <button class="wishlist-btn" data-id="trh2021" title="Save to wishlist"><i class="fas fa-heart"></i></button>
-        <div class="card-img-2">
-          <img src="img/trh.jpg" alt="Toyota TRH" class="img-responsive">
-        </div>
-        <div class="image-border">
-          <p class="about-description">TOYOTA | TRH<br><br>TOYOTA TRH 2021<br>LKR 16,990,000</p>
-          <a href="#" class="about-link about-link-2">Details</a>
-        </div>
-      </div>
-
-      <div class="about-container-inner reveal">
-        <button class="wishlist-btn" data-id="aqua2013" title="Save to wishlist"><i class="fas fa-heart"></i></button>
-        <div class="card-img-2">
-          <img src="img/aqua-2013.jpg" alt="Toyota Aqua 2013" class="img-responsive">
-        </div>
-        <div class="image-border">
-          <p class="about-description">TOYOTA | AQUA<br><br>TOYOTA AQUA 2013<br>LKR 8,000,000</p>
-          <a href="#" class="about-link about-link-2">Details</a>
-        </div>
-      </div>
-
-      <div class="about-container-inner reveal">
-        <button class="wishlist-btn" data-id="lancer2001" title="Save to wishlist"><i class="fas fa-heart"></i></button>
-        <div class="card-img-2">
-          <img src="img/mitsubishi.jpg" alt="Mitsubishi Lancer" class="img-responsive">
-        </div>
-        <div class="image-border">
-          <p class="about-description">MITSUBISHI | LANCER CK2<br><br>MITSUBISHI LANCER CK2 2001<br>LKR 9,000,000</p>
-          <a href="#" class="about-link about-link-2">Details</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- WhatsApp -->
-  <div class="whatsapp-chatbox">
-    <div class="chat-header">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-      <span>Chat with Siyathra Auto Hub</span>
-    </div>
-    <div class="chat-body">
-      <p>Hi 👋, how can we help you today?</p>
-      <a href="https://wa.me/94726306322" target="_blank">Start Chat</a>
-    </div>
-  </div>
-  <div class="whatsapp-float" onclick="document.querySelector('.whatsapp-chatbox').classList.toggle('active')">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-  </div>
-
-  <!-- Footer -->
-  <footer class="tm-footer">
-    <div class="container">
-      <div class="row margin-bottom-60">
-        <nav class="col-lg-3 col-md-3 tm-footer-nav tm-footer-div">
-          <h3 class="tm-footer-div-title">Main Menu</h3>
-          <ul>
+        <nav id="mainNav">
+          <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="gallery.html">Directory</a></li>
-            <li><a href="services.html">Our Services</a></li>
+            <li><a href="vehicles.html">Vehicles</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
           </ul>
         </nav>
-        <div class="col-lg-5 col-md-5 tm-footer-div">
-          <h3 class="tm-footer-div-title">About Us</h3>
-          <p class="margin-top-15">At Siyathra, we turn your vehicle dreams into reality. Whether you're searching for a stylish ride, a family car, or a reliable work vehicle, we've got you covered.</p>
-          <p class="margin-top-15">We pride ourselves on providing a smooth, fast, and stress-free car buying experience.</p><br>
-          <a href="tel:+94726306322" class="call-us">
-            <i class="fas fa-phone-alt"></i> Call Us: +94 72 630 6322
-          </a>
-        </div>
-        <div class="col-lg-4 col-md-4 tm-footer-div">
-          <div class="get-social-container">
-            <h3 class="tm-footer-div-title">Get Social</h3>
-            <p class="margin-top-15">Follow Siyathra on social media for the latest updates, new arrivals, and special offers.</p>
-            <div class="tm-social-icons-container">
-              <a href="#" class="tm-social-icon"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="tm-social-icon"><i class="fab fa-tiktok"></i></a>
-              <a href="#" class="tm-social-icon"><i class="fa fa-instagram"></i></a>
+      </header>
+
+      <div class="templatemo-welcome welcome-slider">
+        <div class="container">
+          <div class="row">
+            <div class="flexslider">
+              <ul class="slides">
+                <li>
+                  <div class="about-slider">
+                    <div
+                      class="col-lg-9 col-md-9 col-sm-8 col-xs-12 about-slider-description"
+                    >
+                      <h2 class="text-uppercase welcome-title">
+                        <span class="welcome-title-1">Find to own</span>
+                        <span class="welcome-title-2">siyathra</span>
+                      </h2>
+                      <p class="welcome-message">
+                        At Siyathra, we believe that finding your dream vehicle
+                        should be fast, easy and exciting. Whether you're buying
+                        your first car, upgrading to something new, or searching
+                        for the perfect ride, we're here to help every step of
+                        the way.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="about-slider">
+                    <div
+                      class="col-lg-9 col-md-9 col-sm-8 col-xs-12 about-slider-description"
+                    >
+                      <h2 class="text-uppercase welcome-title">
+                        <span class="welcome-title-1">Find to own</span>
+                        <span class="welcome-title-2">siyathra</span>
+                      </h2>
+                      <p class="welcome-message">
+                        Our mission is to connect people with quality vehicles
+                        and trusted sellers, offering a smooth and reliable
+                        car-buying experience. Thank you for choosing Siyathra —
+                        where your dream ride begins!
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
-      <div class="row tm-copyright">
-        <p class="col-lg-12 small copyright-text text-center">Copyright &copy; 2025 Siyathra. All rights reserved.</p>
+    </section>
+
+    <!-- ── Stats Counter Bar ── -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-number" data-target="500">0</span>
+        <span class="stat-label">Vehicles Listed</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="1200">0</span>
+        <span class="stat-label">Happy Customers</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="13">0</span>
+        <span class="stat-label">Brands Available</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="5">0</span>
+        <span class="stat-label">Years of Service</span>
       </div>
     </div>
-  </footer>
 
-  <!-- JS -->
-  <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-  <script type="text/javascript" src="js/templatemo-script.js"></script>
-  <script defer src="js/jquery.flexslider-min.js"></script>
-  <script>
-    /* ── FlexSlider init + preloader ── */
-    $(window).load(function () {
-      $('.flexslider').flexslider({
-        animation: "slide",
-        slideshow: true,
-        slideshowSpeed: 4000,
-        animationSpeed: 700,
-        prevText: "&#xf104;",
-        nextText: "&#xf105;"
+    <!-- Brand images -->
+    <div class="container margin-bottom-50">
+      <div class="row">
+        <div class="col-lg-12 tm-overflow-hidden">
+          <div class="tm-img-1-container reveal">
+            <img src="img/nissan (2).jpg" alt="Nissan" />
+            <p class="tm-img-1-description">Nissan</p>
+          </div>
+          <div class="tm-img-1-container reveal">
+            <img src="img/toyota (2).jpg" alt="Toyota" />
+            <p class="tm-img-1-description">Toyota</p>
+          </div>
+          <div class="tm-img-1-container reveal">
+            <img src="img/suzuki.jpg" alt="Suzuki" />
+            <p class="tm-img-1-description">Suzuki</p>
+          </div>
+          <div class="tm-img-1-container reveal">
+            <img src="img/mitsubishi (2).jpg" alt="Mitsubishi" />
+            <p class="tm-img-1-description">Mitsubishi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About section -->
+    <section class="container">
+      <div class="about-container reveal">
+        <div class="about-container-left">
+          <img src="img/about/2.jpg" alt="Image" class="img-responsive" />
+        </div>
+        <div class="about-container-right">
+          <h2 class="about-title">Driven by Excellence</h2>
+          <p class="about-description">
+            At Siyathra, we believe that every journey starts with trust and
+            ends in satisfaction. Our team is dedicated to delivering a seamless
+            experience, combining quality service with a passion for vehicles.
+          </p>
+          <p class="about-description">
+            With a growing network of reliable sellers and a user-friendly
+            system, we aim to redefine how people buy and sell vehicles.
+            Siyathra is more than a platform — it's your partner on the road to
+            your next ride.
+          </p>
+          <a href="#" class="about-link">Driven by innovation and trust</a>
+        </div>
+      </div>
+
+      <div class="about-title-2">
+        <h3 class="title-2-border">Featured Vehicles</h3>
+      </div>
+
+      <!-- ── Wishlist count display ── -->
+      <div
+        style="
+          text-align: right;
+          margin-bottom: 10px;
+          font-size: 14px;
+          color: #555;
+        "
+      >
+        ❤️ Saved: <span id="wishlistCount">0</span> vehicle(s)
+      </div>
+
+      <div class="about-container-4">
+        <div class="about-container-inner reveal">
+          <button
+            class="wishlist-btn"
+            data-id="aqua2012"
+            title="Save to wishlist"
+          >
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="card-img-2">
+            <img
+              src="img/priyus.jpeg"
+              alt="Toyota Aqua"
+              class="img-responsive"
+            />
+          </div>
+          <div class="image-border">
+            <p class="about-description">
+              TOYOTA | AQUA<br /><br />TOYOTA AQUA 2012<br />LKR 8,050,000
+            </p>
+            <a href="#" class="about-link about-link-2">Details</a>
+          </div>
+        </div>
+
+        <div class="about-container-inner reveal">
+          <button
+            class="wishlist-btn"
+            data-id="prius2016"
+            title="Save to wishlist"
+          >
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="card-img-2">
+            <img
+              src="img/toyota.jpg"
+              alt="Toyota Prius"
+              class="img-responsive"
+            />
+          </div>
+          <div class="image-border">
+            <p class="about-description">
+              TOYOTA | PRIUS<br /><br />TOYOTA PRIUS 2016<br />LKR 14,900,000
+            </p>
+            <a href="#" class="about-link about-link-2">Details</a>
+          </div>
+        </div>
+
+        <div class="about-container-inner reveal">
+          <button
+            class="wishlist-btn"
+            data-id="nissanad"
+            title="Save to wishlist"
+          >
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="card-img-2">
+            <img
+              src="img/nissan.jpg"
+              alt="Nissan AD Wagon"
+              class="img-responsive"
+            />
+          </div>
+          <div class="image-border">
+            <p class="about-description">
+              NISSAN | AD WAGON Y10<br /><br />NISSAN AD WAGON Y10<br />LKR
+              2,475,000
+            </p>
+            <a href="#" class="about-link about-link-2">Details</a>
+          </div>
+        </div>
+
+        <div class="about-container-inner reveal">
+          <button
+            class="wishlist-btn"
+            data-id="trh2021"
+            title="Save to wishlist"
+          >
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="card-img-2">
+            <img src="img/trh.jpg" alt="Toyota TRH" class="img-responsive" />
+          </div>
+          <div class="image-border">
+            <p class="about-description">
+              TOYOTA | TRH<br /><br />TOYOTA TRH 2021<br />LKR 16,990,000
+            </p>
+            <a href="#" class="about-link about-link-2">Details</a>
+          </div>
+        </div>
+
+        <div class="about-container-inner reveal">
+          <button
+            class="wishlist-btn"
+            data-id="aqua2013"
+            title="Save to wishlist"
+          >
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="card-img-2">
+            <img
+              src="img/aqua-2013.jpg"
+              alt="Toyota Aqua 2013"
+              class="img-responsive"
+            />
+          </div>
+          <div class="image-border">
+            <p class="about-description">
+              TOYOTA | AQUA<br /><br />TOYOTA AQUA 2013<br />LKR 8,000,000
+            </p>
+            <a href="#" class="about-link about-link-2">Details</a>
+          </div>
+        </div>
+
+        <div class="about-container-inner reveal">
+          <button
+            class="wishlist-btn"
+            data-id="lancer2001"
+            title="Save to wishlist"
+          >
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="card-img-2">
+            <img
+              src="img/mitsubishi.jpg"
+              alt="Mitsubishi Lancer"
+              class="img-responsive"
+            />
+          </div>
+          <div class="image-border">
+            <p class="about-description">
+              MITSUBISHI | LANCER CK2<br /><br />MITSUBISHI LANCER CK2 2001<br />LKR
+              9,000,000
+            </p>
+            <a href="#" class="about-link about-link-2">Details</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WhatsApp -->
+    <div class="whatsapp-chatbox">
+      <div class="chat-header">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+          alt="WhatsApp"
+        />
+        <span>Chat with Siyathra Auto Hub</span>
+      </div>
+      <div class="chat-body">
+        <p>Hi 👋, how can we help you today?</p>
+        <a href="https://wa.me/94726306322" target="_blank">Start Chat</a>
+      </div>
+    </div>
+    <div
+      class="whatsapp-float"
+      onclick="
+        document.querySelector('.whatsapp-chatbox').classList.toggle('active')
+      "
+    >
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        alt="WhatsApp"
+      />
+    </div>
+
+    <!-- Footer -->
+    <footer class="tm-footer">
+      <div class="container">
+        <div class="row margin-bottom-60">
+          <nav class="col-lg-3 col-md-3 tm-footer-nav tm-footer-div">
+            <h3 class="tm-footer-div-title">Main Menu</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="gallery.html">Directory</a></li>
+              <li><a href="services.html">Our Services</a></li>
+            </ul>
+          </nav>
+          <div class="col-lg-5 col-md-5 tm-footer-div">
+            <h3 class="tm-footer-div-title">About Us</h3>
+            <p class="margin-top-15">
+              At Siyathra, we turn your vehicle dreams into reality. Whether
+              you're searching for a stylish ride, a family car, or a reliable
+              work vehicle, we've got you covered.
+            </p>
+            <p class="margin-top-15">
+              We pride ourselves on providing a smooth, fast, and stress-free
+              car buying experience.
+            </p>
+            <br />
+            <a href="tel:+94726306322" class="call-us">
+              <i class="fas fa-phone-alt"></i> Call Us: +94 72 630 6322
+            </a>
+          </div>
+          <div class="col-lg-4 col-md-4 tm-footer-div">
+            <div class="get-social-container">
+              <h3 class="tm-footer-div-title">Get Social</h3>
+              <p class="margin-top-15">
+                Follow Siyathra on social media for the latest updates, new
+                arrivals, and special offers.
+              </p>
+              <div class="tm-social-icons-container">
+                <a href="#" class="tm-social-icon"
+                  ><i class="fa fa-facebook"></i
+                ></a>
+                <a href="#" class="tm-social-icon"
+                  ><i class="fab fa-tiktok"></i
+                ></a>
+                <a href="#" class="tm-social-icon"
+                  ><i class="fa fa-instagram"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row tm-copyright">
+          <p class="col-lg-12 small copyright-text text-center">
+            Copyright &copy; 2025 Siyathra. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JS -->
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/templatemo-script.js"></script>
+    <script defer src="js/jquery.flexslider-min.js"></script>
+    <script>
+      /* ── FlexSlider init + preloader ── */
+      $(window).load(function () {
+        $(".flexslider").flexslider({
+          animation: "slide",
+          slideshow: true,
+          slideshowSpeed: 4000,
+          animationSpeed: 700,
+          prevText: "&#xf104;",
+          nextText: "&#xf105;",
+        });
+        $("body").addClass("loaded");
       });
-      $('body').addClass('loaded');
-    });
 
-    /* ══════════════════════════════════════
+      /* ══════════════════════════════════════
        1. STICKY NAVBAR — shrink on scroll
     ══════════════════════════════════════ */
-    window.addEventListener('scroll', function () {
-      const header = document.getElementById('mainHeader');
-      if (window.scrollY > 60) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
+      window.addEventListener("scroll", function () {
+        const header = document.getElementById("mainHeader");
+        if (window.scrollY > 60) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
 
-    /* ══════════════════════════════════════
+      /* ══════════════════════════════════════
        2. ACTIVE NAV LINK — highlight current page
     ══════════════════════════════════════ */
-    document.querySelectorAll('.nav-links a').forEach(function (link) {
-      if (link.href === window.location.href) {
-        link.classList.add('active-link');
-      }
-    });
+      document.querySelectorAll(".nav-links a").forEach(function (link) {
+        if (link.href === window.location.href) {
+          link.classList.add("active-link");
+        }
+      });
 
-    /* ══════════════════════════════════════
+      /* ══════════════════════════════════════
        3. HAMBURGER MENU (mobile)
     ══════════════════════════════════════ */
-    const hamburger = document.getElementById('hamburger');
-    const mainNav   = document.getElementById('mainNav');
-    hamburger.addEventListener('click', function () {
-      hamburger.classList.toggle('open');
-      mainNav.classList.toggle('open');
-    });
+      const hamburger = document.getElementById("hamburger");
+      const mainNav = document.getElementById("mainNav");
+      hamburger.addEventListener("click", function () {
+        hamburger.classList.toggle("open");
+        mainNav.classList.toggle("open");
+      });
 
-    /* ══════════════════════════════════════
+      /* ══════════════════════════════════════
        4. SCROLL-REVEAL ANIMATION
     ══════════════════════════════════════ */
-    const revealElements = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
+      const revealElements = document.querySelectorAll(".reveal");
+      const revealObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+      revealElements.forEach(function (el) {
+        revealObserver.observe(el);
       });
-    }, { threshold: 0.12 });
-    revealElements.forEach(function (el) { revealObserver.observe(el); });
 
-    /* ══════════════════════════════════════
+      /* ══════════════════════════════════════
        5. ANIMATED STATS COUNTER
     ══════════════════════════════════════ */
-    function animateCounter(el) {
-      const target   = parseInt(el.getAttribute('data-target'));
-      const duration = 1800;
-      const step     = Math.ceil(target / (duration / 16));
-      let current    = 0;
-      const timer = setInterval(function () {
-        current += step;
-        if (current >= target) {
-          current = target;
-          clearInterval(timer);
-        }
-        el.textContent = current.toLocaleString() + (target >= 100 ? '+' : '');
-      }, 16);
-    }
+      function animateCounter(el) {
+        const target = parseInt(el.getAttribute("data-target"));
+        const duration = 1800;
+        const step = Math.ceil(target / (duration / 16));
+        let current = 0;
+        const timer = setInterval(function () {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          el.textContent =
+            current.toLocaleString() + (target >= 100 ? "+" : "");
+        }, 16);
+      }
 
-    const statsObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          document.querySelectorAll('.stat-number').forEach(animateCounter);
-          statsObserver.disconnect();
-        }
-      });
-    }, { threshold: 0.3 });
-    statsObserver.observe(document.querySelector('.stats-bar'));
+      const statsObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              document.querySelectorAll(".stat-number").forEach(animateCounter);
+              statsObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+      statsObserver.observe(document.querySelector(".stats-bar"));
 
-    /* ══════════════════════════════════════
+      /* ══════════════════════════════════════
        6. WISHLIST with localStorage
     ══════════════════════════════════════ */
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(function () { toast.classList.remove('show'); }, 2200);
-    }
+      function showToast(msg) {
+        const toast = document.getElementById("toast");
+        toast.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(function () {
+          toast.classList.remove("show");
+        }, 2200);
+      }
 
-    function updateWishlistCount() {
-      const saved = JSON.parse(localStorage.getItem('siyathra_wishlist') || '[]');
-      document.getElementById('wishlistCount').textContent = saved.length;
-    }
+      function updateWishlistCount() {
+        const saved = JSON.parse(
+          localStorage.getItem("siyathra_wishlist") || "[]",
+        );
+        document.getElementById("wishlistCount").textContent = saved.length;
+      }
 
-    document.querySelectorAll('.wishlist-btn').forEach(function (btn) {
-      const id     = btn.getAttribute('data-id');
-      const saved  = JSON.parse(localStorage.getItem('siyathra_wishlist') || '[]');
-      if (saved.includes(id)) btn.classList.add('wishlisted');
+      document.querySelectorAll(".wishlist-btn").forEach(function (btn) {
+        const id = btn.getAttribute("data-id");
+        const saved = JSON.parse(
+          localStorage.getItem("siyathra_wishlist") || "[]",
+        );
+        if (saved.includes(id)) btn.classList.add("wishlisted");
 
-      btn.addEventListener('click', function () {
-        let list = JSON.parse(localStorage.getItem('siyathra_wishlist') || '[]');
-        if (list.includes(id)) {
-          list = list.filter(function (i) { return i !== id; });
-          btn.classList.remove('wishlisted');
-          showToast('Removed from wishlist');
-        } else {
-          list.push(id);
-          btn.classList.add('wishlisted');
-          showToast('❤️ Added to wishlist!');
-        }
-        localStorage.setItem('siyathra_wishlist', JSON.stringify(list));
-        updateWishlistCount();
+        btn.addEventListener("click", function () {
+          let list = JSON.parse(
+            localStorage.getItem("siyathra_wishlist") || "[]",
+          );
+          if (list.includes(id)) {
+            list = list.filter(function (i) {
+              return i !== id;
+            });
+            btn.classList.remove("wishlisted");
+            showToast("Removed from wishlist");
+          } else {
+            list.push(id);
+            btn.classList.add("wishlisted");
+            showToast("❤️ Added to wishlist!");
+          }
+          localStorage.setItem("siyathra_wishlist", JSON.stringify(list));
+          updateWishlistCount();
+        });
       });
-    });
-    updateWishlistCount();
+      updateWishlistCount();
 
-    /* ══════════════════════════════════════
+      /* ══════════════════════════════════════
        7. BACK TO TOP BUTTON
     ══════════════════════════════════════ */
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', function () {
-      backToTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
-      backToTop.style.alignItems   = 'center';
-      backToTop.style.justifyContent = 'center';
-    });
-    backToTop.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
-
-      
+      const backToTop = document.getElementById("backToTop");
+      window.addEventListener("scroll", function () {
+        backToTop.style.display = window.scrollY > 400 ? "flex" : "none";
+        backToTop.style.alignItems = "center";
+        backToTop.style.justifyContent = "center";
+      });
+      backToTop.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    </script>
   </body>
-  </html>
+</html>
