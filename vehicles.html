@@ -1,284 +1,553 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Motor Vehicles</title>
-  <meta name="description" content="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Siyathra - Vehicles</title>
+    <meta name="description" content="" />
 
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/coustem.css" rel="stylesheet">
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/templatemo-style.css" rel="stylesheet">
+    <link
+      href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/coustem.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/templatemo-style.css" rel="stylesheet" />
 
+    <style>
+      /* ── Sticky navbar ── */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        transition:
+          box-shadow 0.3s ease,
+          padding 0.3s ease;
+      }
+      header.scrolled {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        padding: 18px 50px;
+      }
 
+      /* ── Active nav ── */
+      .nav-links li a.active-link {
+        color: #d54a4a;
+        border-bottom: 2px solid #d54a4a;
+      }
 
-      </head>
-      <body>
-     
-        <section class="templatemo-top-section">
-          <header>
-            <div class="logo">Siyathra</div>
+      /* ── Hamburger ── */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+        margin-left: auto;
+      }
+      .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: white;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+      }
+      .hamburger.open span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      .hamburger.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.open span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
 
-             <nav>
-              <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="vehicles.html">Vehicles</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                
-              </ul>
-             </nav>
+      /* ── Scroll reveal ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
-               
-           </header>
-      
-      </section>
-      <section class="container margin-bottom-50">
-       <div class="row">
-        <h2 class="col-lg-12 text-center text-uppercase margin-bottom-30">Browse Vehicles by Brand and Drive with Confidence</h2>
-        <p class="col-lg-12 text-center margin-bottom-30">Discover vehicles that fit your lifestyle, budget, and preferences. Select a brand to explore our curated inventory and make your next move with Siyathra.</p>
-          <div class="tm-img-1-container">
-            <img src="img/porsche1.jpeg" alt="Image description">
-            <p class="tm-img-1-description">Porsche</p>
-          </div>
-          <div class="tm-img-1-container">
-            <img src="img/land-rover.jpeg" alt="Image description">
-            <p class="tm-img-1-description">Land Rover</p>
-          </div>
-          <div class="tm-img-1-container">
-            <img src="img/ford.jpeg" alt="Image description">
-            <p class="tm-img-1-description">Ford</p>
-          </div>
-          <div class="tm-img-1-container">
-            <img src="img/ferrari.jpeg" alt="Image description">
-            <p class="tm-img-1-description">Ferrari</p>
-          </div>         
+      /* ── Search + Filter bar ── */
+      .vehicle-toolbar {
+        background: #232222;
+        padding: 18px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0;
+      }
+      .vehicle-toolbar input {
+        flex: 1;
+        min-width: 200px;
+        max-width: 320px;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        outline: none;
+      }
+      .vehicle-toolbar select {
+        padding: 10px 14px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        background: white;
+        cursor: pointer;
+        outline: none;
+      }
+      .vehicle-toolbar button {
+        background: #d54a4a;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-weight: 600;
+      }
+      .vehicle-toolbar button:hover {
+        background: #b53636;
+      }
+
+      /* ── Vehicle count badge ── */
+      .vehicle-count-bar {
+        background: #f5f5f5;
+        padding: 10px 20px;
+        font-size: 13px;
+        color: #555;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .vehicle-count-bar strong {
+        color: #d54a4a;
+      }
+
+      /* ── Card enhancements ── */
+      .tm-item-container-2 {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        position: relative;
+        margin-bottom: 20px;
+      }
+      .tm-item-container-2:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      /* ── Wishlist on vehicle cards ── */
+      .card-wishlist-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+        z-index: 10;
+        color: #aaa;
+      }
+      .card-wishlist-btn:hover {
+        transform: scale(1.2);
+      }
+      .card-wishlist-btn.wishlisted {
+        color: #d54a4a;
+      }
+
+      /* ── Brand badge ── */
+      .brand-badge {
+        display: inline-block;
+        background: #d54a4a;
+        color: white;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        padding: 3px 9px;
+        border-radius: 3px;
+        margin-bottom: 6px;
+      }
+
+      /* ── View Details button on each card ── */
+      .card-details-btn {
+        display: inline-block;
+        margin-top: 10px;
+        margin-bottom: 12px;
+        margin-left: 10px;
+        background: #232222;
+        color: white;
+        padding: 8px 18px;
+        border-radius: 4px;
+        font-size: 13px;
+        text-decoration: none;
+        transition: background 0.3s;
+      }
+      .card-details-btn:hover {
+        background: #d54a4a;
+        color: white;
+      }
+
+      /* ── No results message ── */
+      #noResults {
+        display: none;
+        text-align: center;
+        padding: 50px 20px;
+        color: #888;
+        font-size: 16px;
+      }
+      #noResults i {
+        font-size: 40px;
+        display: block;
+        margin-bottom: 15px;
+        color: #ddd;
+      }
+
+      /* ── Sidebar nav active ── */
+      .tm-gallery-nav li.active a,
+      .tm-gallery-nav li a:hover {
+        color: #d54a4a !important;
+        background: #1a1a1a;
+      }
+      .tm-gallery-nav li {
+        cursor: pointer;
+      }
+
+      /* ── Back to top ── */
+      #backToTop {
+        position: fixed;
+        bottom: 90px;
+        right: 22px;
+        background: #d54a4a;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 998;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        transition: background 0.3s;
+      }
+      #backToTop:hover {
+        background: #b53636;
+      }
+
+      /* ── Toast ── */
+      #toast {
+        position: fixed;
+        bottom: 140px;
+        right: 22px;
+        background: #232222;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-size: 13px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s;
+        z-index: 9999;
+      }
+      #toast.show {
+        opacity: 1;
+      }
+
+      /* ── Brand image hover zoom ── */
+      .tm-img-1-container img {
+        transition: transform 0.4s ease;
+      }
+      .tm-img-1-container:hover img {
+        transform: scale(1.08);
+      }
+
+      /* ═══════════════ RESPONSIVE ═══════════════ */
+      @media (max-width: 900px) {
+        header {
+          gap: 0;
+          flex-wrap: wrap;
+          padding: 20px 30px;
+        }
+        .nav-links {
+          gap: 30px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        header {
+          flex-wrap: wrap;
+          gap: 0;
+          padding: 18px 20px;
+        }
+        .logo {
+          font-size: 26px;
+        }
+        .hamburger {
+          display: flex;
+        }
+        nav {
+          width: 100%;
+          overflow: hidden;
+          max-height: 0;
+          transition: max-height 0.4s ease;
+        }
+        nav.open {
+          max-height: 300px;
+        }
+        .nav-links {
+          flex-direction: column;
+          gap: 0;
+          padding: 10px 0;
+        }
+        .nav-links li a {
+          display: block;
+          padding: 10px 5px;
+          border-bottom: 1px solid #333;
+        }
+
+        /* Stack main + aside */
+        .tm-gallery {
+          float: none !important;
+          width: 100% !important;
+        }
+        .tm-gallery-aside {
+          float: none !important;
+          width: 100% !important;
+          margin-bottom: 20px;
+        }
+        .tm-overflow-hidden.row {
+          display: flex;
+          flex-direction: column-reverse;
+        }
+
+        /* Vehicle cards: 1 column */
+        .tm-item-container-2 {
+          width: 100% !important;
+        }
+
+        /* Brand images: 2 per row */
+        .tm-img-1-container {
+          width: 50% !important;
+        }
+
+        /* Toolbar stack */
+        .vehicle-toolbar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .vehicle-toolbar input,
+        .vehicle-toolbar select,
+        .vehicle-toolbar button {
+          max-width: 100%;
+          width: 100%;
+        }
+
+        .vehicle-count-bar {
+          flex-direction: column;
+        }
+
+        /* Footer stack */
+        .tm-footer .col-lg-3,
+        .tm-footer .col-lg-5,
+        .tm-footer .col-lg-4 {
+          width: 100% !important;
+          margin-bottom: 25px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .tm-img-1-container {
+          width: 100% !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Back to Top -->
+    <button id="backToTop" title="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Toast -->
+    <div id="toast"></div>
+
+    <section class="templatemo-top-section">
+      <header id="mainHeader">
+        <div class="logo">Siyathra</div>
+        <div class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+        <nav id="mainNav">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vehicles.html">Vehicles</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </nav>
+      </header>
+    </section>
+
+    <!-- Brand images -->
+    <section class="container margin-bottom-50">
+      <div class="row">
+        <h2 class="col-lg-12 text-center text-uppercase margin-bottom-30">
+          Browse Vehicles by Brand and Drive with Confidence
+        </h2>
+        <p class="col-lg-12 text-center margin-bottom-30">
+          Discover vehicles that fit your lifestyle, budget, and preferences.
+          Select a brand to explore our curated inventory.
+        </p>
+        <div class="tm-img-1-container reveal">
+          <img src="img/porsche1.jpeg" alt="Porsche" />
+          <p class="tm-img-1-description">Porsche</p>
+        </div>
+        <div class="tm-img-1-container reveal">
+          <img src="img/land-rover.jpeg" alt="Land Rover" />
+          <p class="tm-img-1-description">Land Rover</p>
+        </div>
+        <div class="tm-img-1-container reveal">
+          <img src="img/ford.jpeg" alt="Ford" />
+          <p class="tm-img-1-description">Ford</p>
+        </div>
+        <div class="tm-img-1-container reveal">
+          <img src="img/ferrari.jpeg" alt="Ferrari" />
+          <p class="tm-img-1-description">Ferrari</p>
         </div>
       </div>
-    </section>    
+    </section>
 
-    <!--Main content-->
+    <!-- ── Search + Filter Toolbar ── -->
+    <div class="vehicle-toolbar">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍  Search by name, e.g. Prius, Aqua..."
+      />
+      <select id="sortSelect">
+        <option value="">Sort By</option>
+        <option value="low">Price: Low to High</option>
+        <option value="high">Price: High to Low</option>
+        <option value="name">Name: A to Z</option>
+      </select>
+      <button onclick="resetFilters()">
+        <i class="fas fa-redo"></i> Reset
+      </button>
+    </div>
+
+    <!-- Vehicle count bar -->
+    <div class="vehicle-count-bar">
+      <div>
+        Showing <strong id="vehicleCount">9</strong> vehicles · Brand:
+        <strong id="activeBrand">Toyota</strong>
+      </div>
+      <div style="font-size: 12px; color: #888">
+        ❤️ Wishlist: <strong id="wishlistCount">0</strong> saved
+      </div>
+    </div>
+
+    <!-- Main content -->
     <section class="container margin-bottom-50">
       <div class="tm-overflow-hidden row">
-        <div class="tm-gallery col-lg-9 col-md-9 col-sm-8 col-xs-12">
-          <h3 class="tm-gallery-title">Toyota (53)</h3>
+        <!-- Vehicle Grid -->
+        <div
+          class="tm-gallery col-lg-9 col-md-9 col-sm-8 col-xs-12"
+          id="vehicleGrid"
+        >
+          <h3 class="tm-gallery-title" id="galleryTitle">Toyota (9)</h3>
 
-          <div class="tm-item-container-2"> 
-            <div class="card-img-1">       
-            <img src="img/TOYOTA AQUA 2013.jpeg" alt="Image">
-            </div>
-            <span class="tm-item-price-1">TOYOTA AQUA 2013</span><br><br>
-            <p class="tm-item-description">Fuel-efficient hybrid with smooth handling, ideal for city driving.</p><hr>
-            <div class="tm-item-price-container">
-              <span class="tm-item-price-1">LKR 6,200,000</span>
-            </div>
+          <div id="noResults">
+            <i class="fas fa-car"></i>
+            No vehicles found. Try a different search or brand.
           </div>
-          <div class="tm-item-container-2">
-            <div class="card-img-1">
-            <img src="img/TOYOTA PRIUS 2016.jpeg" alt="Image">
-            </div>
-            <span class="tm-item-price-1">TOYOTA PRIUS 2016</span><br><br>
-            <p class="tm-item-description">Sleek hybrid with advanced features and excellent mileage.</p><hr>
-            <div class="tm-item-price-container">
-              <span class="tm-item-price-1"> LKR 8,400,000</span>
-            
-            </div>   
-          </div>
-          <div class="tm-item-container-2">
-            <div class="card-img-1">
-            <img src="img/TOYOTA AXIO 2015.jpeg" alt="Image">
-            </div>
-            <span class="tm-item-price-1">TOYOTA AXIO 2015</span><br><br>
-            <p class="tm-item-description">Reliable sedan offering comfort and long-lasting performance.</p><hr>
-            <div class="tm-item-price-container">
-              <span class="tm-item-price-1">LKR 9,100,000</span>
-              
-            </div>         
-          </div>
-          <div class="tm-item-container-2">
-            <div class="card-img-1">
-            <img src="img/TOYOTA PREMIO 2014.jpeg" alt="Image">
-            </div>
-            <span class="tm-item-price-1">TOYOTA PREMIO 2014</span><br><br>
-            <p class="tm-item-description">Spacious mid-size car with smooth ride quality and premium feel.</p><hr>
-            <div class="tm-item-price-container">
-              <span class="tm-item-price-1">LKR 8,750,000</span>
-              
-            </div>            
-          </div>
-          <div class="tm-item-container-2">
-            <div class="card-img-1">
-            <img src="img/TOYOTA HILUX REVO 2021.jpeg" alt="Image">
-            </div>
-            <span class="tm-item-price-1">TOYOTA HILUX REVO 2021</span><br><br>
-            <p class="tm-item-description">Powerful double-cab pickup, perfect for both work and family.</p><hr>
-            <div class="tm-item-price-container">
-              <span class="tm-item-price-1">LKR 16,900,000</span>
-              
-            </div>            
-          </div>
-          <div class="tm-item-container-2">
-            <div class="card-img-1">
-            <img src="img/TOYOTA VITZ 2012.jpeg" alt="Image">
-            </div>
-            <span class="tm-item-price-1">TOYOTA VITZ 2012</span><br><br>
-            <p class="tm-item-description">Compact hatchback with low fuel consumption and easy maneuvering.</p><hr>
-            <div class="tm-item-price-container">
-              <span class="tm-item-price-1">LKR 4,950,000</span>
-              
-            </div>            
-          </div>
-          <div class="tm-item-container-2">
-            <div class="card-img-1">
-            <img src="img/TOYOTA ALLION 2013.jpeg" alt="Image">
-            </div>
-            <span class="tm-item-price-1">TOYOTA ALLION 2013</span><br><br>
-            <p class="tm-item-description">A balanced sedan known for its reliability and resale value.</p><hr>
-            <div class="tm-item-price-container">
-              <span class="tm-item-price-1"> LKR 6,800,000</span>
-              
-            </div>            
-          </div>
-          <div class="tm-item-container-2">
-            <div class="card-img-1">
-            <img src="img/TOYOTA COROLLA 2017.jpeg" alt="Image">
-            </div>
-            <span class="tm-item-price-1">TOYOTA COROLLA 2017</span><br><br>
-            <p class="tm-item-description">One of the world’s best-selling cars. efficient, safe, and solid.</p><hr>
-            <div class="tm-item-price-container">
-              <span class="tm-item-price-1">LKR 7,450,000</span>
-              
-            </div>            
-          </div>
-          <div class="tm-item-container-2">
-            <div class="card-img-1">
-            <img src="img/TOYOTA LAND  2019.jpeg" alt="Image">
-            </div>
-            <span class="tm-item-price-1"> TOYOTA LAND CRUISER PRADO 2019</span><br><br>
-            <p class="tm-item-description">A luxury SUV built for adventure, comfort, and prestige.</p><hr>
-            <div class="tm-item-price-container">
-              <span class="tm-item-price-1">LKR 28,500,000</span>
-              
-            </div>            
-          </div>
+
+          <!-- Cards injected by JS -->
         </div>
+
+        <!-- Sidebar -->
         <aside class="tm-gallery-aside col-lg-3 col-md-3 col-sm-4 col-xs-12">
           <nav class="tm-gallery-nav">
-            <h2 class="tm-gallery-nav-title">Category <i class="fa fa-caret-up"></i></h2>
-            <ul>
-              <li class="active">
-                <a href="vehicles.html">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Toyota
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Honda
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Nissan
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">BMW
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Audi
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Mercedes
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Lexus
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Ford
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Ferrari
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Lamborghini
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Porsche
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Land Rover
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="Image">Chevrolet
-                  <i class="fa fa-caret-right tm-gallery-list-fa"></i>
-                </a>
-              </li>
-             
+            <h2 class="tm-gallery-nav-title">
+              Category <i class="fa fa-caret-up"></i>
+            </h2>
+            <ul id="brandList">
+              <!-- Injected by JS -->
             </ul>
           </nav>
           <div class="tm-call-us">
             <h3 class="text-uppercase tm-call-us-title">Call us</h3>
-            <a href="tel:94 72 630 6322" class="tm-call-us-link">+ 94 72 630 6322</a>
-          </div>    
+            <a href="tel:+94726306322" class="tm-call-us-link"
+              >+ 94 72 630 6322</a
+            >
+          </div>
         </aside>
       </div>
+    </section>
 
-
-    </section> 
-
+    <!-- WhatsApp -->
     <div class="whatsapp-chatbox">
-          <div class="chat-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-              <span>Chat with Siyathra Auto Hub</span>
-          </div>
-            <div class="chat-body">
-              <p>Hi 👋, how can we help you today?</p>
-              <a href="https://wa.me/94726306322" target="_blank">Start Chat</a>
-            </div>
-        
+      <div class="chat-header">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+          alt="WhatsApp"
+        />
+        <span>Chat with Siyathra Auto Hub</span>
+      </div>
+      <div class="chat-body">
+        <p>Hi 👋, how can we help you today?</p>
+        <a href="https://wa.me/94726306322" target="_blank">Start Chat</a>
+      </div>
     </div>
-              <!-- Floating Button -->
-              <div class="whatsapp-float" onclick="document.querySelector('.whatsapp-chatbox').classList.toggle('active')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-              </div>
-    
-    <!--Footer content-->
-     <footer class="tm-footer">
+    <div
+      class="whatsapp-float"
+      onclick="
+        document.querySelector('.whatsapp-chatbox').classList.toggle('active')
+      "
+    >
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        alt="WhatsApp"
+      />
+    </div>
+
+    <!-- Footer -->
+    <footer class="tm-footer">
       <div class="container">
         <div class="row margin-bottom-60">
           <nav class="col-lg-3 col-md-3 tm-footer-nav tm-footer-div">
@@ -288,40 +557,476 @@
               <li><a href="about.html">About Us</a></li>
               <li><a href="gallery.html">Directory</a></li>
               <li><a href="services.html">Our Services</a></li>
-              
             </ul>
           </nav>
           <div class="col-lg-5 col-md-5 tm-footer-div">
             <h3 class="tm-footer-div-title">About Us</h3>
-            <p class="margin-top-15">At Siyathra, we turn your vehicle dreams into reality. Whether you're searching for a stylish ride, a family car, or a reliable work vehicle, we've got you covered.</p>
-            <p class="margin-top-15">We pride ourselves on providing a smooth, fast, and stress-free car buying experience with a growing selection of vehicles and a passion for customer satisfaction, Siyathra is your trusted partner on the road to your next great drive.</p><br>
-            <a href="tel:+94771234567" class="call-us">
-            <i class="fas fa-phone-alt"></i> Call Us: +94 72 630 6322
+            <p class="margin-top-15">
+              At Siyathra, we turn your vehicle dreams into reality.
+            </p>
+            <p class="margin-top-15">
+              We pride ourselves on providing a smooth, fast, and stress-free
+              car buying experience.
+            </p>
+            <br />
+            <a href="tel:+94726306322" class="call-us">
+              <i class="fas fa-phone-alt"></i> Call Us: +94 72 630 6322
             </a>
           </div>
           <div class="col-lg-4 col-md-4 tm-footer-div">
             <div class="get-social-container">
-            <h3 class="tm-footer-div-title">Get Social</h3>
-            <p class="margin-top-15">Follow Siyathra on social media for the latest updates, new arrivals, and special offers. Stay connected and join our car-loving community!</p>
-            <div class="tm-social-icons-container">
-              <a href="#" class="tm-social-icon"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="tm-social-icon"><i class="fab fa-tiktok"></i></a>              
-              <a href="#" class="tm-social-icon"><i class="fa fa-instagram"></i></a>
-
-            </div>
+              <h3 class="tm-footer-div-title">Get Social</h3>
+              <p class="margin-top-15">
+                Follow Siyathra on social media for the latest updates and new
+                arrivals.
+              </p>
+              <div class="tm-social-icons-container">
+                <a href="#" class="tm-social-icon"
+                  ><i class="fa fa-facebook"></i
+                ></a>
+                <a href="#" class="tm-social-icon"
+                  ><i class="fab fa-tiktok"></i
+                ></a>
+                <a href="#" class="tm-social-icon"
+                  ><i class="fa fa-instagram"></i
+                ></a>
+              </div>
             </div>
           </div>
         </div>
         <div class="row tm-copyright">
-          <div class="Copyright"><p class="col-lg-12 small copyright-text text-center">Copyright &copy; 2025 Siyathra. All rights reserved.</p></div>
+          <div class="Copyright">
+            <p class="col-lg-12 small copyright-text text-center">
+              Copyright &copy; 2025 Siyathra. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
-     </footer>
-    <!-- Footer content-->
-    
-    <!-- JS -->
-    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>      <!-- jQuery -->
-    <script type="text/javascript" src="js/templatemo-script.js"></script>      <!-- Templatemo Script -->
+    </footer>
 
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/templatemo-script.js"></script>
+
+    <script>
+      /* ══════════════════════════════════════════════
+       VEHICLE DATA
+    ══════════════════════════════════════════════ */
+      const allVehicles = [
+        /* ─ Toyota ─ */
+        {
+          brand: "Toyota",
+          name: "Toyota Aqua 2013",
+          price: 6200000,
+          desc: "Fuel-efficient hybrid with smooth handling, ideal for city driving.",
+          img: "img/TOYOTA AQUA 2013.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Toyota",
+          name: "Toyota Prius 2016",
+          price: 8400000,
+          desc: "Sleek hybrid with advanced features and excellent mileage.",
+          img: "img/TOYOTA PRIUS 2016.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Toyota",
+          name: "Toyota Axio 2015",
+          price: 9100000,
+          desc: "Reliable sedan offering comfort and long-lasting performance.",
+          img: "img/TOYOTA AXIO 2015.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Toyota",
+          name: "Toyota Premio 2014",
+          price: 8750000,
+          desc: "Spacious mid-size car with smooth ride quality and premium feel.",
+          img: "img/TOYOTA PREMIO 2014.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Toyota",
+          name: "Toyota Hilux Revo 2021",
+          price: 16900000,
+          desc: "Powerful double-cab pickup, perfect for both work and family.",
+          img: "img/TOYOTA HILUX REVO 2021.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Toyota",
+          name: "Toyota Vitz 2012",
+          price: 4950000,
+          desc: "Compact hatchback with low fuel consumption and easy maneuvering.",
+          img: "img/TOYOTA VITZ 2012.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Toyota",
+          name: "Toyota Allion 2013",
+          price: 6800000,
+          desc: "A balanced sedan known for its reliability and resale value.",
+          img: "img/TOYOTA ALLION 2013.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Toyota",
+          name: "Toyota Corolla 2017",
+          price: 7450000,
+          desc: "One of the world's best-selling cars — efficient, safe, and solid.",
+          img: "img/TOYOTA COROLLA 2017.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Toyota",
+          name: "Toyota Land Cruiser Prado",
+          price: 28500000,
+          desc: "A luxury SUV built for adventure, comfort, and prestige.",
+          img: "img/TOYOTA LAND  2019.jpeg",
+          page: "view more.html",
+        },
+        /* ─ Honda ─ */
+        {
+          brand: "Honda",
+          name: "Honda Vezel 2018",
+          price: 10200000,
+          desc: "Stylish crossover SUV with hybrid efficiency and modern cabin.",
+          img: "img/HONDA  VEZEL.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Honda",
+          name: "Honda Civic 2019",
+          price: 12300000,
+          desc: "Sporty design with smooth performance, sunroof, and leather seats.",
+          img: "img/HONDA  CIVIC.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Honda",
+          name: "Honda Grace 2017",
+          price: 7950000,
+          desc: "Compact hybrid sedan with elegant styling and fuel savings.",
+          img: "img/HONDA  GRACE.jpeg",
+          page: "view more.html",
+        },
+        /* ─ Nissan ─ */
+        {
+          brand: "Nissan",
+          name: "Nissan AD Wagon Y10",
+          price: 2475000,
+          desc: "Spacious family wagon — practical and economical for everyday use.",
+          img: "img/NISSAN AD WAGON Y.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Nissan",
+          name: "Nissan Sylphy 2015",
+          price: 6500000,
+          desc: "Comfortable mid-size sedan with smooth ride and ample cabin space.",
+          img: "img/NISSAN  SYLPHY.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Nissan",
+          name: "Nissan X-Trail 2021",
+          price: 13800000,
+          desc: "Spacious family SUV with 4WD system and advanced touchscreen panel.",
+          img: "img/nissan.jpg",
+          page: "view more.html",
+        },
+        /* ─ Mitsubishi ─ */
+        {
+          brand: "Mitsubishi",
+          name: "Mitsubishi Mirage 2018",
+          price: 4750000,
+          desc: "Lightweight and fuel-efficient hatchback perfect for city driving.",
+          img: "img/MITSUBISHI  MIRAGE.jpeg",
+          page: "view more.html",
+        },
+        {
+          brand: "Mitsubishi",
+          name: "Mitsubishi Lancer CK2",
+          price: 9000000,
+          desc: "Classic sporty sedan with spirited performance and stylish lines.",
+          img: "img/mitsubishi.jpg",
+          page: "view more.html",
+        },
+        /* ─ BMW ─ */
+        {
+          brand: "BMW",
+          name: "BMW 3 Series 2020",
+          price: 22500000,
+          desc: "Premium German engineering with dynamic performance and luxury comfort.",
+          img: "img/BMW.jpeg",
+          page: "view more.html",
+        },
+        /* ─ Mercedes ─ */
+        {
+          brand: "Mercedes",
+          name: "Mercedes-Benz C200 2019",
+          price: 26000000,
+          desc: "Sophisticated executive sedan with cutting-edge tech and refined style.",
+          img: "img/benz.jpeg",
+          page: "view more.html",
+        },
+        /* ─ Lexus ─ */
+        {
+          brand: "Lexus",
+          name: "Lexus RX 350 2020",
+          price: 31500000,
+          desc: "Premium Japanese SUV combining luxury, reliability, and smooth performance.",
+          img: "img/lexus.jpeg",
+          page: "view more.html",
+        },
+        /* ─ Ford ─ */
+        {
+          brand: "Ford",
+          name: "Ford Ranger 2021",
+          price: 15200000,
+          desc: "Rugged pickup truck built for tough terrain and heavy-duty tasks.",
+          img: "img/ford.jpeg",
+          page: "view more.html",
+        },
+      ];
+
+      /* Extract unique brands */
+      const brands = [...new Set(allVehicles.map((v) => v.brand))];
+
+      let activeBrand = "Toyota";
+      let searchQuery = "";
+      let sortMode = "";
+      let wishlist = JSON.parse(
+        localStorage.getItem("siyathra_wishlist") || "[]",
+      );
+
+      /* ── Format price ── */
+      function fmtPrice(n) {
+        return "LKR " + n.toLocaleString();
+      }
+
+      /* ── Show toast ── */
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2200);
+      }
+
+      /* ── Update wishlist count ── */
+      function updateWishlistCount() {
+        document.getElementById("wishlistCount").textContent = JSON.parse(
+          localStorage.getItem("siyathra_wishlist") || "[]",
+        ).length;
+      }
+
+      /* ── Build sidebar brand list ── */
+      function buildSidebar() {
+        const ul = document.getElementById("brandList");
+        ul.innerHTML = "";
+        brands.forEach(function (brand) {
+          const count = allVehicles.filter((v) => v.brand === brand).length;
+          const li = document.createElement("li");
+          li.className = brand === activeBrand ? "active" : "";
+          li.innerHTML = `
+          <a href="javascript:void(0)" onclick="selectBrand('${brand}')">
+            <img src="img/gallery-list-icon.png" class="tm-gallery-list-img" alt="">
+            ${brand} <span style="color:#888;font-size:12px;">(${count})</span>
+            <i class="fa fa-caret-right tm-gallery-list-fa"></i>
+          </a>`;
+          ul.appendChild(li);
+        });
+      }
+
+      /* ── Render vehicle cards ── */
+      function renderVehicles() {
+        let list = allVehicles.filter((v) => v.brand === activeBrand);
+
+        /* Search filter */
+        if (searchQuery) {
+          list = list.filter(
+            (v) =>
+              v.name.toLowerCase().includes(searchQuery) ||
+              v.brand.toLowerCase().includes(searchQuery),
+          );
+        }
+
+        /* Sort */
+        if (sortMode === "low") list.sort((a, b) => a.price - b.price);
+        if (sortMode === "high") list.sort((a, b) => b.price - a.price);
+        if (sortMode === "name")
+          list.sort((a, b) => a.name.localeCompare(b.name));
+
+        const grid = document.getElementById("vehicleGrid");
+        const title = document.getElementById("galleryTitle");
+        const noRes = document.getElementById("noResults");
+
+        /* Remove old cards (keep title + noResults) */
+        grid
+          .querySelectorAll(".tm-item-container-2")
+          .forEach((el) => el.remove());
+
+        title.textContent = `${activeBrand} (${list.length})`;
+        document.getElementById("activeBrand").textContent = activeBrand;
+        document.getElementById("vehicleCount").textContent = list.length;
+
+        if (list.length === 0) {
+          noRes.style.display = "block";
+          return;
+        }
+        noRes.style.display = "none";
+
+        list.forEach(function (v, i) {
+          const isWished = wishlist.includes(v.name);
+          const card = document.createElement("div");
+          card.className = "tm-item-container-2 reveal";
+          card.style.transitionDelay = i * 0.07 + "s";
+          card.innerHTML = `
+          <button class="card-wishlist-btn ${isWished ? "wishlisted" : ""}"
+                  data-id="${v.name}" title="Save to wishlist">
+            <i class="fas fa-heart"></i>
+          </button>
+          <div class="card-img-1">
+            <img src="${v.img}" alt="${v.name}"
+                 onerror="this.src='img/toyota (2).jpg'"
+                 style="width:100%;height:200px;object-fit:cover;">
+          </div>
+          <div style="padding: 0 12px 5px;">
+            <span class="brand-badge">${v.brand}</span><br>
+            <span class="tm-item-price-1">${v.name}</span><br><br>
+            <p class="tm-item-description">${v.desc}</p>
+            <hr>
+            <div class="tm-item-price-container">
+              <span class="tm-item-price-1">${fmtPrice(v.price)}</span>
+            </div>
+            <a href="${v.page}" class="card-details-btn">View Details</a>
+          </div>`;
+          grid.appendChild(card);
+
+          /* Wishlist button */
+          card
+            .querySelector(".card-wishlist-btn")
+            .addEventListener("click", function () {
+              wishlist = JSON.parse(
+                localStorage.getItem("siyathra_wishlist") || "[]",
+              );
+              const id = this.getAttribute("data-id");
+              if (wishlist.includes(id)) {
+                wishlist = wishlist.filter((x) => x !== id);
+                this.classList.remove("wishlisted");
+                showToast("Removed from wishlist");
+              } else {
+                wishlist.push(id);
+                this.classList.add("wishlisted");
+                showToast("❤️ Added to wishlist!");
+              }
+              localStorage.setItem(
+                "siyathra_wishlist",
+                JSON.stringify(wishlist),
+              );
+              updateWishlistCount();
+            });
+        });
+
+        /* Trigger reveal for new cards */
+        setTimeout(function () {
+          grid.querySelectorAll(".tm-item-container-2.reveal").forEach((el) => {
+            revealObs.observe(el);
+          });
+        }, 50);
+      }
+
+      /* ── Select brand ── */
+      function selectBrand(brand) {
+        activeBrand = brand;
+        document
+          .querySelectorAll("#brandList li")
+          .forEach((li) => li.classList.remove("active"));
+        const items = document.querySelectorAll("#brandList li");
+        items.forEach(function (li) {
+          if (li.querySelector("a").textContent.trim().startsWith(brand)) {
+            li.classList.add("active");
+          }
+        });
+        renderVehicles();
+      }
+
+      /* ── Reset filters ── */
+      function resetFilters() {
+        document.getElementById("searchInput").value = "";
+        document.getElementById("sortSelect").value = "";
+        searchQuery = "";
+        sortMode = "";
+        renderVehicles();
+      }
+
+      /* ── Scroll-reveal observer ── */
+      const revealObs = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              revealObs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObs.observe(el));
+
+      /* ── Sticky nav ── */
+      window.addEventListener("scroll", function () {
+        document
+          .getElementById("mainHeader")
+          .classList.toggle("scrolled", window.scrollY > 60);
+        document.getElementById("backToTop").style.display =
+          window.scrollY > 400 ? "flex" : "none";
+      });
+
+      /* ── Active nav link ── */
+      document.querySelectorAll(".nav-links a").forEach(function (link) {
+        if (link.href === window.location.href)
+          link.classList.add("active-link");
+      });
+
+      /* ── Hamburger ── */
+      document
+        .getElementById("hamburger")
+        .addEventListener("click", function () {
+          this.classList.toggle("open");
+          document.getElementById("mainNav").classList.toggle("open");
+        });
+
+      /* ── Back to top ── */
+      document
+        .getElementById("backToTop")
+        .addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+      /* ── Live search input ── */
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", function () {
+          searchQuery = this.value.trim().toLowerCase();
+          renderVehicles();
+        });
+
+      /* ── Sort dropdown ── */
+      document
+        .getElementById("sortSelect")
+        .addEventListener("change", function () {
+          sortMode = this.value;
+          renderVehicles();
+        });
+
+      /* ── Init ── */
+      buildSidebar();
+      renderVehicles();
+      updateWishlistCount();
+    </script>
   </body>
-  </html>
+</html>
