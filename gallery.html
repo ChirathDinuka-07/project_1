@@ -1,863 +1,601 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Motor Gallery</title>
-    <meta name="description" content="" />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Siyathra - Gallery</title>
+  <meta name="description" content="">
 
-    <link
-      href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/coustem.css" rel="stylesheet" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
-    <link href="css/templatemo-style.css" rel="stylesheet" />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/coustem.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/templatemo-style.css" rel="stylesheet">
 
-    <style>
-      /* ── Sticky navbar ── */
-      header {
-        position: sticky;
-        top: 0;
-        z-index: 999;
-        transition:
-          box-shadow 0.3s ease,
-          padding 0.3s ease;
-      }
-      header.scrolled {
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        padding: 18px 50px;
-      }
+  <style>
+    /* ── Sticky navbar ── */
+    header {
+      position: sticky; top: 0; z-index: 999;
+      transition: box-shadow 0.3s ease, padding 0.3s ease;
+    }
+    header.scrolled {
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      padding: 18px 50px;
+    }
 
-      /* ── Active nav ── */
-      .nav-links li a.active-link {
-        color: #d54a4a;
-        border-bottom: 2px solid #d54a4a;
-      }
+    /* ── Active nav ── */
+    .nav-links li a.active-link {
+      color: #d54a4a;
+      border-bottom: 2px solid #d54a4a;
+    }
 
-      /* ── Hamburger ── */
-      .hamburger {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
-        gap: 5px;
-        margin-left: auto;
-      }
-      .hamburger span {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background: white;
-        border-radius: 3px;
-        transition: all 0.3s ease;
-      }
-      .hamburger.open span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-      }
-      .hamburger.open span:nth-child(2) {
-        opacity: 0;
-      }
-      .hamburger.open span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-      }
+    /* ── Hamburger ── */
+    .hamburger {
+      display: none; flex-direction: column;
+      cursor: pointer; gap: 5px; margin-left: auto;
+    }
+    .hamburger span {
+      display: block; width: 25px; height: 3px;
+      background: white; border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-      /* ── Scroll reveal ── */
-      .reveal {
-        opacity: 0;
-        transform: translateY(30px);
-        transition:
-          opacity 0.55s ease,
-          transform 0.55s ease;
-      }
-      .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-      /* ── Filter tab bar ── */
-      .filter-bar {
-        background: #232222;
-        padding: 16px 20px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        align-items: center;
-      }
-      .filter-btn {
-        background: transparent;
-        color: #ccc;
-        border: 1px solid #555;
-        padding: 8px 18px;
-        border-radius: 25px;
-        font-size: 13px;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-      }
-      .filter-btn:hover {
-        border-color: #d54a4a;
-        color: #d54a4a;
-      }
-      .filter-btn.active {
-        background: #d54a4a;
-        color: white;
-        border-color: #d54a4a;
-      }
+    /* ── Filter tab bar ── */
+    .filter-bar {
+      background: #232222;
+      padding: 16px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+    }
+    .filter-btn {
+      background: transparent;
+      color: #ccc;
+      border: 1px solid #555;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .filter-btn:hover { border-color: #d54a4a; color: #d54a4a; }
+    .filter-btn.active {
+      background: #d54a4a; color: white;
+      border-color: #d54a4a;
+    }
 
-      /* ── Search row ── */
-      .gallery-search-row {
-        background: #1a1a1a;
-        padding: 12px 20px;
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .gallery-search-row input {
-        padding: 9px 16px;
-        border: none;
-        border-radius: 5px;
-        font-size: 14px;
-        width: 280px;
-        outline: none;
-      }
-      .gallery-search-row select {
-        padding: 9px 14px;
-        border: none;
-        border-radius: 5px;
-        font-size: 14px;
-        background: white;
-        cursor: pointer;
-        outline: none;
-      }
+    /* ── Search row ── */
+    .gallery-search-row {
+      background: #1a1a1a;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .gallery-search-row input {
+      padding: 9px 16px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      width: 280px;
+      outline: none;
+    }
+    .gallery-search-row select {
+      padding: 9px 14px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      background: white;
+      cursor: pointer;
+      outline: none;
+    }
 
-      /* ── Gallery count ── */
-      .gallery-count-bar {
-        padding: 10px 20px;
-        background: #f5f5f5;
-        font-size: 13px;
-        color: #555;
-        text-align: center;
-        border-bottom: 1px solid #e0e0e0;
-      }
-      .gallery-count-bar strong {
-        color: #d54a4a;
-      }
+    /* ── Gallery count ── */
+    .gallery-count-bar {
+      padding: 10px 20px;
+      background: #f5f5f5;
+      font-size: 13px;
+      color: #555;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .gallery-count-bar strong { color: #d54a4a; }
 
-      /* ── Gallery grid ── */
-      .tm-gallery {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: flex-start;
-      }
-      .tm-item-container {
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-        transition:
-          transform 0.3s ease,
-          box-shadow 0.3s ease;
-        position: relative;
-        width: calc(33.333% - 14px);
-        cursor: pointer;
-      }
-      .tm-item-container:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
-      }
+    /* ── Gallery grid ── */
+    .tm-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
 
-      /* ── Wishlist on gallery cards ── */
-      .card-wishlist-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: white;
-        border: none;
-        border-radius: 50%;
-        width: 34px;
-        height: 34px;
-        font-size: 15px;
-        cursor: pointer;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: transform 0.2s;
-        z-index: 10;
-        color: #aaa;
-      }
-      .card-wishlist-btn:hover {
-        transform: scale(1.2);
-      }
-      .card-wishlist-btn.wishlisted {
-        color: #d54a4a;
-      }
+    /* ── Each card ── */
+    .tm-item-container {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;  /* stack image on top, info below */
+    }
+    .tm-item-container:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.16);
+    }
 
-      /* ── Card image area ── */
-      .card-img-1 {
-        overflow: hidden;
-        height: 200px;
-      }
-      .card-img-1 img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.4s ease;
-      }
-      .tm-item-container:hover .card-img-1 img {
-        transform: scale(1.06);
-      }
+    /* ── Wishlist on gallery cards ── */
+    .card-wishlist-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: white; border: none;
+      border-radius: 50%;
+      width: 34px; height: 34px;
+      font-size: 15px; cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s;
+      z-index: 10; color: #aaa;
+    }
+    .card-wishlist-btn:hover { transform: scale(1.2); }
+    .card-wishlist-btn.wishlisted { color: #d54a4a; }
 
-      /* ── Card info ── */
-      .tm-item-price-container {
-        padding: 14px 16px 16px;
-      }
-      .gallery-tm-item-price {
-        font-size: 14px;
-        font-weight: 700;
-        color: #232222;
-        display: block;
-        margin-bottom: 4px;
-      }
-      .gallery-tm-item-price p {
-        color: #d54a4a;
-        font-size: 15px;
-        font-weight: 700;
-        margin: 4px 0 10px;
-      }
-      .brand-tag {
-        display: inline-block;
-        background: #f0f0f0;
-        color: #555;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.8px;
-        text-transform: uppercase;
-        padding: 2px 8px;
-        border-radius: 3px;
-        margin-bottom: 6px;
-      }
-      .view-more-btn {
-        display: inline-block;
-        background: #232222;
-        color: white;
-        padding: 8px 16px;
-        border-radius: 4px;
-        font-size: 12px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: background 0.3s;
-      }
-      .view-more-btn:hover {
-        background: #d54a4a;
-        color: white;
-      }
+    /* ── Card image — fixed height, always same size ── */
+    .card-img-1 {
+      overflow: hidden;
+      height: 210px;
+      flex-shrink: 0;        /* never compress the image */
+      background: #f0f0f0;   /* placeholder bg if image slow to load */
+    }
+    .card-img-1 img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;     /* crop to fill — no stretching */
+      object-position: center;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .tm-item-container:hover .card-img-1 img {
+      transform: scale(1.06);
+    }
 
-      /* ── No results ── */
-      #noResults {
-        display: none;
-        text-align: center;
-        padding: 60px 20px;
-        color: #888;
-        font-size: 16px;
-        width: 100%;
-      }
-      #noResults i {
-        font-size: 45px;
-        display: block;
-        margin-bottom: 15px;
-        color: #ddd;
-      }
+    /* ── Card info section — fills remaining space ── */
+    .tm-item-price-container {
+      padding: 14px 16px 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;               /* fills leftover height so all cards match */
+    }
 
-      /* ══ LIGHTBOX ══ */
-      #lightbox {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.92);
-        z-index: 10000;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        padding: 20px;
-      }
-      #lightbox.open {
-        display: flex;
-      }
-      #lightbox img {
-        max-width: 85vw;
-        max-height: 70vh;
-        object-fit: contain;
-        border-radius: 6px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        margin-bottom: 18px;
-      }
-      .lb-info {
-        text-align: center;
-        color: white;
-      }
-      .lb-info h3 {
-        font-size: 20px;
-        margin-bottom: 4px;
-      }
-      .lb-info p {
-        color: #d54a4a;
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 14px;
-      }
-      .lb-close {
-        position: absolute;
-        top: 18px;
-        right: 22px;
-        color: white;
-        font-size: 28px;
-        cursor: pointer;
-        background: none;
-        border: none;
-        transition: color 0.2s;
-      }
-      .lb-close:hover {
-        color: #d54a4a;
-      }
-      .lb-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(255, 255, 255, 0.12);
-        color: white;
-        border: none;
-        padding: 14px 18px;
-        font-size: 22px;
-        cursor: pointer;
-        border-radius: 4px;
-        transition: background 0.3s;
-      }
-      .lb-nav:hover {
-        background: #d54a4a;
-      }
-      .lb-prev {
-        left: 16px;
-      }
-      .lb-next {
-        right: 16px;
-      }
-      .lb-counter {
-        position: absolute;
-        top: 20px;
-        left: 22px;
-        color: #aaa;
-        font-size: 13px;
-      }
+    /* Brand tag */
+    .brand-tag {
+      display: inline-block;
+      background: #f0f0f0;
+      color: #555;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+      align-self: flex-start;
+    }
 
-      /* ── Back to top ── */
-      #backToTop {
-        position: fixed;
-        bottom: 90px;
-        right: 22px;
-        background: #d54a4a;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 42px;
-        height: 42px;
-        font-size: 18px;
-        cursor: pointer;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 998;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        transition: background 0.3s;
-      }
-      #backToTop:hover {
-        background: #b53636;
-      }
+    /* Vehicle name */
+    .gallery-tm-item-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: #232222;
+      display: block;
+      line-height: 1.4;
+      margin-bottom: 2px;
+    }
 
-      /* ── Toast ── */
-      #toast {
-        position: fixed;
-        bottom: 140px;
-        right: 22px;
-        background: #232222;
-        color: white;
-        padding: 10px 18px;
-        border-radius: 6px;
-        font-size: 13px;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.4s;
-        z-index: 9999;
-      }
-      #toast.show {
-        opacity: 1;
-      }
+    /* Price */
+    .gallery-tm-item-price p {
+      color: #d54a4a;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 6px 0 0;
+    }
 
-      /* ═══════════════ RESPONSIVE ═══════════════ */
-      @media (max-width: 900px) {
-        header {
-          gap: 0;
-          flex-wrap: wrap;
-          padding: 20px 30px;
-        }
-        .nav-links {
-          gap: 30px;
-        }
-        .tm-item-container {
-          width: calc(50% - 10px);
-        }
-      }
+    /* Push button to bottom of card always */
+    .card-info-bottom {
+      margin-top: auto;
+      padding-top: 14px;
+    }
 
-      @media (max-width: 767px) {
-        header {
-          flex-wrap: wrap;
-          gap: 0;
-          padding: 18px 20px;
-        }
-        .logo {
-          font-size: 26px;
-        }
-        .hamburger {
-          display: flex;
-        }
-        nav {
-          width: 100%;
-          overflow: hidden;
-          max-height: 0;
-          transition: max-height 0.4s ease;
-        }
-        nav.open {
-          max-height: 300px;
-        }
-        .nav-links {
-          flex-direction: column;
-          gap: 0;
-          padding: 10px 0;
-        }
-        .nav-links li a {
-          display: block;
-          padding: 10px 5px;
-          border-bottom: 1px solid #333;
-        }
+    .view-more-btn {
+      display: inline-block;
+      background: #232222;
+      color: white;
+      padding: 9px 18px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s;
+      letter-spacing: 0.3px;
+    }
+    .view-more-btn:hover { background: #d54a4a; color: white; }
 
-        .tm-item-container {
-          width: calc(50% - 10px);
-        }
-        .filter-bar {
-          gap: 8px;
-          padding: 12px 15px;
-        }
-        .filter-btn {
-          padding: 7px 13px;
-          font-size: 12px;
-        }
-        .gallery-search-row input {
-          width: 100%;
-        }
-        .gallery-search-row select {
-          width: 100%;
-        }
-        .gallery-search-row {
-          flex-direction: column;
-          align-items: stretch;
-        }
+    /* ── No results ── */
+    #noResults {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+      color: #888;
+      font-size: 16px;
+      width: 100%;
+    }
+    #noResults i { font-size: 45px; display: block; margin-bottom: 15px; color: #ddd; }
 
-        .lb-nav {
-          padding: 10px 14px;
-          font-size: 18px;
-        }
+    /* ══ LIGHTBOX ══ */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 85vw;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      margin-bottom: 18px;
+    }
+    .lb-info {
+      text-align: center;
+      color: white;
+    }
+    .lb-info h3 { font-size: 20px; margin-bottom: 4px; }
+    .lb-info p { color: #d54a4a; font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+    .lb-close {
+      position: absolute;
+      top: 18px; right: 22px;
+      color: white; font-size: 28px;
+      cursor: pointer; background: none; border: none;
+      transition: color 0.2s;
+    }
+    .lb-close:hover { color: #d54a4a; }
+    .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      color: white; border: none;
+      padding: 14px 18px; font-size: 22px;
+      cursor: pointer; border-radius: 4px;
+      transition: background 0.3s;
+    }
+    .lb-nav:hover { background: #d54a4a; }
+    .lb-prev { left: 16px; }
+    .lb-next { right: 16px; }
+    .lb-counter {
+      position: absolute;
+      top: 20px; left: 22px;
+      color: #aaa; font-size: 13px;
+    }
 
-        .tm-footer .col-lg-3,
-        .tm-footer .col-lg-5,
-        .tm-footer .col-lg-4 {
-          width: 100% !important;
-          margin-bottom: 25px;
-        }
-      }
+    /* ── Back to top ── */
+    #backToTop {
+      position: fixed;
+      bottom: 90px; right: 22px;
+      background: #d54a4a; color: white;
+      border: none; border-radius: 50%;
+      width: 42px; height: 42px; font-size: 18px;
+      cursor: pointer; display: none;
+      align-items: center; justify-content: center;
+      z-index: 998;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      transition: background 0.3s;
+    }
+    #backToTop:hover { background: #b53636; }
 
-      @media (max-width: 480px) {
-        .tm-item-container {
-          width: 100%;
-        }
-        #lightbox img {
-          max-width: 95vw;
-          max-height: 55vh;
-        }
-        .lb-prev {
-          left: 6px;
-        }
-        .lb-next {
-          right: 6px;
-        }
-      }
-    </style>
-  </head>
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 140px; right: 22px;
+      background: #232222; color: white;
+      padding: 10px 18px; border-radius: 6px;
+      font-size: 13px; opacity: 0;
+      pointer-events: none; transition: opacity 0.4s; z-index: 9999;
+    }
+    #toast.show { opacity: 1; }
 
-  <body class="gallery-page">
-    <!-- Lightbox -->
-    <div id="lightbox">
-      <button class="lb-close" onclick="closeLightbox()">
-        <i class="fas fa-times"></i>
-      </button>
-      <span class="lb-counter" id="lbCounter"></span>
-      <button class="lb-nav lb-prev" onclick="lbNav(-1)">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      <img id="lbImg" src="" alt="" />
-      <div class="lb-info">
-        <h3 id="lbName"></h3>
-        <p id="lbPrice"></p>
-        <a id="lbLink" href="view more.html" class="view-more-btn"
-          >View Full Details</a
-        >
-      </div>
-      <button class="lb-nav lb-next" onclick="lbNav(1)">
-        <i class="fas fa-chevron-right"></i>
-      </button>
+    /* ═══════════════ RESPONSIVE ═══════════════ */
+    @media (max-width: 1100px) {
+      .tm-gallery { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    }
+
+    @media (max-width: 900px) {
+      header { gap: 0; flex-wrap: wrap; padding: 20px 30px; }
+      .nav-links { gap: 30px; }
+      .tm-gallery { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    }
+
+    @media (max-width: 767px) {
+      header { flex-wrap: wrap; gap: 0; padding: 18px 20px; }
+      .logo { font-size: 26px; }
+      .hamburger { display: flex; }
+      nav { width: 100%; overflow: hidden; max-height: 0; transition: max-height 0.4s ease; }
+      nav.open { max-height: 300px; }
+      .nav-links { flex-direction: column; gap: 0; padding: 10px 0; }
+      .nav-links li a { display: block; padding: 10px 5px; border-bottom: 1px solid #333; }
+
+      .tm-gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .card-img-1 { height: 150px; }
+
+      .filter-bar { gap: 8px; padding: 12px 15px; }
+      .filter-btn { padding: 7px 13px; font-size: 12px; }
+      .gallery-search-row input { width: 100%; }
+      .gallery-search-row select { width: 100%; }
+      .gallery-search-row { flex-direction: column; align-items: stretch; }
+
+      .lb-nav { padding: 10px 14px; font-size: 18px; }
+
+      .tm-footer .col-lg-3,
+      .tm-footer .col-lg-5,
+      .tm-footer .col-lg-4 { width: 100% !important; margin-bottom: 25px; }
+    }
+
+    @media (max-width: 480px) {
+      .tm-gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .card-img-1 { height: 130px; }
+      #lightbox img { max-width: 95vw; max-height: 55vh; }
+      .lb-prev { left: 6px; }
+      .lb-next { right: 6px; }
+    }
+  </style>
+</head>
+
+<body class="gallery-page">
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+    <span class="lb-counter" id="lbCounter"></span>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+    <img id="lbImg" src="" alt="">
+    <div class="lb-info">
+      <h3 id="lbName"></h3>
+      <p id="lbPrice"></p>
+      <a id="lbLink" href="view more.html" class="view-more-btn">View Full Details</a>
     </div>
+    <button class="lb-nav lb-next" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+  </div>
 
-    <!-- Back to Top -->
-    <button id="backToTop" title="Back to top">
-      <i class="fas fa-chevron-up"></i>
-    </button>
+  <!-- Back to Top -->
+  <button id="backToTop" title="Back to top"><i class="fas fa-chevron-up"></i></button>
 
-    <!-- Toast -->
-    <div id="toast"></div>
+  <!-- Toast -->
+  <div id="toast"></div>
 
-    <section class="templatemo-top-section">
-      <header id="mainHeader">
-        <div class="logo">Siyathra</div>
-        <div class="hamburger" id="hamburger">
-          <span></span><span></span><span></span>
+  <section class="templatemo-top-section">
+    <header id="mainHeader">
+      <div class="logo">Siyathra</div>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+      <nav id="mainNav">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="vehicles.html">Vehicles</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </nav>
+    </header>
+  </section>
+
+  <!-- Hero banner -->
+  <section class="container margin-bottom-50">
+    <div class="row">
+      <h2 class="col-lg-12 text-center text-uppercase margin-bottom-30">Explore Our Premium Vehicle Collection</h2>
+      <p class="col-lg-12 text-center margin-bottom-30">Discover a range of top-quality vehicles carefully selected for performance, comfort, and value. Click any vehicle to explore.</p>
+      <img src="img/5-.jpg" alt="Gallery Banner" class="img-responsive col-lg-12" style="border-radius:6px;">
+    </div>
+  </section>
+
+  <!-- ── Brand Filter Tabs ── -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-brand="All">All</button>
+    <button class="filter-btn" data-brand="Toyota">Toyota</button>
+    <button class="filter-btn" data-brand="Honda">Honda</button>
+    <button class="filter-btn" data-brand="Nissan">Nissan</button>
+    <button class="filter-btn" data-brand="Mitsubishi">Mitsubishi</button>
+  </div>
+
+  <!-- ── Search + Sort row ── -->
+  <div class="gallery-search-row">
+    <input type="text" id="gallerySearch" placeholder="🔍  Search vehicles...">
+    <select id="gallerySort">
+      <option value="">Sort By</option>
+      <option value="low">Price: Low → High</option>
+      <option value="high">Price: High → Low</option>
+      <option value="name">Name: A → Z</option>
+    </select>
+  </div>
+
+  <!-- Count bar -->
+  <div class="gallery-count-bar">
+    Showing <strong id="galleryCount">0</strong> vehicles
+    &nbsp;·&nbsp; ❤️ Wishlist: <strong id="wishlistCount">0</strong> saved
+  </div>
+
+  <!-- Gallery grid -->
+  <section class="container margin-bottom-50">
+    <div class="row">
+      <div class="tm-gallery col-lg-12" id="galleryGrid">
+        <div id="noResults">
+          <i class="fas fa-images"></i>
+          No vehicles found. Try a different filter or search.
         </div>
-        <nav id="mainNav">
-          <ul class="nav-links">
+      </div>
+    </div>
+  </section>
+
+  <!-- WhatsApp -->
+  <div class="whatsapp-chatbox">
+    <div class="chat-header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+      <span>Chat with Siyathra Auto Hub</span>
+    </div>
+    <div class="chat-body">
+      <p>Hi 👋, how can we help you today?</p>
+      <a href="https://wa.me/94726306322" target="_blank">Start Chat</a>
+    </div>
+  </div>
+  <div class="whatsapp-float" onclick="document.querySelector('.whatsapp-chatbox').classList.toggle('active')">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </div>
+
+  <!-- Footer -->
+  <footer class="tm-footer">
+    <div class="container">
+      <div class="row margin-bottom-60">
+        <nav class="col-lg-3 col-md-3 tm-footer-nav tm-footer-div">
+          <h3 class="tm-footer-div-title">Main Menu</h3>
+          <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="vehicles.html">Vehicles</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="gallery.html">Directory</a></li>
+            <li><a href="services.html">Our Services</a></li>
           </ul>
         </nav>
-      </header>
-    </section>
-
-    <!-- Hero banner -->
-    <section class="container margin-bottom-50">
-      <div class="row">
-        <h2 class="col-lg-12 text-center text-uppercase margin-bottom-30">
-          Explore Our Premium Vehicle Collection
-        </h2>
-        <p class="col-lg-12 text-center margin-bottom-30">
-          Discover a range of top-quality vehicles carefully selected for
-          performance, comfort, and value. Click any vehicle to explore.
-        </p>
-        <img
-          src="img/5-.jpg"
-          alt="Gallery Banner"
-          class="img-responsive col-lg-12"
-          style="border-radius: 6px"
-        />
-      </div>
-    </section>
-
-    <!-- ── Brand Filter Tabs ── -->
-    <div class="filter-bar">
-      <button class="filter-btn active" data-brand="All">All</button>
-      <button class="filter-btn" data-brand="Toyota">Toyota</button>
-      <button class="filter-btn" data-brand="Honda">Honda</button>
-      <button class="filter-btn" data-brand="Nissan">Nissan</button>
-      <button class="filter-btn" data-brand="Mitsubishi">Mitsubishi</button>
-    </div>
-
-    <!-- ── Search + Sort row ── -->
-    <div class="gallery-search-row">
-      <input
-        type="text"
-        id="gallerySearch"
-        placeholder="🔍  Search vehicles..."
-      />
-      <select id="gallerySort">
-        <option value="">Sort By</option>
-        <option value="low">Price: Low → High</option>
-        <option value="high">Price: High → Low</option>
-        <option value="name">Name: A → Z</option>
-      </select>
-    </div>
-
-    <!-- Count bar -->
-    <div class="gallery-count-bar">
-      Showing <strong id="galleryCount">0</strong> vehicles &nbsp;·&nbsp; ❤️
-      Wishlist: <strong id="wishlistCount">0</strong> saved
-    </div>
-
-    <!-- Gallery grid -->
-    <section class="container margin-bottom-50">
-      <div class="row">
-        <div class="tm-gallery col-lg-12" id="galleryGrid">
-          <div id="noResults">
-            <i class="fas fa-images"></i>
-            No vehicles found. Try a different filter or search.
-          </div>
+        <div class="col-lg-5 col-md-5 tm-footer-div">
+          <h3 class="tm-footer-div-title">About Us</h3>
+          <p class="margin-top-15">At Siyathra, we turn your vehicle dreams into reality.</p>
+          <p class="margin-top-15">We pride ourselves on a smooth, stress-free car buying experience.</p><br>
+          <a href="tel:+94726306322" class="call-us">
+            <i class="fas fa-phone-alt"></i> Call Us: +94 72 630 6322
+          </a>
         </div>
-      </div>
-    </section>
-
-    <!-- WhatsApp -->
-    <div class="whatsapp-chatbox">
-      <div class="chat-header">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-          alt="WhatsApp"
-        />
-        <span>Chat with Siyathra Auto Hub</span>
-      </div>
-      <div class="chat-body">
-        <p>Hi 👋, how can we help you today?</p>
-        <a href="https://wa.me/94726306322" target="_blank">Start Chat</a>
-      </div>
-    </div>
-    <div
-      class="whatsapp-float"
-      onclick="
-        document.querySelector('.whatsapp-chatbox').classList.toggle('active')
-      "
-    >
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-        alt="WhatsApp"
-      />
-    </div>
-
-    <!-- Footer -->
-    <footer class="tm-footer">
-      <div class="container">
-        <div class="row margin-bottom-60">
-          <nav class="col-lg-3 col-md-3 tm-footer-nav tm-footer-div">
-            <h3 class="tm-footer-div-title">Main Menu</h3>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="gallery.html">Directory</a></li>
-              <li><a href="services.html">Our Services</a></li>
-            </ul>
-          </nav>
-          <div class="col-lg-5 col-md-5 tm-footer-div">
-            <h3 class="tm-footer-div-title">About Us</h3>
-            <p class="margin-top-15">
-              At Siyathra, we turn your vehicle dreams into reality.
-            </p>
-            <p class="margin-top-15">
-              We pride ourselves on a smooth, stress-free car buying experience.
-            </p>
-            <br />
-            <a href="tel:+94726306322" class="call-us">
-              <i class="fas fa-phone-alt"></i> Call Us: +94 72 630 6322
-            </a>
-          </div>
-          <div class="col-lg-4 col-md-4 tm-footer-div">
-            <div class="get-social-container">
-              <h3 class="tm-footer-div-title">Get Social</h3>
-              <p class="margin-top-15">
-                Follow Siyathra for the latest updates and new arrivals.
-              </p>
-              <div class="tm-social-icons-container">
-                <a href="#" class="tm-social-icon"
-                  ><i class="fa fa-facebook"></i
-                ></a>
-                <a href="#" class="tm-social-icon"
-                  ><i class="fab fa-tiktok"></i
-                ></a>
-                <a href="#" class="tm-social-icon"
-                  ><i class="fa fa-instagram"></i
-                ></a>
-              </div>
+        <div class="col-lg-4 col-md-4 tm-footer-div">
+          <div class="get-social-container">
+            <h3 class="tm-footer-div-title">Get Social</h3>
+            <p class="margin-top-15">Follow Siyathra for the latest updates and new arrivals.</p>
+            <div class="tm-social-icons-container">
+              <a href="#" class="tm-social-icon"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="tm-social-icon"><i class="fab fa-tiktok"></i></a>
+              <a href="#" class="tm-social-icon"><i class="fa fa-instagram"></i></a>
             </div>
           </div>
         </div>
-        <div class="row tm-copyright">
-          <div class="Copyright">
-            <p class="col-lg-12 small copyright-text text-center">
-              Copyright &copy; 2025 Siyathra. All rights reserved.
-            </p>
-          </div>
+      </div>
+      <div class="row tm-copyright">
+        <div class="Copyright">
+          <p class="col-lg-12 small copyright-text text-center">Copyright &copy; 2025 Siyathra. All rights reserved.</p>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="js/templatemo-script.js"></script>
+  <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="js/templatemo-script.js"></script>
 
-    <script>
-      /* ══════════════════════════════════════════
+  <script>
+    /* ══════════════════════════════════════════
        GALLERY DATA
     ══════════════════════════════════════════ */
-      const galleryData = [
-        {
-          brand: "Toyota",
-          name: "Toyota Aqua 2012",
-          price: 8500000,
-          img: "img/TOYOTA  AQUA.jpeg",
-          page: "view more.html",
-        },
-        {
-          brand: "Toyota",
-          name: "Toyota Prius 2016",
-          price: 14900000,
-          img: "img/TOYOTA  PRIUS.jpeg",
-          page: "view more.html",
-        },
-        {
-          brand: "Toyota",
-          name: "Toyota TRH 2021",
-          price: 16990000,
-          img: "img/TOYOTA  TRH.jpeg",
-          page: "view more.html",
-        },
-        {
-          brand: "Toyota",
-          name: "Toyota Aqua 2020",
-          price: 8000000,
-          img: "img/TOYOTA  AQUA 2020.jpeg",
-          page: "view more.html",
-        },
-        {
-          brand: "Toyota",
-          name: "Toyota Axio 2019",
-          price: 9350000,
-          img: "img/TOYOTA  AXIO.jpeg",
-          page: "view more.html",
-        },
-        {
-          brand: "Toyota",
-          name: "Toyota Corolla 2017",
-          price: 10750000,
-          img: "img/TOYOTA  COROLLA.jpeg",
-          page: "view more.html",
-        },
-        {
-          brand: "Honda",
-          name: "Honda Vezel 2018",
-          price: 10200000,
-          img: "img/HONDA  VEZEL.jpeg",
-          page: "view more.html",
-        },
-        {
-          brand: "Honda",
-          name: "Honda Grace 2017",
-          price: 7950000,
-          img: "img/HONDA  GRACE.jpeg",
-          page: "view more.html",
-        },
-        {
-          brand: "Honda",
-          name: "Honda Civic 2019",
-          price: 12300000,
-          img: "img/HONDA  CIVIC.jpeg",
-          page: "view more.html",
-        },
-        {
-          brand: "Nissan",
-          name: "Nissan AD Wagon Y10",
-          price: 2475000,
-          img: "img/NISSAN AD WAGON Y.jpeg",
-          page: "view more.html",
-        },
-        {
-          brand: "Nissan",
-          name: "Nissan Sylphy 2015",
-          price: 6500000,
-          img: "img/NISSAN  SYLPHY.jpeg",
-          page: "view more.html",
-        },
-        {
-          brand: "Mitsubishi",
-          name: "Mitsubishi Mirage 2018",
-          price: 4750000,
-          img: "img/MITSUBISHI  MIRAGE.jpeg",
-          page: "view more.html",
-        },
-      ];
+    const galleryData = [
+      { brand:"Toyota",     name:"Toyota Aqua 2012",       price:8500000,  img:"img/TOYOTA  AQUA.jpeg",       page:"view more.html" },
+      { brand:"Toyota",     name:"Toyota Prius 2016",       price:14900000, img:"img/TOYOTA  PRIUS.jpeg",      page:"view more.html" },
+      { brand:"Toyota",     name:"Toyota TRH 2021",         price:16990000, img:"img/TOYOTA  TRH.jpeg",        page:"view more.html" },
+      { brand:"Toyota",     name:"Toyota Aqua 2020",        price:8000000,  img:"img/TOYOTA  AQUA 2020.jpeg",  page:"view more.html" },
+      { brand:"Toyota",     name:"Toyota Axio 2019",        price:9350000,  img:"img/TOYOTA  AXIO.jpeg",       page:"view more.html" },
+      { brand:"Toyota",     name:"Toyota Corolla 2017",     price:10750000, img:"img/TOYOTA  COROLLA.jpeg",    page:"view more.html" },
+      { brand:"Honda",      name:"Honda Vezel 2018",        price:10200000, img:"img/HONDA  VEZEL.jpeg",       page:"view more.html" },
+      { brand:"Honda",      name:"Honda Grace 2017",        price:7950000,  img:"img/HONDA  GRACE.jpeg",       page:"view more.html" },
+      { brand:"Honda",      name:"Honda Civic 2019",        price:12300000, img:"img/HONDA  CIVIC.jpeg",       page:"view more.html" },
+      { brand:"Nissan",     name:"Nissan AD Wagon Y10",     price:2475000,  img:"img/NISSAN AD WAGON Y.jpeg",  page:"view more.html" },
+      { brand:"Nissan",     name:"Nissan Sylphy 2015",      price:6500000,  img:"img/NISSAN  SYLPHY.jpeg",     page:"view more.html" },
+      { brand:"Mitsubishi", name:"Mitsubishi Mirage 2018",  price:4750000,  img:"img/MITSUBISHI  MIRAGE.jpeg", page:"view more.html" },
+    ];
 
-      let activeBrand = "All";
-      let searchQuery = "";
-      let sortMode = "";
-      let filteredData = [...galleryData];
-      let lbIndex = 0;
-      let wishlist = JSON.parse(
-        localStorage.getItem("siyathra_wishlist") || "[]",
+    let activeBrand  = "All";
+    let searchQuery  = "";
+    let sortMode     = "";
+    let filteredData = [...galleryData];
+    let lbIndex      = 0;
+    let wishlist     = JSON.parse(localStorage.getItem('siyathra_wishlist') || '[]');
+
+    function fmtPrice(n) { return 'LKR ' + n.toLocaleString(); }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    function updateWishlistCount() {
+      document.getElementById('wishlistCount').textContent =
+        JSON.parse(localStorage.getItem('siyathra_wishlist') || '[]').length;
+    }
+
+    /* ── Render gallery ── */
+    function renderGallery() {
+      let list = galleryData.filter(v =>
+        activeBrand === "All" || v.brand === activeBrand
       );
 
-      function fmtPrice(n) {
-        return "LKR " + n.toLocaleString();
-      }
-
-      function showToast(msg) {
-        const t = document.getElementById("toast");
-        t.textContent = msg;
-        t.classList.add("show");
-        setTimeout(() => t.classList.remove("show"), 2200);
-      }
-
-      function updateWishlistCount() {
-        document.getElementById("wishlistCount").textContent = JSON.parse(
-          localStorage.getItem("siyathra_wishlist") || "[]",
-        ).length;
-      }
-
-      /* ── Render gallery ── */
-      function renderGallery() {
-        let list = galleryData.filter(
-          (v) => activeBrand === "All" || v.brand === activeBrand,
+      if (searchQuery) {
+        list = list.filter(v =>
+          v.name.toLowerCase().includes(searchQuery) ||
+          v.brand.toLowerCase().includes(searchQuery)
         );
+      }
 
-        if (searchQuery) {
-          list = list.filter(
-            (v) =>
-              v.name.toLowerCase().includes(searchQuery) ||
-              v.brand.toLowerCase().includes(searchQuery),
-          );
-        }
+      if (sortMode === 'low')  list.sort((a,b) => a.price - b.price);
+      if (sortMode === 'high') list.sort((a,b) => b.price - a.price);
+      if (sortMode === 'name') list.sort((a,b) => a.name.localeCompare(b.name));
 
-        if (sortMode === "low") list.sort((a, b) => a.price - b.price);
-        if (sortMode === "high") list.sort((a, b) => b.price - a.price);
-        if (sortMode === "name")
-          list.sort((a, b) => a.name.localeCompare(b.name));
+      filteredData = list;
 
-        filteredData = list;
+      const grid   = document.getElementById('galleryGrid');
+      const noRes  = document.getElementById('noResults');
 
-        const grid = document.getElementById("galleryGrid");
-        const noRes = document.getElementById("noResults");
+      grid.querySelectorAll('.tm-item-container').forEach(el => el.remove());
+      document.getElementById('galleryCount').textContent = list.length;
 
-        grid
-          .querySelectorAll(".tm-item-container")
-          .forEach((el) => el.remove());
-        document.getElementById("galleryCount").textContent = list.length;
+      if (list.length === 0) { noRes.style.display = 'block'; return; }
+      noRes.style.display = 'none';
 
-        if (list.length === 0) {
-          noRes.style.display = "block";
-          return;
-        }
-        noRes.style.display = "none";
-
-        list.forEach(function (v, i) {
-          const isWished = wishlist.includes(v.name);
-          const card = document.createElement("div");
-          card.className = "tm-item-container reveal";
-          card.style.transitionDelay = i * 0.06 + "s";
-          card.setAttribute("data-index", i);
-          card.innerHTML = `
-          <button class="card-wishlist-btn ${isWished ? "wishlisted" : ""}"
+      list.forEach(function(v, i) {
+        const isWished = wishlist.includes(v.name);
+        const card     = document.createElement('div');
+        card.className = 'tm-item-container reveal';
+        card.style.transitionDelay = (i * 0.06) + 's';
+        card.setAttribute('data-index', i);
+        card.innerHTML = `
+          <button class="card-wishlist-btn ${isWished ? 'wishlisted' : ''}"
                   data-id="${v.name}" title="Save to wishlist">
             <i class="fas fa-heart"></i>
           </button>
@@ -868,191 +606,157 @@
           <div class="tm-item-price-container">
             <span class="brand-tag">${v.brand}</span>
             <span class="gallery-tm-item-price">${v.name}<p>${fmtPrice(v.price)}</p></span>
-            <a href="${v.page}" class="view-more-btn">
-              View More <i class="fas fa-arrow-right" style="font-size:11px;margin-left:4px;"></i>
-            </a>
+            <div class="card-info-bottom">
+              <a href="${v.page}" class="view-more-btn">
+                View More <i class="fas fa-arrow-right" style="font-size:11px;margin-left:4px;"></i>
+              </a>
+            </div>
           </div>`;
 
-          /* Open lightbox on card click (but not on wishlist btn or view more) */
-          card
-            .querySelector(".card-img-1")
-            .addEventListener("click", function () {
-              openLightbox(i);
-            });
-          card
-            .querySelector(".gallery-tm-item-price")
-            .addEventListener("click", function () {
-              openLightbox(i);
-            });
-
-          /* Wishlist button */
-          card
-            .querySelector(".card-wishlist-btn")
-            .addEventListener("click", function (e) {
-              e.stopPropagation();
-              wishlist = JSON.parse(
-                localStorage.getItem("siyathra_wishlist") || "[]",
-              );
-              const id = this.getAttribute("data-id");
-              if (wishlist.includes(id)) {
-                wishlist = wishlist.filter((x) => x !== id);
-                this.classList.remove("wishlisted");
-                showToast("Removed from wishlist");
-              } else {
-                wishlist.push(id);
-                this.classList.add("wishlisted");
-                showToast("❤️ Added to wishlist!");
-              }
-              localStorage.setItem(
-                "siyathra_wishlist",
-                JSON.stringify(wishlist),
-              );
-              updateWishlistCount();
-            });
-
-          grid.appendChild(card);
+        /* Open lightbox on card click (but not on wishlist btn or view more) */
+        card.querySelector('.card-img-1').addEventListener('click', function() {
+          openLightbox(i);
+        });
+        card.querySelector('.gallery-tm-item-price').addEventListener('click', function() {
+          openLightbox(i);
         });
 
-        /* Trigger scroll-reveal for new cards */
-        setTimeout(function () {
-          grid
-            .querySelectorAll(".tm-item-container.reveal")
-            .forEach((el) => revealObs.observe(el));
-        }, 50);
-      }
-
-      /* ════════ LIGHTBOX ════════ */
-      function openLightbox(index) {
-        lbIndex = index;
-        updateLightbox();
-        document.getElementById("lightbox").classList.add("open");
-        document.body.style.overflow = "hidden";
-      }
-
-      function closeLightbox() {
-        document.getElementById("lightbox").classList.remove("open");
-        document.body.style.overflow = "";
-      }
-
-      function lbNav(step) {
-        lbIndex = (lbIndex + step + filteredData.length) % filteredData.length;
-        updateLightbox();
-      }
-
-      function updateLightbox() {
-        const v = filteredData[lbIndex];
-        const img = document.getElementById("lbImg");
-        img.style.opacity = "0";
-        img.src = v.img;
-        img.onload = function () {
-          img.style.transition = "opacity 0.3s ease";
-          img.style.opacity = "1";
-        };
-        img.onerror = function () {
-          img.src = "img/toyota (2).jpg";
-          img.style.opacity = "1";
-        };
-        document.getElementById("lbName").textContent = v.name;
-        document.getElementById("lbPrice").textContent = fmtPrice(v.price);
-        document.getElementById("lbLink").href = v.page;
-        document.getElementById("lbCounter").textContent =
-          lbIndex + 1 + " / " + filteredData.length;
-      }
-
-      /* Close lightbox on backdrop click */
-      document
-        .getElementById("lightbox")
-        .addEventListener("click", function (e) {
-          if (e.target === this) closeLightbox();
+        /* Wishlist button */
+        card.querySelector('.card-wishlist-btn').addEventListener('click', function(e) {
+          e.stopPropagation();
+          wishlist = JSON.parse(localStorage.getItem('siyathra_wishlist') || '[]');
+          const id = this.getAttribute('data-id');
+          if (wishlist.includes(id)) {
+            wishlist = wishlist.filter(x => x !== id);
+            this.classList.remove('wishlisted');
+            showToast('Removed from wishlist');
+          } else {
+            wishlist.push(id);
+            this.classList.add('wishlisted');
+            showToast('❤️ Added to wishlist!');
+          }
+          localStorage.setItem('siyathra_wishlist', JSON.stringify(wishlist));
+          updateWishlistCount();
         });
 
-      /* Keyboard navigation */
-      document.addEventListener("keydown", function (e) {
-        const lb = document.getElementById("lightbox");
-        if (!lb.classList.contains("open")) return;
-        if (e.key === "ArrowRight") lbNav(1);
-        if (e.key === "ArrowLeft") lbNav(-1);
-        if (e.key === "Escape") closeLightbox();
+        grid.appendChild(card);
       });
 
-      /* ── Filter tabs ── */
-      document.querySelectorAll(".filter-btn").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          document
-            .querySelectorAll(".filter-btn")
-            .forEach((b) => b.classList.remove("active"));
-          this.classList.add("active");
-          activeBrand = this.getAttribute("data-brand");
-          renderGallery();
-        });
+      /* Trigger scroll-reveal for new cards */
+      setTimeout(function() {
+        grid.querySelectorAll('.tm-item-container.reveal').forEach(el => revealObs.observe(el));
+      }, 50);
+    }
+
+    /* ════════ LIGHTBOX ════════ */
+    function openLightbox(index) {
+      lbIndex = index;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function lbNav(step) {
+      lbIndex = (lbIndex + step + filteredData.length) % filteredData.length;
+      updateLightbox();
+    }
+
+    function updateLightbox() {
+      const v = filteredData[lbIndex];
+      const img = document.getElementById('lbImg');
+      img.style.opacity = '0';
+      img.src = v.img;
+      img.onload = function() {
+        img.style.transition = 'opacity 0.3s ease';
+        img.style.opacity = '1';
+      };
+      img.onerror = function() { img.src = 'img/toyota (2).jpg'; img.style.opacity = '1'; };
+      document.getElementById('lbName').textContent  = v.name;
+      document.getElementById('lbPrice').textContent = fmtPrice(v.price);
+      document.getElementById('lbLink').href         = v.page;
+      document.getElementById('lbCounter').textContent =
+        (lbIndex + 1) + ' / ' + filteredData.length;
+    }
+
+    /* Close lightbox on backdrop click */
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+
+    /* Keyboard navigation */
+    document.addEventListener('keydown', function(e) {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'ArrowRight') lbNav(1);
+      if (e.key === 'ArrowLeft')  lbNav(-1);
+      if (e.key === 'Escape')     closeLightbox();
+    });
+
+    /* ── Filter tabs ── */
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        activeBrand = this.getAttribute('data-brand');
+        renderGallery();
       });
+    });
 
-      /* ── Search ── */
-      document
-        .getElementById("gallerySearch")
-        .addEventListener("input", function () {
-          searchQuery = this.value.trim().toLowerCase();
-          renderGallery();
-        });
-
-      /* ── Sort ── */
-      document
-        .getElementById("gallerySort")
-        .addEventListener("change", function () {
-          sortMode = this.value;
-          renderGallery();
-        });
-
-      /* ── Scroll-reveal observer ── */
-      const revealObs = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (e) {
-            if (e.isIntersecting) {
-              e.target.classList.add("visible");
-              revealObs.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.08 },
-      );
-
-      document
-        .querySelectorAll(".reveal")
-        .forEach((el) => revealObs.observe(el));
-
-      /* ── Sticky nav ── */
-      window.addEventListener("scroll", function () {
-        document
-          .getElementById("mainHeader")
-          .classList.toggle("scrolled", window.scrollY > 60);
-        const btn = document.getElementById("backToTop");
-        btn.style.display = window.scrollY > 400 ? "flex" : "none";
-      });
-
-      /* ── Active nav link ── */
-      document.querySelectorAll(".nav-links a").forEach(function (link) {
-        if (link.href === window.location.href)
-          link.classList.add("active-link");
-      });
-
-      /* ── Hamburger ── */
-      document
-        .getElementById("hamburger")
-        .addEventListener("click", function () {
-          this.classList.toggle("open");
-          document.getElementById("mainNav").classList.toggle("open");
-        });
-
-      /* ── Back to top ── */
-      document
-        .getElementById("backToTop")
-        .addEventListener("click", function () {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-
-      /* ── Init ── */
+    /* ── Search ── */
+    document.getElementById('gallerySearch').addEventListener('input', function() {
+      searchQuery = this.value.trim().toLowerCase();
       renderGallery();
-      updateWishlistCount();
-    </script>
-  </body>
+    });
+
+    /* ── Sort ── */
+    document.getElementById('gallerySort').addEventListener('change', function() {
+      sortMode = this.value;
+      renderGallery();
+    });
+
+    /* ── Scroll-reveal observer ── */
+    const revealObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    /* ── Sticky nav ── */
+    window.addEventListener('scroll', function() {
+      document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 60);
+      const btn = document.getElementById('backToTop');
+      btn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+    });
+
+    /* ── Active nav link ── */
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+      if (link.href === window.location.href) link.classList.add('active-link');
+    });
+
+    /* ── Hamburger ── */
+    document.getElementById('hamburger').addEventListener('click', function() {
+      this.classList.toggle('open');
+      document.getElementById('mainNav').classList.toggle('open');
+    });
+
+    /* ── Back to top ── */
+    document.getElementById('backToTop').addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ── Init ── */
+    renderGallery();
+    updateWishlistCount();
+  </script>
+</body>
 </html>
