@@ -1,180 +1,1267 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>view more</title>
-  <meta name="description" content="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Siyathra - Vehicle Details</title>
+    <meta name="description" content="" />
 
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/coustem.css" rel="stylesheet">
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/templatemo-style.css" rel="stylesheet">
+    <link
+      href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/coustem.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/templatemo-style.css" rel="stylesheet" />
 
- 
+    <style>
+      /* ── Sticky navbar ── */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        transition:
+          box-shadow 0.3s ease,
+          padding 0.3s ease;
+      }
+      header.scrolled {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        padding: 18px 50px;
+      }
 
-</head>
-      <body class="about-page">
+      /* ── Active nav ── */
+      .nav-links li a.active-link {
+        color: #d54a4a;
+        border-bottom: 2px solid #d54a4a;
+      }
 
-        
-    
-        <section class="templatemo-top-section">
-  <header class="header">
-            <div class="logo">Siyathra</div>
+      /* ── Hamburger ── */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+        margin-left: auto;
+      }
+      .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: white;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+      }
+      .hamburger.open span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      .hamburger.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.open span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
 
-             <nav>
-              <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="vehicles.html">Vehivles</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-              </ul>
-             </nav>
+      /* ── Scroll reveal ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
-               
-  </header>
-         
-         </section>
-      
+      /* ════════════════════════════════
+       PAGE LAYOUT
+    ════════════════════════════════ */
+      .detail-page-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 30px 20px 50px;
+      }
 
-    <!--Main content-->
-  <section class="container">      
-    <div class="about-container-5">
-       
-        <div class="about-container-right">
-          <h2 class="about-title">
-            <div class="title-4-border">
-            Toyota Aqua 2020
-            </div>
-          </h2><br>
-          <p class="about-description">
-          <h4 ul>
-            
-                <li>Name/Model : Toyota Aqua 2020 </li><br> 
+      /* ── Breadcrumb ── */
+      .breadcrumb-bar {
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 22px;
+      }
+      .breadcrumb-bar a {
+        color: #d54a4a;
+        text-decoration: none;
+      }
+      .breadcrumb-bar a:hover {
+        text-decoration: underline;
+      }
+      .breadcrumb-bar span {
+        margin: 0 6px;
+      }
 
-                <li>Price : Rs. 6,800,000</li><br>
+      /* ════════════════════════════════
+       TOP SECTION: Slider + Specs
+    ════════════════════════════════ */
+      .detail-top {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-bottom: 35px;
+      }
 
-                <li>Mileage : 42,000 km</li><br>
+      /* ── Image slider ── */
+      .detail-slider-wrap {
+        flex: 1 1 420px;
+        min-width: 0;
+      }
+      .main-img-wrap {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #111;
+        height: 320px;
+        margin-bottom: 12px;
+      }
+      .main-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 0.35s ease;
+      }
+      .main-img-wrap img.fade {
+        opacity: 0;
+      }
 
-                <li>Transmission : Automatic</li><br>
+      /* Prev / Next arrows */
+      .slider-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.45);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background 0.3s;
+        z-index: 5;
+      }
+      .slider-arrow:hover {
+        background: #d54a4a;
+      }
+      .slider-arrow.prev {
+        left: 10px;
+      }
+      .slider-arrow.next {
+        right: 10px;
+      }
 
-                <li>Fuel Type : Hybrid (Petrol + Electric)</li><br>
+      /* Slide counter badge */
+      .slide-counter {
+        position: absolute;
+        bottom: 10px;
+        right: 14px;
+        background: rgba(0, 0, 0, 0.55);
+        color: white;
+        font-size: 12px;
+        padding: 3px 10px;
+        border-radius: 20px;
+      }
 
-                <li>Condition : Used – Excellent</li><br>
+      /* Wishlist button on main image */
+      .img-wishlist-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        font-size: 17px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        transition: transform 0.2s;
+        color: #aaa;
+        z-index: 6;
+      }
+      .img-wishlist-btn:hover {
+        transform: scale(1.15);
+      }
+      .img-wishlist-btn.wishlisted {
+        color: #d54a4a;
+      }
+
+      /* Thumbnail strip */
+      .thumb-strip {
+        display: flex;
+        gap: 8px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+      .thumb-strip::-webkit-scrollbar {
+        height: 4px;
+      }
+      .thumb-strip::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 4px;
+      }
+      .thumb {
+        width: 80px;
+        height: 58px;
+        object-fit: cover;
+        border-radius: 5px;
+        cursor: pointer;
+        flex-shrink: 0;
+        border: 2px solid transparent;
+        opacity: 0.65;
+        transition:
+          opacity 0.2s,
+          border-color 0.2s;
+      }
+      .thumb.active {
+        border-color: #d54a4a;
+        opacity: 1;
+      }
+      .thumb:hover {
+        opacity: 0.9;
+      }
+
+      /* ── Specs panel ── */
+      .detail-specs {
+        flex: 1 1 300px;
+        min-width: 0;
+      }
+      .spec-title-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+      .spec-title-row h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #232222;
+        margin: 0;
+      }
+      .spec-price {
+        font-size: 22px;
+        font-weight: 700;
+        color: #d54a4a;
+        margin-bottom: 18px;
+      }
+      .spec-badge {
+        display: inline-block;
+        background: #4caf50;
+        color: white;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+      .spec-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      .spec-table tr {
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .spec-table td {
+        padding: 9px 6px;
+        font-size: 14px;
+      }
+      .spec-table td:first-child {
+        color: #888;
+        font-weight: 600;
+        width: 45%;
+      }
+      .spec-table td:last-child {
+        color: #232222;
+        font-weight: 700;
+      }
+
+      /* CTA buttons */
+      .cta-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 6px;
+      }
+      .btn-primary-red {
+        flex: 1;
+        background: #d54a4a;
+        color: white;
+        border: none;
+        padding: 13px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.3s;
+        text-align: center;
+        text-decoration: none;
+      }
+      .btn-primary-red:hover {
+        background: #b53636;
+        color: white;
+      }
+      .btn-outline-dark {
+        flex: 1;
+        background: transparent;
+        color: #232222;
+        border: 2px solid #232222;
+        padding: 11px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+        text-decoration: none;
+      }
+      .btn-outline-dark:hover {
+        background: #232222;
+        color: white;
+      }
+
+      /* ════════════════════════════════
+       TABS — Overview / Features / Seller
+    ════════════════════════════════ */
+      .detail-tabs-wrap {
+        margin-bottom: 35px;
+      }
+      .tab-nav {
+        display: flex;
+        gap: 0;
+        border-bottom: 2px solid #e0e0e0;
+        margin-bottom: 0;
+      }
+      .tab-btn {
+        background: none;
+        border: none;
+        padding: 13px 24px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        color: #888;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+        transition: all 0.25s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .tab-btn.active {
+        color: #d54a4a;
+        border-bottom-color: #d54a4a;
+      }
+      .tab-btn:hover:not(.active) {
+        color: #232222;
+      }
+
+      .tab-panel {
+        display: none;
+        background: white;
+        border-radius: 0 0 8px 8px;
+        padding: 28px 24px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+        animation: fadeTab 0.3s ease;
+      }
+      .tab-panel.active {
+        display: block;
+      }
+      @keyframes fadeTab {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Overview tab */
+      .overview-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .overview-card {
+        background: #f8f8f8;
+        border-radius: 6px;
+        padding: 16px;
+        text-align: center;
+      }
+      .overview-card i {
+        font-size: 22px;
+        color: #d54a4a;
+        margin-bottom: 8px;
+      }
+      .overview-card .ov-val {
+        font-size: 15px;
+        font-weight: 700;
+        color: #232222;
+        display: block;
+      }
+      .overview-card .ov-lbl {
+        font-size: 11px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .overview-desc {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.8em;
+      }
+
+      /* Features tab */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: #333;
+        background: #f8f8f8;
+        padding: 10px 14px;
+        border-radius: 5px;
+      }
+      .feature-item i {
+        color: #4caf50;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      /* Seller tab */
+      .seller-info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .seller-detail-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .seller-detail-row i {
+        color: #d54a4a;
+        font-size: 16px;
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+      .seller-detail-row div {
+        font-size: 14px;
+      }
+      .seller-detail-row .sd-label {
+        font-size: 11px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .seller-detail-row .sd-val {
+        font-weight: 700;
+        color: #232222;
+      }
+      .map-placeholder {
+        background: #e8e8e8;
+        border-radius: 6px;
+        height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #aaa;
+        font-size: 14px;
+        border: 1px dashed #ccc;
+      }
+
+      /* ════════════════════════════════
+       CONTACT / ENQUIRY MODAL
+    ════════════════════════════════ */
+      #contactModal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      #contactModal.open {
+        display: flex;
+      }
+      .modal-box {
+        background: white;
+        border-radius: 10px;
+        padding: 35px 30px;
+        width: 100%;
+        max-width: 460px;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: modalIn 0.3s ease;
+      }
+      @keyframes modalIn {
+        from {
+          opacity: 0;
+          transform: scale(0.92) translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+      .modal-close {
+        position: absolute;
+        top: 14px;
+        right: 18px;
+        background: none;
+        border: none;
+        font-size: 22px;
+        cursor: pointer;
+        color: #aaa;
+        transition: color 0.2s;
+      }
+      .modal-close:hover {
+        color: #d54a4a;
+      }
+      .modal-box h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 0 5px;
+        color: #232222;
+      }
+      .modal-sub {
+        color: #888;
+        font-size: 13px;
+        margin-bottom: 22px;
+      }
+      .modal-field {
+        margin-bottom: 14px;
+      }
+      .modal-field label {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 5px;
+      }
+      .modal-field input,
+      .modal-field select,
+      .modal-field textarea {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.3s;
+        font-family: inherit;
+      }
+      .modal-field input:focus,
+      .modal-field select:focus,
+      .modal-field textarea:focus {
+        border-color: #d54a4a;
+      }
+      .modal-field textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      .modal-submit-btn {
+        width: 100%;
+        background: #d54a4a;
+        color: white;
+        border: none;
+        padding: 13px;
+        border-radius: 5px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin-top: 6px;
+      }
+      .modal-submit-btn:hover {
+        background: #b53636;
+      }
+      .modal-success {
+        display: none;
+        text-align: center;
+        padding: 20px 0 10px;
+      }
+      .modal-success i {
+        font-size: 48px;
+        color: #4caf50;
+        margin-bottom: 12px;
+      }
+      .modal-success h4 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #232222;
+      }
+      .modal-success p {
+        color: #888;
+        font-size: 14px;
+      }
+
+      /* ── Back to top ── */
+      #backToTop {
+        position: fixed;
+        bottom: 90px;
+        right: 22px;
+        background: #d54a4a;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 998;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        transition: background 0.3s;
+      }
+      #backToTop:hover {
+        background: #b53636;
+      }
+
+      /* ── Toast ── */
+      #toast {
+        position: fixed;
+        bottom: 140px;
+        right: 22px;
+        background: #232222;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-size: 13px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s;
+        z-index: 9999;
+      }
+      #toast.show {
+        opacity: 1;
+      }
+
+      /* ── Share buttons ── */
+      .share-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+      .share-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        border-radius: 5px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        text-decoration: none;
+        color: white;
+        transition: opacity 0.2s;
+      }
+      .share-btn:hover {
+        opacity: 0.85;
+        color: white;
+      }
+      .share-wa {
+        background: #25d366;
+      }
+      .share-fb {
+        background: #1877f2;
+      }
+      .share-copy {
+        background: #555;
+      }
+
+      /* ═══════════════ RESPONSIVE ═══════════════ */
+      @media (max-width: 900px) {
+        header {
+          gap: 0;
+          flex-wrap: wrap;
+          padding: 20px 30px;
+        }
+        .nav-links {
+          gap: 30px;
+        }
+        .overview-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .seller-info-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 767px) {
+        header {
+          flex-wrap: wrap;
+          gap: 0;
+          padding: 18px 20px;
+        }
+        .logo {
+          font-size: 26px;
+        }
+        .hamburger {
+          display: flex;
+        }
+        nav {
+          width: 100%;
+          overflow: hidden;
+          max-height: 0;
+          transition: max-height 0.4s ease;
+        }
+        nav.open {
+          max-height: 300px;
+        }
+        .nav-links {
+          flex-direction: column;
+          gap: 0;
+          padding: 10px 0;
+        }
+        .nav-links li a {
+          display: block;
+          padding: 10px 5px;
+          border-bottom: 1px solid #333;
+        }
+
+        .detail-top {
+          flex-direction: column;
+        }
+        .detail-slider-wrap,
+        .detail-specs {
+          flex: none;
+          width: 100%;
+        }
+        .main-img-wrap {
+          height: 240px;
+        }
+
+        .overview-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+        .seller-info-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .tab-btn {
+          padding: 11px 14px;
+          font-size: 12px;
+        }
+        .tab-panel {
+          padding: 20px 16px;
+        }
+
+        .cta-row {
+          flex-direction: column;
+        }
+        .btn-primary-red,
+        .btn-outline-dark {
+          flex: none;
+          width: 100%;
+        }
+
+        .modal-box {
+          padding: 25px 16px;
+        }
+
+        .tm-footer .col-lg-3,
+        .tm-footer .col-lg-5,
+        .tm-footer .col-lg-4 {
+          width: 100% !important;
+          margin-bottom: 25px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .main-img-wrap {
+          height: 200px;
+        }
+        .overview-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .thumb {
+          width: 64px;
+          height: 46px;
+        }
+        .tab-btn {
+          padding: 10px 10px;
+          font-size: 11px;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="about-page">
+    <!-- Contact Modal -->
+    <div id="contactModal">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+        <div id="modalForm">
+          <h3 id="modalTitle">Contact Seller</h3>
+          <p class="modal-sub">
+            Fill in your details and the seller will reach out shortly.
+          </p>
+          <div class="modal-field">
+            <label>Your Name</label>
+            <input type="text" id="mName" placeholder="e.g. Kamal Perera" />
+          </div>
+          <div class="modal-field">
+            <label>Phone Number</label>
+            <input type="tel" id="mPhone" placeholder="e.g. 077 123 4567" />
+          </div>
+          <div class="modal-field">
+            <label>Message</label>
+            <textarea
+              id="mMessage"
+              placeholder="I'm interested in this vehicle..."
+            >
+I'm interested in the Toyota Aqua 2020. Please contact me.</textarea
+            >
+          </div>
+          <button class="modal-submit-btn" onclick="submitContact()">
+            <i class="fas fa-paper-plane" style="margin-right: 8px"></i> Send
+            Message
+          </button>
+        </div>
+        <div class="modal-success" id="modalSuccess">
+          <i class="fas fa-check-circle"></i>
+          <h4>Message Sent!</h4>
+          <p>The seller will contact you within 24 hours. Thank you!</p>
+          <button
+            class="btn-primary-red"
+            style="margin-top: 16px; width: auto; padding: 10px 28px"
+            onclick="closeModal()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="backToTop" title="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Toast -->
+    <div id="toast"></div>
+
+    <!-- Header -->
+    <section class="templatemo-top-section">
+      <header id="mainHeader" class="header">
+        <div class="logo">Siyathra</div>
+        <div class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+        <nav id="mainNav">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vehicles.html">Vehicles</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
           </ul>
+        </nav>
+      </header>
+    </section>
+
+    <!-- ════ MAIN DETAIL PAGE ════ -->
+    <div class="detail-page-wrap">
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-bar reveal">
+        <a href="index.html">Home</a>
+        <span>›</span>
+        <a href="vehicles.html">Vehicles</a>
+        <span>›</span>
+        Toyota Aqua 2020
+      </div>
+
+      <!-- ── TOP: Slider + Specs ── -->
+      <div class="detail-top">
+        <!-- Image Slider -->
+        <div class="detail-slider-wrap reveal">
+          <div class="main-img-wrap">
+            <img
+              id="mainImg"
+              src="img/TOYOTA  AQUA 2020.jpeg"
+              alt="Toyota Aqua 2020"
+              onerror="this.src = 'img/toyota (2).jpg'"
+            />
+
+            <button class="slider-arrow prev" onclick="slideImg(-1)">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-arrow next" onclick="slideImg(1)">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+            <span class="slide-counter" id="slideCounter">1 / 5</span>
+
+            <!-- Wishlist -->
+            <button
+              class="img-wishlist-btn"
+              id="wishlistBtn"
+              title="Save to wishlist"
+            >
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+
+          <!-- Thumbnails -->
+          <div class="thumb-strip" id="thumbStrip">
+            <img
+              class="thumb active"
+              src="img/TOYOTA  AQUA 2020.jpeg"
+              alt="1"
+              onerror="this.src = 'img/toyota (2).jpg'"
+              onclick="goToSlide(0)"
+            />
+            <img
+              class="thumb"
+              src="img/front.jpeg"
+              alt="2"
+              onerror="this.src = 'img/toyota (2).jpg'"
+              onclick="goToSlide(1)"
+            />
+            <img
+              class="thumb"
+              src="img/side1.jpeg"
+              alt="3"
+              onerror="this.src = 'img/toyota (2).jpg'"
+              onclick="goToSlide(2)"
+            />
+            <img
+              class="thumb"
+              src="img/side2.jpeg"
+              alt="4"
+              onerror="this.src = 'img/toyota (2).jpg'"
+              onclick="goToSlide(3)"
+            />
+            <img
+              class="thumb"
+              src="img/back.jpeg"
+              alt="5"
+              onerror="this.src = 'img/toyota (2).jpg'"
+              onclick="goToSlide(4)"
+            />
+          </div>
+        </div>
+
+        <!-- Specs Panel -->
+        <div class="detail-specs reveal">
+          <div class="spec-title-row">
+            <h2>Toyota Aqua 2020</h2>
+          </div>
+          <span class="spec-badge"
+            ><i class="fas fa-check-circle" style="margin-right: 4px"></i>
+            Available</span
+          >
+          <div class="spec-price">LKR 6,800,000</div>
+
+          <table class="spec-table">
+            <tr>
+              <td>Model</td>
+              <td>Toyota Aqua 2020</td>
+            </tr>
+            <tr>
+              <td>Mileage</td>
+              <td>42,000 km</td>
+            </tr>
+            <tr>
+              <td>Transmission</td>
+              <td>Automatic</td>
+            </tr>
+            <tr>
+              <td>Fuel Type</td>
+              <td>Hybrid (Petrol + Electric)</td>
+            </tr>
+            <tr>
+              <td>Condition</td>
+              <td>Used – Excellent</td>
+            </tr>
+            <tr>
+              <td>Year</td>
+              <td>2020</td>
+            </tr>
+            <tr>
+              <td>Color</td>
+              <td>Pearl White</td>
+            </tr>
+            <tr>
+              <td>Engine</td>
+              <td>1500cc</td>
+            </tr>
+          </table>
+
+          <div class="cta-row">
+            <button class="btn-primary-red" onclick="openModal()">
+              <i class="fas fa-envelope" style="margin-right: 6px"></i> Contact
+              Seller
+            </button>
+            <a href="tel:+94726306322" class="btn-outline-dark">
+              <i class="fas fa-phone-alt" style="margin-right: 6px"></i> Call
+              Now
+            </a>
+          </div>
+
+          <!-- Share buttons -->
+          <div class="share-row">
+            <a
+              class="share-btn share-wa"
+              href="https://wa.me/?text=Check+out+this+Toyota+Aqua+2020+on+Siyathra!+LKR+6,800,000"
+              target="_blank"
+            >
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a
+              class="share-btn share-fb"
+              href="https://www.facebook.com/sharer/sharer.php?u=https://siyathra.lk"
+              target="_blank"
+            >
+              <i class="fab fa-facebook-f"></i> Facebook
+            </a>
+            <button class="share-btn share-copy" onclick="copyLink()">
+              <i class="fas fa-link"></i> Copy Link
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TABS: Overview / Features / Seller ── -->
+      <div class="detail-tabs-wrap reveal">
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="switchTab('overview', this)">
+            Overview
+          </button>
+          <button class="tab-btn" onclick="switchTab('features', this)">
+            Key Features
+          </button>
+          <button class="tab-btn" onclick="switchTab('seller', this)">
+            Seller Info
+          </button>
+        </div>
+
+        <!-- Overview -->
+        <div class="tab-panel active" id="tab-overview">
+          <div class="overview-grid">
+            <div class="overview-card">
+              <i class="fas fa-road"></i>
+              <span class="ov-val">42,000 km</span>
+              <span class="ov-lbl">Mileage</span>
+            </div>
+            <div class="overview-card">
+              <i class="fas fa-gas-pump"></i>
+              <span class="ov-val">Hybrid</span>
+              <span class="ov-lbl">Fuel Type</span>
+            </div>
+            <div class="overview-card">
+              <i class="fas fa-cog"></i>
+              <span class="ov-val">Auto</span>
+              <span class="ov-lbl">Transmission</span>
+            </div>
+            <div class="overview-card">
+              <i class="fas fa-calendar-alt"></i>
+              <span class="ov-val">2020</span>
+              <span class="ov-lbl">Year</span>
+            </div>
+            <div class="overview-card">
+              <i class="fas fa-palette"></i>
+              <span class="ov-val">Pearl White</span>
+              <span class="ov-lbl">Color</span>
+            </div>
+            <div class="overview-card">
+              <i class="fas fa-tachometer-alt"></i>
+              <span class="ov-val">1500cc</span>
+              <span class="ov-lbl">Engine</span>
+            </div>
+          </div>
+          <p class="overview-desc">
+            The Toyota Aqua 2020 is a well-maintained hybrid hatchback that
+            combines excellent fuel efficiency with comfortable city driving.
+            This particular unit is in excellent condition with a full service
+            history. The hybrid drivetrain ensures minimal fuel costs while the
+            automatic transmission makes driving effortless in traffic. Comes
+            with all original documents and is ready for immediate transfer.
           </p>
         </div>
-    
-        
-      
 
-        <div class="slider">
-            <div class="slides" id="slides">
-                <img src="img/TOYOTA  AQUA 2020.jpeg" alt="Car 1">
-                <img src="img/front.jpeg" alt="Car 2">
-                <img src="img/side1.jpeg" alt="Car 3">
-                <img src="img/side2.jpeg" alt="Car 4">
-                <img src="img/back.jpeg" alt="Car 5">
+        <!-- Features -->
+        <div class="tab-panel" id="tab-features">
+          <div class="features-grid">
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Air Conditioning
             </div>
-              <button class="arrow left" onclick="moveSlide(-1)">&#10094;</button>
-              <button class="arrow right" onclick="moveSlide(1)">&#10095;</button>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Power Steering
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Power Windows
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Reverse Camera
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Push Start
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> ABS Brakes
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Alloy Wheels
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Smart Key
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Bluetooth Audio
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Fog Lights
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> Dual Airbags
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i> LED Headlights
+            </div>
+          </div>
         </div>
 
-    </div> 
-    </section>
-  
-<section class="container">
-
-  <div class="about-container-6">
-            <div class="about-container-right">
-                <h2 class="about-title-4">
-                  <div class="title-4-border">
-                  Extra Details
-                  </div>
-                </h2>
-                
-                <br>
-        
-                <h3 class="about-title-1">Key Features:</h3><br>
-                  <p class="about-description">
-                    <h4 ul>
-                      <li>Air Conditioning</li><br>
-                      <li>Power Steering</li><br>
-                      <li>Power Windows</li><br>
-                      <li>Reverse Camera</li><br>
-                      <li>Push Start</li><br>
-                      <li>ABS Brakes</li><br>
-                      <li>Alloy Wheels</li><br>
-                      <li>Smart Key</li><br>
-                    </ul>
-                  </p>
-
-        
-            </div>
-
-            <hr style="width:2px; height:520px; background:#ccc; border:none; margin-left: -40px; padding-right: 5px; margin-right: 20px;">
-
-     
-    
-            
-              <div class="about-container-right">
-                <h2 class="about-title-4">
-                  <div class="title-4-border">
-                  Seller Location 
-                  </div>
-                </h2>
-                <br><br><br>
-                <p class="about-description">
-                  <h4 ul>
-                    <li>Seller Name : Siyathra Motors</li><br>
-                    <li>City : Colombo</li><br>
-                    <li>Address : No. 25, Galle Road, Colombo 04</li><br>
-                    <li>Contact Number : +94 77 123 4567</li><br>
-                    <li>Email : siyathramotors@gmail.com</li><br>
-          
-                  </ul>
-                  <br><br>
-                  <a href="tel:+94771234567" class="about-link-1">Contact Seller</a>
-                </p>
-
+        <!-- Seller Info -->
+        <div class="tab-panel" id="tab-seller">
+          <div class="seller-info-grid">
+            <div>
+              <div class="seller-detail-row">
+                <i class="fas fa-user"></i>
+                <div>
+                  <div class="sd-label">Seller Name</div>
+                  <div class="sd-val">Siyathra Motors</div>
+                </div>
               </div>
-  </div>
-   
-    
-</section>
-
-    <br>
-    <br>
-
-
-
-    
-
-    <div class="whatsapp-chatbox">
-          <div class="chat-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-              <span>Chat with Siyathra Auto Hub</span>
+              <div class="seller-detail-row">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <div class="sd-label">City</div>
+                  <div class="sd-val">Colombo</div>
+                </div>
+              </div>
+              <div class="seller-detail-row">
+                <i class="fas fa-home"></i>
+                <div>
+                  <div class="sd-label">Address</div>
+                  <div class="sd-val">No. 25, Galle Road, Colombo 04</div>
+                </div>
+              </div>
+              <div class="seller-detail-row">
+                <i class="fas fa-phone-alt"></i>
+                <div>
+                  <div class="sd-label">Contact Number</div>
+                  <div class="sd-val">+94 72 630 6322</div>
+                </div>
+              </div>
+              <div class="seller-detail-row">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <div class="sd-label">Email</div>
+                  <div class="sd-val">siyathramotors@gmail.com</div>
+                </div>
+              </div>
+              <div class="cta-row" style="margin-top: 10px">
+                <button class="btn-primary-red" onclick="openModal()">
+                  <i class="fas fa-envelope" style="margin-right: 6px"></i>
+                  Contact Seller
+                </button>
+                <a href="tel:+94726306322" class="btn-outline-dark">
+                  <i class="fas fa-phone-alt" style="margin-right: 6px"></i>
+                  Call Now
+                </a>
+              </div>
+            </div>
+            <div>
+              <div class="map-placeholder">
+                <div style="text-align: center">
+                  <i
+                    class="fas fa-map-marker-alt"
+                    style="
+                      font-size: 28px;
+                      color: #d54a4a;
+                      display: block;
+                      margin-bottom: 8px;
+                    "
+                  ></i>
+                  No. 25, Galle Road, Colombo 04
+                </div>
+              </div>
+            </div>
           </div>
-            <div class="chat-body">
-              <p>Hi 👋, how can we help you today?</p>
-              <a href="https://wa.me/94726306322" target="_blank">Start Chat</a>
-            </div>
-        
+        </div>
+      </div>
     </div>
-              <!-- Floating Button -->
-              <div class="whatsapp-float" onclick="document.querySelector('.whatsapp-chatbox').classList.toggle('active')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-              </div>
-  
-    
+    <!-- end detail-page-wrap -->
 
+    <!-- WhatsApp -->
+    <div class="whatsapp-chatbox">
+      <div class="chat-header">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+          alt="WhatsApp"
+        />
+        <span>Chat with Siyathra Auto Hub</span>
+      </div>
+      <div class="chat-body">
+        <p>Hi 👋, how can we help you today?</p>
+        <a href="https://wa.me/94726306322" target="_blank">Start Chat</a>
+      </div>
+    </div>
+    <div
+      class="whatsapp-float"
+      onclick="
+        document.querySelector('.whatsapp-chatbox').classList.toggle('active')
+      "
+    >
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        alt="WhatsApp"
+      />
+    </div>
 
-
-
-    <!--Footer content-->
+    <!-- Footer -->
     <footer class="tm-footer">
       <div class="container">
         <div class="row margin-bottom-60">
@@ -185,54 +1272,276 @@
               <li><a href="about.html">About Us</a></li>
               <li><a href="gallery.html">Directory</a></li>
               <li><a href="services.html">Our Services</a></li>
-              
             </ul>
           </nav>
           <div class="col-lg-5 col-md-5 tm-footer-div">
             <h3 class="tm-footer-div-title">About Us</h3>
-            <p class="margin-top-15">At Siyathra, we turn your vehicle dreams into reality. Whether you're searching for a stylish ride, a family car, or a reliable work vehicle, we've got you covered.</p>
-            <p class="margin-top-15">We pride ourselves on providing a smooth, fast, and stress-free car buying experience with a growing selection of vehicles and a passion for customer satisfaction, Siyathra is your trusted partner on the road to your next great drive.</p><br>
-            <a href="tel:+94771234567" class="call-us">
-            <i class="fas fa-phone-alt"></i> Call Us: +94 72 630 6322
+            <p class="margin-top-15">
+              At Siyathra, we turn your vehicle dreams into reality.
+            </p>
+            <p class="margin-top-15">
+              We pride ourselves on a smooth, stress-free car buying experience.
+            </p>
+            <br />
+            <a href="tel:+94726306322" class="call-us">
+              <i class="fas fa-phone-alt"></i> Call Us: +94 72 630 6322
             </a>
           </div>
           <div class="col-lg-4 col-md-4 tm-footer-div">
             <div class="get-social-container">
-            <h3 class="tm-footer-div-title">Get Social</h3>
-            <p class="margin-top-15">Follow Siyathra on social media for the latest updates, new arrivals, and special offers. Stay connected and join our car-loving community!</p>
-            <div class="tm-social-icons-container">
-              <a href="#" class="tm-social-icon"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="tm-social-icon"><i class="fab fa-tiktok"></i></a>              
-              <a href="#" class="tm-social-icon"><i class="fa fa-instagram"></i></a>
-              
-            </div>
+              <h3 class="tm-footer-div-title">Get Social</h3>
+              <p class="margin-top-15">
+                Follow Siyathra for the latest updates and special offers.
+              </p>
+              <div class="tm-social-icons-container">
+                <a href="#" class="tm-social-icon"
+                  ><i class="fa fa-facebook"></i
+                ></a>
+                <a href="#" class="tm-social-icon"
+                  ><i class="fab fa-tiktok"></i
+                ></a>
+                <a href="#" class="tm-social-icon"
+                  ><i class="fa fa-instagram"></i
+                ></a>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row tm-copyright">         
-            <p class="col-lg-12 small copyright-text text-center">Copyright &copy; 2025 Siyathra. All rights reserved.</p>
+        <div class="row tm-copyright">
+          <p class="col-lg-12 small copyright-text text-center">
+            Copyright &copy; 2025 Siyathra. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
-    <!-- Footer content-->
-    
-    <!-- JS -->
-    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>      <!-- jQuery -->
-    <script type="text/javascript" src="js/templatemo-script.js"></script>      <!-- Templatemo Script -->
-    <script defer src="js/jquery.flexslider-min.js"></script><!-- FlexSlider -->
+
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/templatemo-script.js"></script>
     <script>
-      $(window).load(function() {
-        $('.flexslider').flexslider({
-          animation: "slide",
-          slideshow: false,
-          prevText: "&#xf104;",
-          nextText: "&#xf105;"
+      /* ════════════════════════════════
+       1. IMAGE SLIDER
+    ════════════════════════════════ */
+      const images = [
+        "img/TOYOTA  AQUA 2020.jpeg",
+        "img/front.jpeg",
+        "img/side1.jpeg",
+        "img/side2.jpeg",
+        "img/back.jpeg",
+      ];
+      let currentSlide = 0;
+
+      function goToSlide(index) {
+        currentSlide = index;
+        const mainImg = document.getElementById("mainImg");
+        mainImg.classList.add("fade");
+        setTimeout(function () {
+          mainImg.src = images[index];
+          mainImg.classList.remove("fade");
+        }, 180);
+        /* Update counter */
+        document.getElementById("slideCounter").textContent =
+          index + 1 + " / " + images.length;
+        /* Update thumbnails */
+        document.querySelectorAll(".thumb").forEach(function (t, i) {
+          t.classList.toggle("active", i === index);
+        });
+      }
+
+      function slideImg(step) {
+        const next = (currentSlide + step + images.length) % images.length;
+        goToSlide(next);
+      }
+
+      /* Keyboard arrow navigation */
+      document.addEventListener("keydown", function (e) {
+        if (document.getElementById("contactModal").classList.contains("open"))
+          return;
+        if (e.key === "ArrowRight") slideImg(1);
+        if (e.key === "ArrowLeft") slideImg(-1);
+      });
+
+      /* Auto slideshow every 4s */
+      let autoSlide = setInterval(function () {
+        slideImg(1);
+      }, 4000);
+      document
+        .querySelector(".main-img-wrap")
+        .addEventListener("mouseenter", function () {
+          clearInterval(autoSlide);
+        });
+      document
+        .querySelector(".main-img-wrap")
+        .addEventListener("mouseleave", function () {
+          autoSlide = setInterval(function () {
+            slideImg(1);
+          }, 4000);
         });
 
-        // Remove preloader
-        // https://ihatetomatoes.net/create-custom-preloading-screen/
-        $('body').addClass('loaded');
+      /* ════════════════════════════════
+       2. TABS
+    ════════════════════════════════ */
+      function switchTab(id, btn) {
+        document
+          .querySelectorAll(".tab-panel")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document.getElementById("tab-" + id).classList.add("active");
+        btn.classList.add("active");
+      }
+
+      /* ════════════════════════════════
+       3. WISHLIST
+    ════════════════════════════════ */
+      const VEHICLE_ID = "aqua2020";
+      let wishlist = JSON.parse(
+        localStorage.getItem("siyathra_wishlist") || "[]",
+      );
+      const wBtn = document.getElementById("wishlistBtn");
+
+      function updateWishlistBtn() {
+        if (wishlist.includes(VEHICLE_ID)) {
+          wBtn.classList.add("wishlisted");
+          wBtn.title = "Remove from wishlist";
+        } else {
+          wBtn.classList.remove("wishlisted");
+          wBtn.title = "Save to wishlist";
+        }
+      }
+      updateWishlistBtn();
+
+      wBtn.addEventListener("click", function () {
+        wishlist = JSON.parse(
+          localStorage.getItem("siyathra_wishlist") || "[]",
+        );
+        if (wishlist.includes(VEHICLE_ID)) {
+          wishlist = wishlist.filter((x) => x !== VEHICLE_ID);
+          showToast("Removed from wishlist");
+        } else {
+          wishlist.push(VEHICLE_ID);
+          showToast("❤️ Saved to wishlist!");
+        }
+        localStorage.setItem("siyathra_wishlist", JSON.stringify(wishlist));
+        updateWishlistBtn();
       });
+
+      /* ════════════════════════════════
+       4. CONTACT MODAL
+    ════════════════════════════════ */
+      function openModal() {
+        document.getElementById("modalForm").style.display = "block";
+        document.getElementById("modalSuccess").style.display = "none";
+        document.getElementById("mName").value = "";
+        document.getElementById("mPhone").value = "";
+        document.getElementById("contactModal").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        document.getElementById("contactModal").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      document
+        .getElementById("contactModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeModal();
+        });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeModal();
+      });
+
+      function submitContact() {
+        const name = document.getElementById("mName").value.trim();
+        const phone = document.getElementById("mPhone").value.trim();
+        if (!name) {
+          showToast("Please enter your name.");
+          return;
+        }
+        if (!phone) {
+          showToast("Please enter your phone number.");
+          return;
+        }
+        document.getElementById("modalForm").style.display = "none";
+        document.getElementById("modalSuccess").style.display = "block";
+      }
+
+      /* ════════════════════════════════
+       5. SHARE — Copy Link
+    ════════════════════════════════ */
+      function copyLink() {
+        const url = window.location.href;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(url).then(function () {
+            showToast("🔗 Link copied to clipboard!");
+          });
+        } else {
+          const el = document.createElement("textarea");
+          el.value = url;
+          document.body.appendChild(el);
+          el.select();
+          document.execCommand("copy");
+          document.body.removeChild(el);
+          showToast("🔗 Link copied!");
+        }
+      }
+
+      /* ════════════════════════════════
+       6. STICKY NAV + SCROLL
+    ════════════════════════════════ */
+      window.addEventListener("scroll", function () {
+        document
+          .getElementById("mainHeader")
+          .classList.toggle("scrolled", window.scrollY > 60);
+        const btn = document.getElementById("backToTop");
+        btn.style.display = window.scrollY > 300 ? "flex" : "none";
+      });
+
+      document.querySelectorAll(".nav-links a").forEach(function (link) {
+        if (link.href === window.location.href)
+          link.classList.add("active-link");
+      });
+
+      document
+        .getElementById("hamburger")
+        .addEventListener("click", function () {
+          this.classList.toggle("open");
+          document.getElementById("mainNav").classList.toggle("open");
+        });
+
+      document
+        .getElementById("backToTop")
+        .addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+      /* ════════════════════════════════
+       7. TOAST
+    ════════════════════════════════ */
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2300);
+      }
+
+      /* ── Scroll reveal ── */
+      const revealObs = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              revealObs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObs.observe(el));
     </script>
   </body>
-  </html>
+</html>
