@@ -1,163 +1,921 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Motor Services</title>
-  <meta name="description" content="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Motor Services</title>
+    <meta name="description" content="" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/coustem.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/templatemo-style.css" rel="stylesheet" />
 
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/coustem.css" rel="stylesheet">
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/templatemo-style.css" rel="stylesheet">
+    <link
+      href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
 
+    <style>
+      /* ── Sticky navbar ── */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        transition:
+          box-shadow 0.3s ease,
+          padding 0.3s ease;
+      }
+      header.scrolled {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        padding: 18px 50px;
+      }
 
-      </head>
-      <body class="services-page">
+      /* ── Active nav ── */
+      .nav-links li a.active-link {
+        color: #d54a4a;
+        border-bottom: 2px solid #d54a4a;
+      }
 
-        <!-- Preloader -->
-        <div id="loader-wrapper">
-          <div id="loader"></div>
-          <div class="loader-section section-left"></div>
-          <div class="loader-section section-right"></div>
+      /* ── Hamburger ── */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+        margin-left: auto;
+      }
+      .hamburger span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: white;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+      }
+      .hamburger.open span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      .hamburger.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.open span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+
+      /* ── Scroll reveal ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── Brand image hover zoom ── */
+      .tm-img-1-container img {
+        transition: transform 0.4s ease;
+      }
+      .tm-img-1-container:hover img {
+        transform: scale(1.08);
+      }
+
+      /* ════════════════════════════════
+       ACCORDION SERVICE BLOCKS
+    ════════════════════════════════ */
+      .services-container-1 {
+        background: white;
+        padding: 40px;
+        margin-bottom: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+      }
+      .accordion-item {
+        background: #f8f8f8;
+        border-radius: 6px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        border: 1px solid #ebebeb;
+        transition: box-shadow 0.3s;
+      }
+      .accordion-item.open {
+        box-shadow: 0 4px 16px rgba(213, 74, 74, 0.12);
+        border-color: #d54a4a;
+      }
+      .accordion-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 20px;
+        cursor: pointer;
+        user-select: none;
+        transition: background 0.2s;
+      }
+      .accordion-header:hover {
+        background: #f0f0f0;
+      }
+      .accordion-item.open .accordion-header {
+        background: #fff5f5;
+      }
+      .accordion-icon-box {
+        background: #d54a4a;
+        color: white;
+        width: 36px;
+        height: 36px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+      .accordion-title {
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #232222;
+        flex: 1;
+      }
+      .accordion-arrow {
+        color: #aaa;
+        font-size: 14px;
+        transition: transform 0.35s ease;
+      }
+      .accordion-item.open .accordion-arrow {
+        transform: rotate(180deg);
+        color: #d54a4a;
+      }
+      .accordion-body {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.4s ease,
+          padding 0.3s ease;
+        padding: 0 20px;
+      }
+      .accordion-item.open .accordion-body {
+        max-height: 300px;
+        padding: 0 20px 18px;
+      }
+      .accordion-body p {
+        color: #555;
+        line-height: 1.7em;
+        font-size: 14px;
+        margin: 0;
+      }
+
+      /* ════════════════════════════════
+       ENQUIRY / TEST DRIVE MODAL
+    ════════════════════════════════ */
+      .enquiry-trigger-btn {
+        display: inline-block;
+        background: #d54a4a;
+        color: white;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .enquiry-trigger-btn:hover {
+        background: #b53636;
+      }
+      .enquiry-trigger-btn.outline {
+        background: transparent;
+        border: 2px solid #d54a4a;
+        color: #d54a4a;
+        padding: 7px 16px;
+        font-size: 12px;
+      }
+      .enquiry-trigger-btn.outline:hover {
+        background: #d54a4a;
+        color: white;
+      }
+
+      /* Modal overlay */
+      #enquiryModal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      #enquiryModal.open {
+        display: flex;
+      }
+      .modal-box {
+        background: white;
+        border-radius: 10px;
+        padding: 35px 30px;
+        width: 100%;
+        max-width: 480px;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: modalIn 0.3s ease;
+      }
+      @keyframes modalIn {
+        from {
+          opacity: 0;
+          transform: scale(0.92) translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+      .modal-close {
+        position: absolute;
+        top: 14px;
+        right: 18px;
+        background: none;
+        border: none;
+        font-size: 22px;
+        cursor: pointer;
+        color: #aaa;
+        transition: color 0.2s;
+      }
+      .modal-close:hover {
+        color: #d54a4a;
+      }
+      .modal-box h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 0 5px;
+        color: #232222;
+      }
+      .modal-box p.modal-sub {
+        color: #888;
+        font-size: 13px;
+        margin-bottom: 22px;
+      }
+      .modal-field {
+        margin-bottom: 14px;
+      }
+      .modal-field label {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 5px;
+      }
+      .modal-field input,
+      .modal-field select,
+      .modal-field textarea {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.3s;
+        font-family: inherit;
+      }
+      .modal-field input:focus,
+      .modal-field select:focus,
+      .modal-field textarea:focus {
+        border-color: #d54a4a;
+      }
+      .modal-field textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      .modal-submit-btn {
+        width: 100%;
+        background: #d54a4a;
+        color: white;
+        border: none;
+        padding: 13px;
+        border-radius: 5px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin-top: 6px;
+      }
+      .modal-submit-btn:hover {
+        background: #b53636;
+      }
+      .modal-success {
+        display: none;
+        text-align: center;
+        padding: 20px 0 10px;
+      }
+      .modal-success i {
+        font-size: 48px;
+        color: #4caf50;
+        margin-bottom: 12px;
+      }
+      .modal-success h4 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #232222;
+      }
+      .modal-success p {
+        color: #888;
+        font-size: 14px;
+      }
+
+      /* ════════════════════════════════
+       VEHICLE CARDS (services section)
+    ════════════════════════════════ */
+      .about-container-2 {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+      .services-container-inner {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        max-width: 280px;
+        flex: 1 1 240px;
+        position: relative;
+      }
+      .services-container-inner:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+      }
+      .card-wishlist-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+        z-index: 10;
+        color: #aaa;
+      }
+      .card-wishlist-btn:hover {
+        transform: scale(1.2);
+      }
+      .card-wishlist-btn.wishlisted {
+        color: #d54a4a;
+      }
+
+      /* ── Enquiry banner strip ── */
+      .enquiry-banner {
+        background: linear-gradient(135deg, #232222, #3a3a3a);
+        color: white;
+        text-align: center;
+        padding: 38px 20px;
+        margin: 10px 0 40px;
+        border-radius: 8px;
+      }
+      .enquiry-banner h3 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .enquiry-banner p {
+        color: #bbb;
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      /* ── Back to top ── */
+      #backToTop {
+        position: fixed;
+        bottom: 90px;
+        right: 22px;
+        background: #d54a4a;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 998;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        transition: background 0.3s;
+      }
+      #backToTop:hover {
+        background: #b53636;
+      }
+
+      /* ── Toast ── */
+      #toast {
+        position: fixed;
+        bottom: 140px;
+        right: 22px;
+        background: #232222;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-size: 13px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s;
+        z-index: 9999;
+      }
+      #toast.show {
+        opacity: 1;
+      }
+
+      /* ═══════════════ RESPONSIVE ═══════════════ */
+      @media (max-width: 900px) {
+        header {
+          gap: 0;
+          flex-wrap: wrap;
+          padding: 20px 30px;
+        }
+        .nav-links {
+          gap: 30px;
+        }
+        .services-container-1 {
+          padding: 25px 20px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        header {
+          flex-wrap: wrap;
+          gap: 0;
+          padding: 18px 20px;
+        }
+        .logo {
+          font-size: 26px;
+        }
+        .hamburger {
+          display: flex;
+        }
+        nav {
+          width: 100%;
+          overflow: hidden;
+          max-height: 0;
+          transition: max-height 0.4s ease;
+        }
+        nav.open {
+          max-height: 300px;
+        }
+        .nav-links {
+          flex-direction: column;
+          gap: 0;
+          padding: 10px 0;
+        }
+        .nav-links li a {
+          display: block;
+          padding: 10px 5px;
+          border-bottom: 1px solid #333;
+        }
+
+        .tm-img-1-container {
+          width: 50% !important;
+        }
+        .services-container-1 {
+          padding: 18px 14px;
+        }
+        .accordion-title {
+          font-size: 13px;
+        }
+        .about-container-2 {
+          flex-direction: column;
+          align-items: center;
+        }
+        .services-container-inner {
+          max-width: 100%;
+          width: 90%;
+        }
+
+        .modal-box {
+          padding: 25px 18px;
+        }
+
+        .tm-footer .col-lg-3,
+        .tm-footer .col-lg-5,
+        .tm-footer .col-lg-4 {
+          width: 100% !important;
+          margin-bottom: 25px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .tm-img-1-container {
+          width: 100% !important;
+        }
+        .enquiry-banner h3 {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body class="services-page">
+    <!-- Back to Top -->
+    <button id="backToTop" title="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Toast -->
+    <div id="toast"></div>
+
+    <!-- ════ ENQUIRY MODAL ════ -->
+    <div id="enquiryModal">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+
+        <!-- Form -->
+        <div id="modalForm">
+          <h3 id="modalTitle">Book a Test Drive</h3>
+          <p class="modal-sub" id="modalSub">
+            Fill in your details and we'll get back to you shortly.
+          </p>
+
+          <div class="modal-field">
+            <label>Your Name</label>
+            <input type="text" id="mName" placeholder="e.g. Kamal Perera" />
+          </div>
+          <div class="modal-field">
+            <label>Phone Number</label>
+            <input type="tel" id="mPhone" placeholder="e.g. 077 123 4567" />
+          </div>
+          <div class="modal-field">
+            <label>Service</label>
+            <select id="mService">
+              <option value="">Select a service...</option>
+              <option>Fast Vehicle Delivery</option>
+              <option>Certified Vehicle Inspection</option>
+              <option>After-Sales Support</option>
+              <option>Easy Financing Options</option>
+              <option>Test Drive Booking</option>
+              <option>General Enquiry</option>
+            </select>
+          </div>
+          <div class="modal-field">
+            <label>Message (optional)</label>
+            <textarea
+              id="mMessage"
+              placeholder="Any extra details..."
+            ></textarea>
+          </div>
+          <button class="modal-submit-btn" onclick="submitEnquiry()">
+            <i class="fas fa-paper-plane" style="margin-right: 8px"></i> Send
+            Enquiry
+          </button>
         </div>
-        <!-- End Preloader -->
-    
-        <section class="templatemo-top-section">
-          <header>
-            <div class="logo">Siyathra</div>
 
-             <nav>
-              <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="vehicles.html">Vehicles</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-              </ul>
-             </nav>
+        <!-- Success state -->
+        <div class="modal-success" id="modalSuccess">
+          <i class="fas fa-check-circle"></i>
+          <h4>Enquiry Sent!</h4>
+          <p>Thank you! Our team will contact you within 24 hours.</p>
+          <button
+            class="enquiry-trigger-btn"
+            style="margin-top: 16px"
+            onclick="closeModal()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
 
-               
-           </header>
+    <!-- Header -->
+    <section class="templatemo-top-section">
+      <header id="mainHeader">
+        <div class="logo">Siyathra</div>
+        <div class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+        <nav id="mainNav">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vehicles.html">Vehicles</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </nav>
+      </header>
+    </section>
 
-      </section>
-      <div class="container margin-bottom-50">
-       <div class="row">
+    <!-- Brand images -->
+    <div class="container margin-bottom-50">
+      <div class="row">
         <div class="col-lg-12 tm-overflow-hidden">
-          <div class="tm-img-1-container">
-            <img src="img/benz.jpeg" alt="Image description">
+          <div class="tm-img-1-container reveal">
+            <img src="img/benz.jpeg" alt="Benz" />
             <p class="tm-img-1-description">Benz</p>
           </div>
-          <div class="tm-img-1-container">
-            <img src="img/yaris.jpeg" alt="Image description">
+          <div class="tm-img-1-container reveal">
+            <img src="img/yaris.jpeg" alt="Yaris" />
             <p class="tm-img-1-description">Yaris</p>
           </div>
-          <div class="tm-img-1-container">
-            <img src="img/BMW.jpeg" alt="Image description">
+          <div class="tm-img-1-container reveal">
+            <img src="img/BMW.jpeg" alt="BMW" />
             <p class="tm-img-1-description">BMW</p>
           </div>
-          <div class="tm-img-1-container">
-            <img src="img/lexus.jpeg" alt="Image description">
+          <div class="tm-img-1-container reveal">
+            <img src="img/lexus.jpeg" alt="Lexus" />
             <p class="tm-img-1-description">Lexus</p>
-          </div>         
-        </div>
-      </div>
-    </div>    
-
-    <!--Main content-->
-    <section class="container margin-bottom-50">
-      <div class="services-container-1">
-        <h2 class="services-title">Customer Services</h2>
-        <div class="services-blocks-container">
-          <div class="services-block">
-            <div class="services-header">
-              <i class="fa fa-plus services-icon"></i>
-              <h3 class="services-title-2">FAST VEHICLE DELIVERY</h3>  
-            </div>          
-            <p class="services-description">We ensure quick and safe delivery of your purchased vehicle right to your doorstep. Our trusted team guarantees timely service with full tracking support for peace of mind.</p>
-          </div>
-          <div class="services-block">
-            <div class="services-header">
-              <i class="fa fa-plus services-icon"></i>
-              <h3 class="services-title-2">CERTIFIED VEHICLE INSPECTION</h3>  
-            </div>          
-            <p class="services-description">Every vehicle listed on Siyathra goes through a strict quality check. We inspect performance, safety, and documentation to make sure you're getting a reliable vehicle.</p>
-          </div>                    
-        </div>
-        <div class="services-blocks-container">
-          <div class="services-block">
-            <div class="services-header">
-              <i class="fa fa-plus services-icon"></i>
-              <h3 class="services-title-2">AFTER-SALES SUPPORT</h3>  
-            </div>          
-            <p class="services-description">We don’t just stop at the sale. Our after-sales team is ready to help with maintenance advice, servicing, and any concerns you may have after purchase.</p>
-          </div>
-          <div class="services-block">
-            <div class="services-header">
-              <i class="fa fa-plus services-icon"></i>
-              <h3 class="services-title-2">EASY FINANCING OPTIONS</h3>  
-            </div>          
-            <p class="services-description">We partner with trusted financial services to offer flexible payment plans, low interest rates, and fast approvals to make your vehicle purchase easier than ever.
-
-</p>
-          </div>                    
-        </div>  
-      </div>    
-      
-      <div class="about-container-2">
-        <div class="services-container-inner">
-          <h3 class="about-title-2">TOYOTA COROLLA 2020</h3>
-          <div class="card-img-2">
-          <img src="img/toyota-corolla.webp" alt="Image" class="img-responsive">    
-          </div>      
-          <p class="about-description">Reliable, fuel-efficient sedan with low mileage. Automatic transmission, reverse camera, and Bluetooth included.</p>
-          <div class="image-border">
-          <a href="#" class="about-link about-link-2">Details</a>
-          </div>
-        </div>
-        <div class="services-container-inner">
-          <h3 class="about-title-2">HONDA CIVIC 2019</h3>
-          <div class="card-img-2">
-          <img src="img/honda-civic.webp" alt="Image" class="img-responsive">  
-          </div>        
-          <p class="about-description">Sporty design with smooth performance. Comes with sunroof, leather seats, and new tires.</p>
-          <div class="image-border">
-          <a href="#" class="about-link about-link-2">Details</a>
-          </div>
-        </div>
-        <div class="services-container-inner">
-          <h3 class="about-title-2">NISSAN X-TRAIL 2021</h3>
-          <div class="card-img-2">
-          <img src="img/nissan-trail.webp" alt="Image" class="img-responsive">  
-          </div>        
-          <p class="about-description">Spacious family SUV, 4WD system, touchscreen panel, and excellent condition.</p>
-          <div class="image-border">
-          <a href="#" class="about-link about-link-2">Details</a>
           </div>
         </div>
       </div>
-
-
-    </section>
-    
-    <div class="whatsapp-chatbox">
-          <div class="chat-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-              <span>Chat with Siyathra Auto Hub</span>
-          </div>
-            <div class="chat-body">
-              <p>Hi 👋, how can we help you today?</p>
-              <a href="https://wa.me/94726306322" target="_blank">Start Chat</a>
-            </div>
-        
     </div>
-              <!-- Floating Button -->
-              <div class="whatsapp-float" onclick="document.querySelector('.whatsapp-chatbox').classList.toggle('active')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-              </div>
-    <!--Footer content-->
+
+    <!-- Main content -->
+    <section class="container margin-bottom-50">
+      <!-- ════ ACCORDION SERVICES ════ -->
+      <div class="services-container-1 reveal">
+        <h2 class="services-title">Customer Services</h2>
+
+        <div class="accordion-item" data-index="0">
+          <div class="accordion-header" onclick="toggleAccordion(0)">
+            <div class="accordion-icon-box">
+              <i class="fas fa-shipping-fast"></i>
+            </div>
+            <span class="accordion-title">Fast Vehicle Delivery</span>
+            <i class="fas fa-chevron-down accordion-arrow"></i>
+          </div>
+          <div class="accordion-body">
+            <p>
+              We ensure quick and safe delivery of your purchased vehicle right
+              to your doorstep. Our trusted team guarantees timely service with
+              full tracking support for peace of mind.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item" data-index="1">
+          <div class="accordion-header" onclick="toggleAccordion(1)">
+            <div class="accordion-icon-box">
+              <i class="fas fa-clipboard-check"></i>
+            </div>
+            <span class="accordion-title">Certified Vehicle Inspection</span>
+            <i class="fas fa-chevron-down accordion-arrow"></i>
+          </div>
+          <div class="accordion-body">
+            <p>
+              Every vehicle listed on Siyathra goes through a strict quality
+              check. We inspect performance, safety, and documentation to make
+              sure you're getting a reliable vehicle.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item" data-index="2">
+          <div class="accordion-header" onclick="toggleAccordion(2)">
+            <div class="accordion-icon-box"><i class="fas fa-headset"></i></div>
+            <span class="accordion-title">After-Sales Support</span>
+            <i class="fas fa-chevron-down accordion-arrow"></i>
+          </div>
+          <div class="accordion-body">
+            <p>
+              We don't just stop at the sale. Our after-sales team is ready to
+              help with maintenance advice, servicing, and any concerns you may
+              have after purchase.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item" data-index="3">
+          <div class="accordion-header" onclick="toggleAccordion(3)">
+            <div class="accordion-icon-box">
+              <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <span class="accordion-title">Easy Financing Options</span>
+            <i class="fas fa-chevron-down accordion-arrow"></i>
+          </div>
+          <div class="accordion-body">
+            <p>
+              We partner with trusted financial services to offer flexible
+              payment plans, low interest rates, and fast approvals to make your
+              vehicle purchase easier than ever.
+            </p>
+          </div>
+        </div>
+
+        <!-- Enquiry banner inside services box -->
+        <div style="text-align: center; margin-top: 28px">
+          <button
+            class="enquiry-trigger-btn"
+            onclick="openModal('General Enquiry')"
+          >
+            <i class="fas fa-envelope" style="margin-right: 8px"></i> Make an
+            Enquiry
+          </button>
+        </div>
+      </div>
+
+      <!-- ════ ENQUIRY BANNER ════ -->
+      <div class="enquiry-banner reveal">
+        <h3>🚗 Book a Test Drive Today</h3>
+        <p>
+          Interested in any vehicle? Book a free test drive with one of our
+          trusted sellers and experience it yourself.
+        </p>
+        <button
+          class="enquiry-trigger-btn"
+          onclick="openModal('Test Drive Booking')"
+        >
+          <i class="fas fa-calendar-check" style="margin-right: 8px"></i> Book
+          Test Drive
+        </button>
+      </div>
+
+      <!-- ════ FEATURED VEHICLES ════ -->
+      <h3
+        class="about-title-2 title-2-border reveal"
+        style="margin-bottom: 25px"
+      >
+        Featured Vehicles
+      </h3>
+
+      <div class="about-container-2 reveal">
+        <div class="services-container-inner">
+          <button class="card-wishlist-btn" data-id="corolla2020">
+            <i class="fas fa-heart"></i>
+          </button>
+          <h3
+            class="about-title-2"
+            style="padding: 14px 14px 0; font-size: 15px"
+          >
+            TOYOTA COROLLA 2020
+          </h3>
+          <div class="card-img-2" style="height: 180px; overflow: hidden">
+            <img
+              src="img/toyota-corolla.webp"
+              alt="Toyota Corolla"
+              class="img-responsive"
+              style="width: 100%; height: 100%; object-fit: cover"
+            />
+          </div>
+          <div style="padding: 12px 14px 16px">
+            <p
+              class="about-description"
+              style="font-size: 13px; margin-bottom: 12px"
+            >
+              Reliable, fuel-efficient sedan with low mileage. Automatic
+              transmission, reverse camera, and Bluetooth included.
+            </p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <a
+                href="view more.html"
+                class="about-link about-link-2"
+                style="font-size: 12px; padding: 7px 14px"
+                >Details</a
+              >
+              <button
+                class="enquiry-trigger-btn outline"
+                onclick="openModal('Toyota Corolla 2020 Enquiry')"
+              >
+                Enquire
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="services-container-inner">
+          <button class="card-wishlist-btn" data-id="civic2019">
+            <i class="fas fa-heart"></i>
+          </button>
+          <h3
+            class="about-title-2"
+            style="padding: 14px 14px 0; font-size: 15px"
+          >
+            HONDA CIVIC 2019
+          </h3>
+          <div class="card-img-2" style="height: 180px; overflow: hidden">
+            <img
+              src="img/honda-civic.webp"
+              alt="Honda Civic"
+              class="img-responsive"
+              style="width: 100%; height: 100%; object-fit: cover"
+            />
+          </div>
+          <div style="padding: 12px 14px 16px">
+            <p
+              class="about-description"
+              style="font-size: 13px; margin-bottom: 12px"
+            >
+              Sporty design with smooth performance. Comes with sunroof, leather
+              seats, and new tires.
+            </p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <a
+                href="view more.html"
+                class="about-link about-link-2"
+                style="font-size: 12px; padding: 7px 14px"
+                >Details</a
+              >
+              <button
+                class="enquiry-trigger-btn outline"
+                onclick="openModal('Honda Civic 2019 Enquiry')"
+              >
+                Enquire
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="services-container-inner">
+          <button class="card-wishlist-btn" data-id="xtrail2021">
+            <i class="fas fa-heart"></i>
+          </button>
+          <h3
+            class="about-title-2"
+            style="padding: 14px 14px 0; font-size: 15px"
+          >
+            NISSAN X-TRAIL 2021
+          </h3>
+          <div class="card-img-2" style="height: 180px; overflow: hidden">
+            <img
+              src="img/nissan-trail.webp"
+              alt="Nissan X-Trail"
+              class="img-responsive"
+              style="width: 100%; height: 100%; object-fit: cover"
+            />
+          </div>
+          <div style="padding: 12px 14px 16px">
+            <p
+              class="about-description"
+              style="font-size: 13px; margin-bottom: 12px"
+            >
+              Spacious family SUV, 4WD system, touchscreen panel, and excellent
+              condition.
+            </p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <a
+                href="view more.html"
+                class="about-link about-link-2"
+                style="font-size: 12px; padding: 7px 14px"
+                >Details</a
+              >
+              <button
+                class="enquiry-trigger-btn outline"
+                onclick="openModal('Nissan X-Trail 2021 Enquiry')"
+              >
+                Enquire
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WhatsApp -->
+    <div class="whatsapp-chatbox">
+      <div class="chat-header">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+          alt="WhatsApp"
+        />
+        <span>Chat with Siyathra Auto Hub</span>
+      </div>
+      <div class="chat-body">
+        <p>Hi 👋, how can we help you today?</p>
+        <a href="https://wa.me/94726306322" target="_blank">Start Chat</a>
+      </div>
+    </div>
+    <div
+      class="whatsapp-float"
+      onclick="
+        document.querySelector('.whatsapp-chatbox').classList.toggle('active')
+      "
+    >
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        alt="WhatsApp"
+      />
+    </div>
+
+    <!-- Footer -->
     <footer class="tm-footer">
       <div class="container">
         <div class="row margin-bottom-60">
@@ -168,55 +926,244 @@
               <li><a href="about.html">About Us</a></li>
               <li><a href="gallery.html">Directory</a></li>
               <li><a href="services.html">Our Services</a></li>
-              
-              
             </ul>
           </nav>
           <div class="col-lg-5 col-md-5 tm-footer-div">
             <h3 class="tm-footer-div-title">About Us</h3>
-            <p class="margin-top-15">At Siyathra, we turn your vehicle dreams into reality. Whether you're searching for a stylish ride, a family car, or a reliable work vehicle, we've got you covered.</p>
-            <p class="margin-top-15">We pride ourselves on providing a smooth, fast, and stress-free car buying experience with a growing selection of vehicles and a passion for customer satisfaction, Siyathra is your trusted partner on the road to your next great drive.</p><br>
-            <a href="tel:+94771234567" class="call-us">
-            <i class="fas fa-phone-alt"></i> Call Us: +94 72 630 6322
+            <p class="margin-top-15">
+              At Siyathra, we turn your vehicle dreams into reality.
+            </p>
+            <p class="margin-top-15">
+              We pride ourselves on a smooth, stress-free car buying experience.
+            </p>
+            <br />
+            <a href="tel:+94726306322" class="call-us">
+              <i class="fas fa-phone-alt"></i> Call Us: +94 72 630 6322
             </a>
           </div>
           <div class="col-lg-4 col-md-4 tm-footer-div">
             <div class="get-social-container">
-            <h3 class="tm-footer-div-title">Get Social</h3>
-            <p class="margin-top-15">Follow Siyathra on social media for the latest updates, new arrivals, and special offers. Stay connected and join our car-loving community!</p>
-            <div class="tm-social-icons-container">
-              <a href="#" class="tm-social-icon"><i class="fa fa-facebook"></i></a>
-              <a href="#" class="tm-social-icon"><i class="fab fa-tiktok"></i></a>              
-              <a href="#" class="tm-social-icon"><i class="fa fa-instagram"></i></a>
-
-            </div>
+              <h3 class="tm-footer-div-title">Get Social</h3>
+              <p class="margin-top-15">
+                Follow Siyathra for the latest updates and special offers.
+              </p>
+              <a href="#" class="tm-social-icon"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" class="tm-social-icon"
+                ><i class="fab fa-tiktok"></i
+              ></a>
+              <a href="#" class="tm-social-icon"
+                ><i class="fab fa-instagram"></i
+              ></a>
             </div>
           </div>
         </div>
         <div class="row tm-copyright">
-          <div class="Copyright"><p class="col-lg-12 small copyright-text text-center">Copyright &copy; 2025 Siyathra. All rights reserved.</p></div>
+          <div class="Copyright">
+            <p class="col-lg-12 small copyright-text text-center">
+              Copyright &copy; 2025 Siyathra. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
-    <!-- Footer content-->
-    
-    <!-- JS -->
-    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>      <!-- jQuery -->
-    <script type="text/javascript" src="js/templatemo-script.js"></script>      <!-- Templatemo Script -->
-    <script defer src="js/jquery.flexslider-min.js"></script><!-- FlexSlider -->
+
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/templatemo-script.js"></script>
+    <script defer src="js/jquery.flexslider-min.js"></script>
     <script>
-      $(window).load(function() {
-        $('.flexslider').flexslider({
-          animation: "slide",
-          slideshow: false,
-          prevText: "&#xf104;",
-          nextText: "&#xf105;"
+      $(window).load(function () {
+        $("body").addClass("loaded");
+      });
+
+      /* ════════════════════════════════
+       1. ACCORDION
+    ════════════════════════════════ */
+      function toggleAccordion(index) {
+        const items = document.querySelectorAll(".accordion-item");
+        items.forEach(function (item, i) {
+          if (i === index) {
+            item.classList.toggle("open");
+          } else {
+            item.classList.remove("open");
+          }
+        });
+      }
+
+      /* Open first accordion by default */
+      document.querySelector(".accordion-item").classList.add("open");
+
+      /* ════════════════════════════════
+       2. ENQUIRY MODAL
+    ════════════════════════════════ */
+      function openModal(serviceType) {
+        const modal = document.getElementById("enquiryModal");
+        const title = document.getElementById("modalTitle");
+        const sub = document.getElementById("modalSub");
+        const sel = document.getElementById("mService");
+
+        /* Reset form */
+        document.getElementById("modalForm").style.display = "block";
+        document.getElementById("modalSuccess").style.display = "none";
+        document.getElementById("mName").value = "";
+        document.getElementById("mPhone").value = "";
+        document.getElementById("mMessage").value = "";
+
+        /* Pre-fill service if known */
+        if (serviceType) {
+          title.textContent = serviceType.includes("Enquiry")
+            ? serviceType
+            : "Book: " + serviceType;
+          sub.textContent =
+            "Fill in your details and we'll contact you shortly.";
+          /* Try to match dropdown option */
+          for (let i = 0; i < sel.options.length; i++) {
+            if (
+              sel.options[i].text
+                .toLowerCase()
+                .includes(serviceType.toLowerCase().split(" ")[0])
+            ) {
+              sel.selectedIndex = i;
+              break;
+            }
+          }
+          if (serviceType === "Test Drive Booking") {
+            sel.value = "Test Drive Booking";
+            title.textContent = "🚗 Book a Test Drive";
+          }
+          if (serviceType === "General Enquiry") {
+            sel.value = "General Enquiry";
+            title.textContent = "✉️ Make an Enquiry";
+          }
+        }
+
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        document.getElementById("enquiryModal").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+
+      /* Close on backdrop click */
+      document
+        .getElementById("enquiryModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeModal();
         });
 
-        // Remove preloader
-        // https://ihatetomatoes.net/create-custom-preloading-screen/
-        $('body').addClass('loaded');
+      /* Close on Escape */
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeModal();
       });
+
+      function submitEnquiry() {
+        const name = document.getElementById("mName").value.trim();
+        const phone = document.getElementById("mPhone").value.trim();
+        const service = document.getElementById("mService").value;
+
+        if (!name) {
+          showToast("Please enter your name.");
+          return;
+        }
+        if (!phone) {
+          showToast("Please enter your phone number.");
+          return;
+        }
+        if (!service) {
+          showToast("Please select a service.");
+          return;
+        }
+
+        /* Show success (in real project, send to backend/email here) */
+        document.getElementById("modalForm").style.display = "none";
+        document.getElementById("modalSuccess").style.display = "block";
+      }
+
+      /* ════════════════════════════════
+       3. WISHLIST
+    ════════════════════════════════ */
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2200);
+      }
+
+      let wishlist = JSON.parse(
+        localStorage.getItem("siyathra_wishlist") || "[]",
+      );
+
+      document.querySelectorAll(".card-wishlist-btn").forEach(function (btn) {
+        const id = btn.getAttribute("data-id");
+        if (wishlist.includes(id)) btn.classList.add("wishlisted");
+
+        btn.addEventListener("click", function () {
+          wishlist = JSON.parse(
+            localStorage.getItem("siyathra_wishlist") || "[]",
+          );
+          if (wishlist.includes(id)) {
+            wishlist = wishlist.filter((x) => x !== id);
+            btn.classList.remove("wishlisted");
+            showToast("Removed from wishlist");
+          } else {
+            wishlist.push(id);
+            btn.classList.add("wishlisted");
+            showToast("❤️ Added to wishlist!");
+          }
+          localStorage.setItem("siyathra_wishlist", JSON.stringify(wishlist));
+        });
+      });
+
+      /* ════════════════════════════════
+       4. STICKY NAV + SCROLL
+    ════════════════════════════════ */
+      window.addEventListener("scroll", function () {
+        document
+          .getElementById("mainHeader")
+          .classList.toggle("scrolled", window.scrollY > 60);
+        const btn = document.getElementById("backToTop");
+        btn.style.display = window.scrollY > 400 ? "flex" : "none";
+      });
+
+      /* ── Active nav link ── */
+      document.querySelectorAll(".nav-links a").forEach(function (link) {
+        if (link.href === window.location.href)
+          link.classList.add("active-link");
+      });
+
+      /* ── Hamburger ── */
+      document
+        .getElementById("hamburger")
+        .addEventListener("click", function () {
+          this.classList.toggle("open");
+          document.getElementById("mainNav").classList.toggle("open");
+        });
+
+      /* ── Back to top ── */
+      document
+        .getElementById("backToTop")
+        .addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+      /* ── Scroll reveal ── */
+      const revealObs = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              revealObs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObs.observe(el));
     </script>
   </body>
-  </html>
+</html>
